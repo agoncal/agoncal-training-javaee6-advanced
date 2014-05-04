@@ -1,4 +1,4 @@
-# Java EE 6 Training - Antonio Goncalves
+# Java EE 6 Advanced Training - Antonio Goncalves
 
 ### Antonio Goncalves
 
@@ -6,7 +6,7 @@ Member of Java Community Process on Java EE 6 and Java EE 7, [Antonio](http://ww
 
 Co-leader of the [Paris Java User Group](http://www.parisjug.org), co-creator of [Devoxx France](http://www.devoxx.fr), animator of the French Java podcast [Les CastCodeurs](http://lescastcodeurs.com/) and [Java Champion](http://java-champions.java.net/), he will share his experience and passion for architectures.
 
-Antonio is the author of the Java EE 5 and Java EE 6 books.
+Antonio is the author of a [Java EE 5, Java EE 6 and Java EE 7 books](http://antoniogoncalves.org/category/books/).
 
 ### Presentation of the course
 

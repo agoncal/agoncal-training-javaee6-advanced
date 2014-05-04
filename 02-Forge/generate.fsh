@@ -100,7 +100,7 @@ jpa-new-field --named publisher --type org.agoncal.training.javaee6adv.model.Pub
 constraint-add --onProperty title --constraint NotNull ;
 constraint-add --onProperty title --constraint Size --min 1 --max 30 ;
 constraint-add --onProperty description --constraint Size --min 1 --max 3000 ;
-constraint-add --onProperty unitCost --constraint Min --value 1 ;
+constraint-add --onProperty price --constraint Min --value 1 ;
 constraint-add --onProperty isbn --constraint NotNull ;
 constraint-add --onProperty isbn --constraint Size --max 15 ;
 constraint-add --onProperty nbOfPages --constraint Min --value 1 ;
@@ -120,11 +120,17 @@ jpa-new-field --named musicians --type org.agoncal.training.javaee6adv.model.Mus
 constraint-add --onProperty title --constraint NotNull ;
 constraint-add --onProperty title --constraint Size --min 1 --max 30 ;
 constraint-add --onProperty description --constraint Size --min 1 --max 3000 ;
-constraint-add --onProperty unitCost --constraint Min --value 1 ;
+constraint-add --onProperty price --constraint Min --value 1 ;
+
 
 
 scaffold-setup ;
-scaffold-generate --targets org.agoncal.training.javaee6adv.* ;
+scaffold-generate --webRoot admin --targets org.agoncal.training.javaee6adv.* ;
+
+
 
 rest-setup ;
-rest-generate-endpoints-from-entities --targets org.agoncal.training.javaee6adv.* ;
+rest-generate-endpoints-from-entities --targets org.agoncal.training.javaee6adv.Author ;
+rest-generate-endpoints-from-entities --targets org.agoncal.training.javaee6adv.Book ;
+rest-generate-endpoints-from-entities --targets org.agoncal.training.javaee6adv.CD ;
+rest-generate-endpoints-from-entities --targets org.agoncal.training.javaee6adv.Musician ;
