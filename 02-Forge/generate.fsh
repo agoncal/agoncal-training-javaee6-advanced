@@ -130,7 +130,25 @@ scaffold-generate --webRoot admin --targets org.agoncal.training.javaee6adv.* ;
 
 
 rest-setup ;
-rest-generate-endpoints-from-entities --targets org.agoncal.training.javaee6adv.Author ;
-rest-generate-endpoints-from-entities --targets org.agoncal.training.javaee6adv.Book ;
-rest-generate-endpoints-from-entities --targets org.agoncal.training.javaee6adv.CD ;
-rest-generate-endpoints-from-entities --targets org.agoncal.training.javaee6adv.Musician ;
+rest-generate-endpoints-from-entities --targets org.agoncal.training.javaee6adv.model.Author ;
+rest-generate-endpoints-from-entities --targets org.agoncal.training.javaee6adv.model.Book ;
+rest-generate-endpoints-from-entities --targets org.agoncal.training.javaee6adv.model.CD ;
+rest-generate-endpoints-from-entities --targets org.agoncal.training.javaee6adv.model.Musician ;
+
+
+
+project-remove-dependencies org.hibernate.javax.persistence:hibernate-jpa-2.0-api:jar:: ;
+project-remove-dependencies javax.validation:validation-api:jar:: ;
+project-remove-dependencies javax.enterprise:cdi-api:jar:: ;
+project-remove-dependencies javax.annotation:jsr250-api:jar:: ;
+project-remove-dependencies org.jboss.spec.javax.transaction:jboss-transaction-api_1.1_spec:jar:: ;
+project-remove-dependencies org.jboss.spec.javax.ejb:jboss-ejb-api_3.1_spec:jar:: ;
+project-remove-dependencies org.jboss.spec.javax.servlet:jboss-servlet-api_3.0_spec:jar:: ;
+project-remove-dependencies org.jboss.spec.javax.faces:jboss-jsf-api_2.0_spec:jar:: ;
+project-remove-dependencies org.jboss.spec.javax.ws.rs:jboss-jaxrs-api_1.1_spec:jar:: ;
+
+project-remove-managed-dependencies javax.annotation:jsr250-api:jar::1.0 ;
+project-remove-managed-dependencies org.jboss.spec.javax.faces:jboss-jsf-api_2.0_spec:jar::1.0.0.Final ;
+project-remove-managed-dependencies org.jboss.spec:jboss-javaee-6.0:pom::3.0.2.Final ;
+
+project-add-dependencies javax:javaee-api:6.0:provided:jar ;
