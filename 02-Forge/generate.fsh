@@ -1,4 +1,4 @@
-project-new --named cdbookstore --topLevelPackage org.agoncal.training.javaee6adv --type war --finalName cdbookstore ;
+project-new --named cdbookstore250 --topLevelPackage org.agoncal.training.javaee6adv --type war --finalName cdbookstore ;
 
 
 
@@ -125,7 +125,14 @@ constraint-add --onProperty price --constraint Min --value 1 ;
 
 
 scaffold-setup ;
-scaffold-generate --webRoot admin --targets org.agoncal.training.javaee6adv.* ;
+scaffold-generate --webRoot admin --targets org.agoncal.training.javaee6adv.model.Genre
+scaffold-generate --webRoot admin --targets org.agoncal.training.javaee6adv.model.Category
+scaffold-generate --webRoot admin --targets org.agoncal.training.javaee6adv.model.Publisher
+scaffold-generate --webRoot admin --targets org.agoncal.training.javaee6adv.model.MajorLabel
+scaffold-generate --webRoot admin --targets org.agoncal.training.javaee6adv.model.Author
+scaffold-generate --webRoot admin --targets org.agoncal.training.javaee6adv.model.Musician
+scaffold-generate --webRoot admin --targets org.agoncal.training.javaee6adv.model.Book
+scaffold-generate --webRoot admin --targets org.agoncal.training.javaee6adv.model.CD
 
 
 
