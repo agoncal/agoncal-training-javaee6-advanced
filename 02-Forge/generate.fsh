@@ -1,27 +1,36 @@
-project-new --named cdbookstore250 --topLevelPackage org.agoncal.training.javaee6adv --type war --finalName cdbookstore ;
+#  #####################  #
+#  Creates a new project  #
+#  #####################  #
+project-new --named cdbookstore251 --topLevelPackage org.agoncal.training.javaee6adv --type war --finalName cdbookstore ;
 
 
-
+# Setup the persistence unit in persistence.xml
+# ############
 jpa-setup --persistenceUnitName cdbookstorePU ;
 
 
+#  ################  #
+#  Creates entities  #
+#  ################  #
 
+# Genre entity
+# ############
 jpa-new-entity --named Genre ;
 jpa-new-field --named name --length 100 ;
 
 constraint-add --onProperty name --constraint NotNull ;
 constraint-add --onProperty name --constraint Size --max 100 ;
 
-
-
+# Category entity
+# ############
 jpa-new-entity --named Category ;
 jpa-new-field --named name --length 100 ;
 
 constraint-add --onProperty name --constraint NotNull ;
 constraint-add --onProperty name --constraint Size --max 100 ;
 
-
-
+# Publisher
+# ############
 jpa-new-entity --named Publisher ;
 jpa-new-field --named name --length 30 ;
 
@@ -29,7 +38,8 @@ constraint-add --onProperty name --constraint NotNull ;
 constraint-add --onProperty name --constraint Size --max 30 ;
 
 
-
+# MajorLabel
+# ############
 jpa-new-entity --named MajorLabel ;
 jpa-new-field --named name --length 30 ;
 
@@ -37,7 +47,8 @@ constraint-add --onProperty name --constraint NotNull ;
 constraint-add --onProperty name --constraint Size --max 30 ;
 
 
-
+# Language enumeration
+# ############
 java-new-enum --named Language --targetPackage org.agoncal.training.javaee6adv.model ;
 java-new-enum-const ENGLISH ;
 java-new-enum-const FRENCH ;
@@ -49,7 +60,8 @@ java-new-enum-const DEUTSCH ;
 java-new-enum-const RUSSIAN ;
 
 
-
+# Author entity
+# ############
 jpa-new-entity --named Author ;
 jpa-new-field --named firstName --length 50 --columnName first_name ;
 jpa-new-field --named lastName --length 50 --columnName last_name ;
@@ -66,7 +78,8 @@ constraint-add --onProperty bio --constraint Size --max 5000 ;
 constraint-add --onProperty dateOfBirth --constraint Past ;
 
 
-
+# Musician entity
+# ############
 jpa-new-entity --named Musician ;
 jpa-new-field --named firstName --length 50 --columnName first_name ;
 jpa-new-field --named lastName --length 50 --columnName last_name ;
@@ -83,7 +96,8 @@ constraint-add --onProperty bio --constraint Size --max 5000 ;
 constraint-add --onProperty dateOfBirth --constraint Past ;
 
 
-
+# Book entity
+# ############
 jpa-new-entity --named Book ;
 jpa-new-field --named title ;
 jpa-new-field --named price --type java.lang.Float ;
@@ -107,7 +121,8 @@ constraint-add --onProperty nbOfPages --constraint Min --value 1 ;
 constraint-add --onProperty publicationDate --constraint Past ;
 
 
-
+# CD entity
+# ############
 jpa-new-entity --named CD ;
 jpa-new-field --named title ;
 jpa-new-field --named price --type java.lang.Float ;
@@ -123,7 +138,9 @@ constraint-add --onProperty description --constraint Size --min 1 --max 3000 ;
 constraint-add --onProperty price --constraint Min --value 1 ;
 
 
-
+#  #############################  #
+#  Generates JSF beans and pages  #
+#  #############################  #
 scaffold-setup ;
 scaffold-generate --webRoot /admin --targets org.agoncal.training.javaee6adv.model.Genre
 scaffold-generate --webRoot /admin --targets org.agoncal.training.javaee6adv.model.Category
@@ -135,7 +152,9 @@ scaffold-generate --webRoot /admin --targets org.agoncal.training.javaee6adv.mod
 scaffold-generate --webRoot /admin --targets org.agoncal.training.javaee6adv.model.CD
 
 
-
+#  ########################  #
+#  Generates REST endpoints  #
+#  ########################  #
 rest-setup ;
 rest-generate-endpoints-from-entities --targets org.agoncal.training.javaee6adv.model.Author ;
 rest-generate-endpoints-from-entities --targets org.agoncal.training.javaee6adv.model.Book ;
@@ -143,12 +162,14 @@ rest-generate-endpoints-from-entities --targets org.agoncal.training.javaee6adv.
 rest-generate-endpoints-from-entities --targets org.agoncal.training.javaee6adv.model.Musician ;
 
 
-
+#  ##################  #
+#  Cleans the pom.xml  #
+#  ##################  #
 project-remove-dependencies org.hibernate.javax.persistence:hibernate-jpa-2.0-api:jar:: ;
 project-remove-dependencies javax.validation:validation-api:jar:: ;
 project-remove-dependencies javax.enterprise:cdi-api:jar:: ;
 project-remove-dependencies javax.annotation:jsr250-api:jar:: ;
-project-remove-dependencies org.jboss.spec.javax.transaction:jboss-transaction-api_1.1_spec:jar:: ;
+# project-remove-dependencies org.jboss.spec.javax.transaction:jboss-transaction-api_1.1_spec:jar:: ;
 project-remove-dependencies org.jboss.spec.javax.ejb:jboss-ejb-api_3.1_spec:jar:: ;
 project-remove-dependencies org.jboss.spec.javax.servlet:jboss-servlet-api_3.0_spec:jar:: ;
 project-remove-dependencies org.jboss.spec.javax.faces:jboss-jsf-api_2.0_spec:jar:: ;
