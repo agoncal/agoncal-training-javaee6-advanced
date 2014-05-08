@@ -8,5 +8,6 @@ Execute the `02-Forge/generate.fsh` script.
 
 Copy the `import.sql` file to `src/main/resources`
 
+## Deploy the application on JBoss application server
 
 

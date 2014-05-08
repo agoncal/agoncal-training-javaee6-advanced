@@ -56,6 +56,7 @@ java-new-enum-const SPANISH ;
 java-new-enum-const PORTUGUESE ;
 java-new-enum-const ITALIAN ;
 java-new-enum-const FINISH ;
+java-new-enum-const GERMAN ;
 java-new-enum-const DEUTSCH ;
 java-new-enum-const RUSSIAN ;
 
@@ -104,9 +105,10 @@ jpa-new-field --named price --type java.lang.Float ;
 jpa-new-field --named description --length 2000 ;
 jpa-new-field --named isbn ;
 jpa-new-field --named nbOfPages --type java.lang.Integer --columnName nb_of_pages ;
-jpa-new-field --named publicationDate --typeName java.util.Date --temporalType DATE --columnName publication_date ;
+jpa-new-field --named publicationDate --type java.util.Date --temporalType DATE --columnName publication_date ;
 jpa-new-field --named language --type org.agoncal.training.javaee6adv.model.Language ;
 jpa-new-field --named imageURL --columnName image_url ;
+# Relationships
 jpa-new-field --named category --type org.agoncal.training.javaee6adv.model.Category --relationshipType Many-to-One
 jpa-new-field --named author --type org.agoncal.training.javaee6adv.model.Author --relationshipType Many-to-One ;
 jpa-new-field --named publisher --type org.agoncal.training.javaee6adv.model.Publisher --relationshipType Many-to-One ;
@@ -128,6 +130,7 @@ jpa-new-field --named title ;
 jpa-new-field --named price --type java.lang.Float ;
 jpa-new-field --named description --length 2000 ;
 jpa-new-field --named totalDuration --type java.lang.Float --columnName total_duration ;
+# Relationships
 jpa-new-field --named label --type org.agoncal.training.javaee6adv.model.MajorLabel --relationshipType Many-to-One ;
 jpa-new-field --named genre --type org.agoncal.training.javaee6adv.model.Genre --relationshipType Many-to-One ;
 jpa-new-field --named musicians --type org.agoncal.training.javaee6adv.model.Musician --relationshipType One-to-Many ;
