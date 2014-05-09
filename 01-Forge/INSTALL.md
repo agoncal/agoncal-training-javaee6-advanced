@@ -1,12 +1,12 @@
-# Java EE 6 Advanced Training - Installation guide
+# Java EE 6 Advanced Training - Forge
 
 ## Generating the project with JBoss Forge
 
-Execute the `02-Forge/generate.fsh` script.
+Execute the `generate.fsh` script.
 
 ## Adding data to the database
 
-Copy the `import.sql` file to `src/main/resources`
+Copy the `import.sql` file to `cdbookstore/src/main/resources`
 
 ## Deploy the application on JBoss application server
 
