@@ -1,7 +1,7 @@
 #  #####################  #
 #  Creates a new project  #
 #  #####################  #
-project-new --named cdbookstore251 --topLevelPackage org.agoncal.training.javaee6adv --type war --finalName cdbookstore ;
+project-new --named cdbookstore --topLevelPackage org.agoncal.training.javaee6adv --type war --finalName cdbookstore ;
 
 
 # Setup the persistence unit in persistence.xml
@@ -9,9 +9,14 @@ project-new --named cdbookstore251 --topLevelPackage org.agoncal.training.javaee
 jpa-setup --persistenceUnitName cdbookstorePU ;
 
 
-#  ################  #
-#  Creates entities  #
-#  ################  #
+#  ########################  #
+#  Creates the domain model  #
+#  ########################  #
+
+# ISBN constraint
+# ############
+# TODO constraint-new-annotation --named ISBN ;
+
 
 # Genre entity
 # ############
@@ -100,10 +105,10 @@ constraint-add --onProperty dateOfBirth --constraint Past ;
 # Book entity
 # ############
 jpa-new-entity --named Book ;
-jpa-new-field --named title ;
+jpa-new-field --named title --length 50 ;
 jpa-new-field --named price --type java.lang.Float ;
-jpa-new-field --named description --length 2000 ;
-jpa-new-field --named isbn ;
+jpa-new-field --named description --length 3000 ;
+jpa-new-field --named isbn  --length 15 ;
 jpa-new-field --named nbOfPages --type java.lang.Integer --columnName nb_of_pages ;
 jpa-new-field --named publicationDate --type java.util.Date --temporalType DATE --columnName publication_date ;
 jpa-new-field --named language --type org.agoncal.training.javaee6adv.model.Language ;
@@ -114,11 +119,11 @@ jpa-new-field --named author --type org.agoncal.training.javaee6adv.model.Author
 jpa-new-field --named publisher --type org.agoncal.training.javaee6adv.model.Publisher --relationshipType Many-to-One ;
 
 constraint-add --onProperty title --constraint NotNull ;
-constraint-add --onProperty title --constraint Size --min 1 --max 30 ;
+constraint-add --onProperty title --constraint Size --min 1 --max 50 ;
 constraint-add --onProperty description --constraint Size --min 1 --max 3000 ;
 constraint-add --onProperty price --constraint Min --value 1 ;
 constraint-add --onProperty isbn --constraint NotNull ;
-constraint-add --onProperty isbn --constraint Size --max 15 ;
+# TODO Adding ISBN constraints constraint-add --onProperty isbn --constraint ISBN ;
 constraint-add --onProperty nbOfPages --constraint Min --value 1 ;
 constraint-add --onProperty publicationDate --constraint Past ;
 
@@ -126,20 +131,19 @@ constraint-add --onProperty publicationDate --constraint Past ;
 # CD entity
 # ############
 jpa-new-entity --named CD ;
-jpa-new-field --named title ;
+jpa-new-field --named title --length 50;
 jpa-new-field --named price --type java.lang.Float ;
-jpa-new-field --named description --length 2000 ;
+jpa-new-field --named description --length 3000 ;
 jpa-new-field --named totalDuration --type java.lang.Float --columnName total_duration ;
 # Relationships
 jpa-new-field --named label --type org.agoncal.training.javaee6adv.model.MajorLabel --relationshipType Many-to-One ;
 jpa-new-field --named genre --type org.agoncal.training.javaee6adv.model.Genre --relationshipType Many-to-One ;
-jpa-new-field --named musicians --type org.agoncal.training.javaee6adv.model.Musician --relationshipType One-to-Many ;
+jpa-new-field --named musicians --type org.agoncal.training.javaee6adv.model.Musician --relationshipType Many-to-Many ;
 
 constraint-add --onProperty title --constraint NotNull ;
-constraint-add --onProperty title --constraint Size --min 1 --max 30 ;
+constraint-add --onProperty title --constraint Size --min 1 --max 50 ;
 constraint-add --onProperty description --constraint Size --min 1 --max 3000 ;
 constraint-add --onProperty price --constraint Min --value 1 ;
-
 
 #  #############################  #
 #  Generates JSF beans and pages  #
@@ -172,7 +176,6 @@ project-remove-dependencies org.hibernate.javax.persistence:hibernate-jpa-2.0-ap
 project-remove-dependencies javax.validation:validation-api:jar:: ;
 project-remove-dependencies javax.enterprise:cdi-api:jar:: ;
 project-remove-dependencies javax.annotation:jsr250-api:jar:: ;
-# project-remove-dependencies org.jboss.spec.javax.transaction:jboss-transaction-api_1.1_spec:jar:: ;
 project-remove-dependencies org.jboss.spec.javax.ejb:jboss-ejb-api_3.1_spec:jar:: ;
 project-remove-dependencies org.jboss.spec.javax.servlet:jboss-servlet-api_3.0_spec:jar:: ;
 project-remove-dependencies org.jboss.spec.javax.faces:jboss-jsf-api_2.0_spec:jar:: ;
