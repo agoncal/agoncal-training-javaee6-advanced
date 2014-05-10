@@ -13,14 +13,14 @@ Copy the `import.sql` file to `cdbookstore/src/main/resources`
 
 ## Check the web application
 
-http://localhost:8080/cdbookstore
+* [http://localhost:8080/cdbookstore]()
 
 ## Check the REST interfaces
 
-http://localhost:8080/cdbookstore/rest/authors
-http://localhost:8080/cdbookstore/rest/books
-http://localhost:8080/cdbookstore/rest/cds
-http://localhost:8080/cdbookstore/rest/musicians
+* [http://localhost:8080/cdbookstore/rest/authors]()
+* [http://localhost:8080/cdbookstore/rest/books]()
+* [http://localhost:8080/cdbookstore/rest/cds]()
+* [http://localhost:8080/cdbookstore/rest/musicians]()
 
 ## JSF Backing Beans
 
