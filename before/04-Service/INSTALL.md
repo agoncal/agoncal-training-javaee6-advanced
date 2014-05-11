@@ -17,7 +17,8 @@ Copy the `service` package to `cdbookstore/src/main/test/org/agoncal/training/ja
 
 * Get rid of `EntityManager` in REST enpoints and instead call the services
 * Get rid of `EntityManager` in JSF backing beans and instead call the services
-* Add the produced `EntityManager` and `Logger` to the services
+* Add the produced `EntityManager` to the services
+* Get rid of `SessionContext` in JSF Backing beans (why do we have `sessionContext.getBusinessObject(AuthorBean.class)`)
 
 ## Deploy the application on JBoss application server
 
