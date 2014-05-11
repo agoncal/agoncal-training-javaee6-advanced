@@ -52,17 +52,17 @@
 			<h:outputText id="bookBeanBookImageURL" value="#{bookBean.book.imageURL}"/>
 			<h:outputText/>
 			<h:outputLabel for="bookBeanBookCategory" value="Category:"/>
-			<h:link id="bookBeanBookCategory" outcome="/category/view" rendered="#{!empty bookBean.book.category}" value="#{bookBean.book.category}">
+			<h:link id="bookBeanBookCategory" outcome="/admin/category/view" rendered="#{!empty bookBean.book.category}" value="#{bookBean.book.category}">
 				<f:param name="id" value="#{bookBean.book.category.id}"/>
 			</h:link>
 			<h:outputText/>
 			<h:outputLabel for="bookBeanBookAuthor" value="Author:"/>
-			<h:link id="bookBeanBookAuthor" outcome="/author/view" rendered="#{!empty bookBean.book.author}" value="#{bookBean.book.author}">
+			<h:link id="bookBeanBookAuthor" outcome="/admin/author/view" rendered="#{!empty bookBean.book.author}" value="#{bookBean.book.author}">
 				<f:param name="id" value="#{bookBean.book.author.id}"/>
 			</h:link>
 			<h:outputText/>
 			<h:outputLabel for="bookBeanBookPublisher" value="Publisher:"/>
-			<h:link id="bookBeanBookPublisher" outcome="/publisher/view" rendered="#{!empty bookBean.book.publisher}" value="#{bookBean.book.publisher}">
+			<h:link id="bookBeanBookPublisher" outcome="/admin/publisher/view" rendered="#{!empty bookBean.book.publisher}" value="#{bookBean.book.publisher}">
 				<f:param name="id" value="#{bookBean.book.publisher.id}"/>
 			</h:link>
 			<h:outputText/>

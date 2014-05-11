@@ -8,14 +8,16 @@ Execute the `generate.fsh` script.
 
 Copy the `service` package to `cdbookstore/src/main/test/org/agoncal/training/javaee6adv`
 
-## Code the services until the tests pass
-
 ## Add producers to the Resources class
 
 * Produce the `EntityManager`
 * Produce a `Logger` with an `InjectionPoint`
 
-## Add the produced EntityManager and Logger to the services and run the tests
+## Code the services until the tests pass
+
+* Get rid of `EntityManager` in REST enpoints and instead call the services
+* Get rid of `EntityManager` in JSF backing beans and instead call the services
+* Add the produced `EntityManager` and `Logger` to the services
 
 ## Deploy the application on JBoss application server
 

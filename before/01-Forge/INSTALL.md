@@ -21,6 +21,7 @@ Copy the `import.sql` file to `cdbookstore/src/main/resources`
 * [http://localhost:8080/cdbookstore/rest/books]()
 * [http://localhost:8080/cdbookstore/rest/cds]()
 * [http://localhost:8080/cdbookstore/rest/musicians]()
+* Use [PostMan REST client](https://chrome.google.com/webstore/detail/postman-rest-client/fdmmgilgnpjigdojojpjoooidkmcomcm) to create/update/remove entities
 
 ## JSF Backing Beans
 
