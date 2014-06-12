@@ -39,250 +39,296 @@ import org.agoncal.training.javaee6adv.model.Musician;
 @Named
 @Stateful
 @ConversationScoped
-public class MusicianBean implements Serializable {
+public class MusicianBean implements Serializable
+{
 
-	private static final long serialVersionUID = 1L;
+   private static final long serialVersionUID = 1L;
 
-	/*
-	 * Support creating and retrieving Musician entities
-	 */
+   /*
+    * Support creating and retrieving Musician entities
+    */
 
-	private Long id;
+   private java.lang.Long id;
 
-	public Long getId() {
-		return this.id;
-	}
+   public java.lang.Long getId()
+   {
+      return this.id;
+   }
 
-	public void setId(Long id) {
-		this.id = id;
-	}
+   public void setId(java.lang.Long id)
+   {
+      this.id = id;
+   }
 
-	private Musician musician;
+   private Musician musician;
 
-	public Musician getMusician() {
-		return this.musician;
-	}
+   public Musician getMusician()
+   {
+      return this.musician;
+   }
 
-	@Inject
-	private Conversation conversation;
+   @Inject
+   private Conversation conversation;
 
-	@PersistenceContext(unitName="cdbookstorePU", type = PersistenceContextType.EXTENDED)
-	private EntityManager entityManager;
+   @PersistenceContext(unitName = "cdbookstorePU", type = PersistenceContextType.EXTENDED)
+   private EntityManager entityManager;
 
-	public String create() {
+   public String create()
+   {
 
-		this.conversation.begin();
-		return "create?faces-redirect=true";
-	}
+      this.conversation.begin();
+      return "create?faces-redirect=true";
+   }
 
-	public void retrieve() {
+   public void retrieve()
+   {
 
-		if (FacesContext.getCurrentInstance().isPostback()) {
-			return;
-		}
+      if (FacesContext.getCurrentInstance().isPostback())
+      {
+         return;
+      }
 
-		if (this.conversation.isTransient()) {
-			this.conversation.begin();
-		}
+      if (this.conversation.isTransient())
+      {
+         this.conversation.begin();
+      }
 
-		if (this.id == null) {
-			this.musician = this.example;
-		} else {
-			this.musician = findById(getId());
-		}
-	}
+      if (this.id == null)
+      {
+         this.musician = this.example;
+      }
+      else
+      {
+         this.musician = findById(getId());
+      }
+   }
 
-	public Musician findById(Long id) {
+   public Musician findById(java.lang.Long id)
+   {
 
-		return this.entityManager.find(Musician.class, id);
-	}
+      return this.entityManager.find(Musician.class, id);
+   }
 
-	/*
-	 * Support updating and deleting Musician entities
-	 */
+   /*
+    * Support updating and deleting Musician entities
+    */
 
-	public String update() {
-		this.conversation.end();
+   public String update()
+   {
+      this.conversation.end();
 
-		try {
-			if (this.id == null) {
-				this.entityManager.persist(this.musician);
-				return "search?faces-redirect=true";
-			} else {
-				this.entityManager.merge(this.musician);
-				return "view?faces-redirect=true&id=" + this.musician.getId();
-			}
-		} catch( Exception e ) {
-			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage( e.getMessage() ));
-			return null;
-		}
-	}
+      try
+      {
+         if (this.id == null)
+         {
+            this.entityManager.persist(this.musician);
+            return "search?faces-redirect=true";
+         }
+         else
+         {
+            this.entityManager.merge(this.musician);
+            return "view?faces-redirect=true&id=" + this.musician.getId();
+         }
+      }
+      catch (Exception e)
+      {
+         FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(e.getMessage()));
+         return null;
+      }
+   }
 
-	public String delete() {
-		this.conversation.end();
+   public String delete()
+   {
+      this.conversation.end();
 
-		try {
-		    Musician deletableEntity = findById(getId());
-            
-			this.entityManager.remove(deletableEntity);
-			this.entityManager.flush();
-			return "search?faces-redirect=true";
-		} catch( Exception e ) {
-			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage( e.getMessage() ));
-			return null;
-		}
-	}
+      try
+      {
+         Musician deletableEntity = findById(getId());
 
-	/*
-	 * Support searching Musician entities with pagination
-	 */
+         this.entityManager.remove(deletableEntity);
+         this.entityManager.flush();
+         return "search?faces-redirect=true";
+      }
+      catch (Exception e)
+      {
+         FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(e.getMessage()));
+         return null;
+      }
+   }
 
-	private int page;
-	private long count;
-	private List<Musician> pageItems;
+   /*
+    * Support searching Musician entities with pagination
+    */
 
-	private Musician example = new Musician();
+   private int page;
+   private long count;
+   private List<Musician> pageItems;
 
-	public int getPage() {
-		return this.page;
-	}
+   private Musician example = new Musician();
 
-	public void setPage(int page) {
-		this.page = page;
-	}
+   public int getPage()
+   {
+      return this.page;
+   }
 
-	public int getPageSize() {
-		return 10;
-	}
+   public void setPage(int page)
+   {
+      this.page = page;
+   }
 
-	public Musician getExample() {
-		return this.example;
-	}
+   public int getPageSize()
+   {
+      return 10;
+   }
 
-	public void setExample(Musician example) {
-		this.example = example;
-	}
+   public Musician getExample()
+   {
+      return this.example;
+   }
 
-	public void search() {
-		this.page = 0;
-	}
+   public void setExample(Musician example)
+   {
+      this.example = example;
+   }
 
-	public void paginate() {
+   public void search()
+   {
+      this.page = 0;
+   }
 
-		CriteriaBuilder builder = this.entityManager.getCriteriaBuilder();
+   public void paginate()
+   {
 
-		// Populate this.count
+      CriteriaBuilder builder = this.entityManager.getCriteriaBuilder();
 
-		CriteriaQuery<Long> countCriteria = builder.createQuery(Long.class);
-		Root<Musician> root = countCriteria.from(Musician.class);
-		countCriteria = countCriteria.select(builder.count(root)).where(
-				getSearchPredicates(root));
-		this.count = this.entityManager.createQuery(countCriteria)
-				.getSingleResult();
+      // Populate this.count
 
-		// Populate this.pageItems
+      CriteriaQuery<Long> countCriteria = builder.createQuery(Long.class);
+      Root<Musician> root = countCriteria.from(Musician.class);
+      countCriteria = countCriteria.select(builder.count(root)).where(
+            getSearchPredicates(root));
+      this.count = this.entityManager.createQuery(countCriteria)
+            .getSingleResult();
 
-		CriteriaQuery<Musician> criteria = builder.createQuery(Musician.class);
-		root = criteria.from(Musician.class);
-		TypedQuery<Musician> query = this.entityManager.createQuery(criteria
-				.select(root).where(getSearchPredicates(root)));
-		query.setFirstResult(this.page * getPageSize()).setMaxResults(
-				getPageSize());
-		this.pageItems = query.getResultList();
-	}
+      // Populate this.pageItems
 
-	private Predicate[] getSearchPredicates(Root<Musician> root) {
+      CriteriaQuery<Musician> criteria = builder.createQuery(Musician.class);
+      root = criteria.from(Musician.class);
+      TypedQuery<Musician> query = this.entityManager.createQuery(criteria
+            .select(root).where(getSearchPredicates(root)));
+      query.setFirstResult(this.page * getPageSize()).setMaxResults(
+            getPageSize());
+      this.pageItems = query.getResultList();
+   }
 
-		CriteriaBuilder builder = this.entityManager.getCriteriaBuilder();
-		List<Predicate> predicatesList = new ArrayList<Predicate>();
+   private Predicate[] getSearchPredicates(Root<Musician> root)
+   {
 
-		String firstName = this.example.getFirstName();
-		if (firstName != null && !"".equals(firstName)) {
-			predicatesList.add(builder.like(builder.lower(root.<String>get("firstName")), '%' + firstName.toLowerCase() + '%'));
-		}
-		String lastName = this.example.getLastName();
-		if (lastName != null && !"".equals(lastName)) {
-			predicatesList.add(builder.like(builder.lower(root.<String>get("lastName")), '%' + lastName.toLowerCase() + '%'));
-		}
-		String bio = this.example.getBio();
-		if (bio != null && !"".equals(bio)) {
-			predicatesList.add(builder.like(builder.lower(root.<String>get("bio")), '%' + bio.toLowerCase() + '%'));
-		}
-		Integer age = this.example.getAge();
-		if (age != null && age.intValue() != 0) {
-			predicatesList.add(builder.equal(root.get("age"), age));
-		}
-		String preferredInstrument = this.example.getPreferredInstrument();
-		if (preferredInstrument != null && !"".equals(preferredInstrument)) {
-			predicatesList.add(builder.like(builder.lower(root.<String>get("preferredInstrument")), '%' + preferredInstrument.toLowerCase() + '%'));
-		}
+      CriteriaBuilder builder = this.entityManager.getCriteriaBuilder();
+      List<Predicate> predicatesList = new ArrayList<Predicate>();
 
-		return predicatesList.toArray(new Predicate[predicatesList.size()]);
-	}
+      String firstName = this.example.getFirstName();
+      if (firstName != null && !"".equals(firstName))
+      {
+         predicatesList.add(builder.like(builder.lower(root.<String> get("firstName")), '%' + firstName.toLowerCase() + '%'));
+      }
+      String lastName = this.example.getLastName();
+      if (lastName != null && !"".equals(lastName))
+      {
+         predicatesList.add(builder.like(builder.lower(root.<String> get("lastName")), '%' + lastName.toLowerCase() + '%'));
+      }
+      String bio = this.example.getBio();
+      if (bio != null && !"".equals(bio))
+      {
+         predicatesList.add(builder.like(builder.lower(root.<String> get("bio")), '%' + bio.toLowerCase() + '%'));
+      }
+      Integer age = this.example.getAge();
+      if (age != null && age.intValue() != 0)
+      {
+         predicatesList.add(builder.equal(root.get("age"), age));
+      }
+      String preferredInstrument = this.example.getPreferredInstrument();
+      if (preferredInstrument != null && !"".equals(preferredInstrument))
+      {
+         predicatesList.add(builder.like(builder.lower(root.<String> get("preferredInstrument")), '%' + preferredInstrument.toLowerCase() + '%'));
+      }
 
-	public List<Musician> getPageItems() {
-		return this.pageItems;
-	}
+      return predicatesList.toArray(new Predicate[predicatesList.size()]);
+   }
 
-	public long getCount() {
-		return this.count;
-	}
+   public List<Musician> getPageItems()
+   {
+      return this.pageItems;
+   }
 
-	/*
-	 * Support listing and POSTing back Musician entities (e.g. from inside an
-	 * HtmlSelectOneMenu)
-	 */
+   public long getCount()
+   {
+      return this.count;
+   }
 
-	public List<Musician> getAll() {
+   /*
+    * Support listing and POSTing back Musician entities (e.g. from inside an
+    * HtmlSelectOneMenu)
+    */
 
-		CriteriaQuery<Musician> criteria = this.entityManager
-				.getCriteriaBuilder().createQuery(Musician.class);
-		return this.entityManager.createQuery(
-				criteria.select(criteria.from(Musician.class))).getResultList();
-	}
+   public List<Musician> getAll()
+   {
 
-	@Resource
-	private SessionContext sessionContext;
+      CriteriaQuery<Musician> criteria = this.entityManager
+            .getCriteriaBuilder().createQuery(Musician.class);
+      return this.entityManager.createQuery(
+            criteria.select(criteria.from(Musician.class))).getResultList();
+   }
 
-	public Converter getConverter() {
+   @Resource
+   private SessionContext sessionContext;
 
-		final MusicianBean ejbProxy = this.sessionContext.getBusinessObject(MusicianBean.class);
+   public Converter getConverter()
+   {
 
-		return new Converter() {
+      final MusicianBean ejbProxy = this.sessionContext.getBusinessObject(MusicianBean.class);
 
-			@Override
-			public Object getAsObject(FacesContext context,
-					UIComponent component, String value) {
+      return new Converter()
+      {
 
-				return ejbProxy.findById(Long.valueOf(value));
-			}
+         @Override
+         public Object getAsObject(FacesContext context,
+               UIComponent component, String value)
+         {
 
-			@Override
-			public String getAsString(FacesContext context,
-					UIComponent component, Object value) {
+            return ejbProxy.findById(java.lang.Long.valueOf(value));
+         }
 
-				if (value == null) {
-					return "";
-				}
+         @Override
+         public String getAsString(FacesContext context,
+               UIComponent component, Object value)
+         {
 
-				return String.valueOf(((Musician) value).getId());
-			}
-		};
-	}
+            if (value == null)
+            {
+               return "";
+            }
 
-	/*
-	 * Support adding children to bidirectional, one-to-many tables
-	 */
+            return String.valueOf(((Musician) value).getId());
+         }
+      };
+   }
 
-	private Musician add = new Musician();
+   /*
+    * Support adding children to bidirectional, one-to-many tables
+    */
 
-	public Musician getAdd() {
-		return this.add;
-	}
+   private Musician add = new Musician();
 
-	public Musician getAdded() {
-		Musician added = this.add;
-		this.add = new Musician();
-		return added;
-	}
+   public Musician getAdd()
+   {
+      return this.add;
+   }
+
+   public Musician getAdded()
+   {
+      Musician added = this.add;
+      this.add = new Musician();
+      return added;
+   }
 }
