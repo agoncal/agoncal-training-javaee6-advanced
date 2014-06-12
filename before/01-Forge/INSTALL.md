@@ -3,6 +3,7 @@
 ## Generate the project with JBoss Forge
 
 * Launch JBoss Forge (enter the `forge` command)
+* Go to the `cdbookstore` directory
 * Execute the `generate.fsh` script with the command `run before/01-Forge/generate.fsh` 
 
 ## Add data to the database

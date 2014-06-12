@@ -17,4 +17,3 @@ arquillian-create-test --value cdbookstore/src/main/java/org/agoncal/training/ja
 arquillian-create-test --value cdbookstore/src/main/java/org/agoncal/training/javaee6adv/view/GenreBean.java
 arquillian-create-test --value cdbookstore/src/main/java/org/agoncal/training/javaee6adv/view/MajorLabelBean.java
 arquillian-create-test --value cdbookstore/src/main/java/org/agoncal/training/javaee6adv/view/MusicianBean.java
-arquillian-create-test --value cdbookstore/src/main/java/org/agoncal/training/javaee6adv/view/PublisherBean.java

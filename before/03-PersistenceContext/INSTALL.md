@@ -16,8 +16,10 @@ Copy the `service` package to `cdbookstore/src/main/test/org/agoncal/training/ja
 
 ## Deploy the application on JBoss application server
 
+* Start JBoss (`JBOSS_HOME/bin/standalone.sh`)
+* Deploy the `cdbookstore/target/cdbookstore.war` file
 
 ## Check the web application
 
-http://localhost:8080/cdbookstore
+* With a browser go to [http://localhost:8080/cdbookstore]()
 

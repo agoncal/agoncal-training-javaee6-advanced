@@ -2,7 +2,9 @@
 
 ## Generating the JSF pages and backing beans with JBoss Forge
 
-* Execute the `generate.fsh` script.
+* Launch JBoss Forge (enter the `forge` command)
+* Go to the `cdbookstore` directory
+* Execute the `generate.fsh` script with the command `run before/05-WebApplication/generate.fsh` 
 
 ## Add Bootstrap as an external resource
 
@@ -12,18 +14,20 @@
 
 ## Copy the new JSF template
 
-Copy the `mainTemplate.xhtml` package to `cdbookstore/src/main/webapp/resources/scaffold`
+* Copy the file `before/05-WebApplication/mainTemplate.xhtml` to `cdbookstore/src/main/webapp/resources/scaffold`
 
 ## Copy the Arquillian tests for the service
 
-Copy the `service` package to `cdbookstore/src/main/test/org/agoncal/training/javaee6adv`
+* Copy the file `service` package to `cdbookstore/src/main/test/org/agoncal/training/javaee6adv`
 
 ## Deploy the application on JBoss application server
 
+* Start JBoss (`JBOSS_HOME/bin/standalone.sh`)
+* Deploy the `cdbookstore/target/cdbookstore.war` file
 
 ## Check the web application
 
-* Go to [http://localhost:8080/cdbookstore]()
+* With a browser go to [http://localhost:8080/cdbookstore]()
 
 ## Check JSF debug information
 

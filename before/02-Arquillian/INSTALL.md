@@ -8,9 +8,9 @@
 ## Write some tests
 
 * Copy the file `before/02-Forge/PublisherBeanTest.java` to `cdbookstore/src/test/java/org/agoncal/training/javaee6adv/view`
+* Code the other tests following the same logic
 
-
-## Write the tests
+## Execute the tests
 
 * `mvn -Parquillian-jbossas-managed-7 test` will execute the tests within JBoss in a managed way
 * `mvn -Parquillian-jbossas-remote-7 test` will execute the tests with JBoss up and running and with the application deployed
