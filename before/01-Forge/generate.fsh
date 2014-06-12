@@ -135,6 +135,7 @@ jpa-new-field --named title --length 50;
 jpa-new-field --named price --type java.lang.Float ;
 jpa-new-field --named description --length 3000 ;
 jpa-new-field --named totalDuration --type java.lang.Float --columnName total_duration ;
+jpa-new-field --named imageURL --columnName image_url ;
 # Relationships
 jpa-new-field --named label --type org.agoncal.training.javaee6adv.model.MajorLabel --relationshipType Many-to-One ;
 jpa-new-field --named genre --type org.agoncal.training.javaee6adv.model.Genre --relationshipType Many-to-One ;

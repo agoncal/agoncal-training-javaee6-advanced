@@ -20,7 +20,7 @@ import org.agoncal.training.javaee6adv.model.Book;
 @Path("/books")
 public class BookEndpoint
 {
-   @PersistenceContext(unitName="cdbookstorePU")
+   @PersistenceContext(unitName = "cdbookstorePU")
    private EntityManager em;
 
    @POST
@@ -36,8 +36,9 @@ public class BookEndpoint
    public Response deleteById(@PathParam("id") Long id)
    {
       Book entity = em.find(Book.class, id);
-      if (entity == null) {
-        return Response.status(Status.NOT_FOUND).build();
+      if (entity == null)
+      {
+         return Response.status(Status.NOT_FOUND).build();
       }
       em.remove(entity);
       return Response.noContent().build();
@@ -51,13 +52,17 @@ public class BookEndpoint
       TypedQuery<Book> findByIdQuery = em.createQuery("SELECT DISTINCT b FROM Book b LEFT JOIN FETCH b.category LEFT JOIN FETCH b.author LEFT JOIN FETCH b.publisher WHERE b.id = :entityId ORDER BY b.id", Book.class);
       findByIdQuery.setParameter("entityId", id);
       Book entity;
-      try {
+      try
+      {
          entity = findByIdQuery.getSingleResult();
-      } catch (NoResultException nre) {
+      }
+      catch (NoResultException nre)
+      {
          entity = null;
       }
-      if (entity == null) {
-        return Response.status(Status.NOT_FOUND).build();
+      if (entity == null)
+      {
+         return Response.status(Status.NOT_FOUND).build();
       }
       return Response.ok(entity).build();
    }

@@ -1,12 +1,12 @@
 # Java EE 6 Advanced Training - Service Tier
 
-## Generating the service tier with JBoss Forge
+## Generate the service tier with JBoss Forge
 
-Execute the `generate.fsh` script.
+* Execute the `generate.fsh` script
 
 ## Copy the Arquillian tests for the service
 
-Copy the `service` package to `cdbookstore/src/main/test/org/agoncal/training/javaee6adv`
+* Copy the `service` package to `cdbookstore/src/main/test/org/agoncal/training/javaee6adv`
 
 ## Add producers to the Resources class
 
