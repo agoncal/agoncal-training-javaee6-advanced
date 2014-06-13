@@ -35,21 +35,24 @@ public class PublisherBeanTest {
 	public void should_crud() {
 		// Creates an object
 		Publisher publisher = new Publisher();
-		publisher.setName("Dummy publisher");
+		publisher.setName("Dummy value");
 
 		// Inserts the object into the database
-		publisherbean.setExample(publisher);
+		publisherbean.setPublisher(publisher);
 		publisherbean.create();
-		publisher = publisherbean.getExample();
+		publisherbean.update();
+		publisher = publisherbean.getPublisher();
 		assertNotNull(publisher.getId());
 
-		// Finds the object from the database
-		publisherbean.findById(publisher.getId());
-		publisher = publisherbean.getExample();
-		assertEquals("Dummy publisher", publisher.getName());
+		// Finds the object from the database and checks it's the right one
+		publisher = publisherbean.findById(publisher.getId());
+		assertEquals("Dummy value", publisher.getName());
 
+		// Deletes the object from the database and checks it's not there anymore
+		publisherbean.setId(publisher.getId());
+		publisherbean.create();
 		publisherbean.delete();
-		publisherbean.findById(publisher.getId());
-		assertNull(publisherbean.getExample());
+		publisher = publisherbean.findById(publisher.getId());
+		assertNull(publisher);
 	}
 }
