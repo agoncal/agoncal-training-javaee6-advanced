@@ -20,9 +20,10 @@
 
 * Copy the file `service` package to `cdbookstore/src/main/test/org/agoncal/training/javaee6adv`
 
-## Deploy the application on JBoss application server
+## Deploy the application on WildFly application server
 
-* Start JBoss (`JBOSS_HOME/bin/standalone.sh`)
+* Start WildFly (`WILDFLY_HOME/bin/standalone.sh`)
+* Make sure WildFly has enough memory `-Xms64m -Xmx1024m -XX:MaxPermSize=512m -Djava.net.preferIPv4Stack=true`
 * Deploy the `cdbookstore/target/cdbookstore.war` file
 
 ## Check the web application

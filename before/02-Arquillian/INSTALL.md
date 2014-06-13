@@ -10,16 +10,19 @@
 * Copy the file `before/02-Forge/PublisherBeanTest.java` to `cdbookstore/src/test/java/org/agoncal/training/javaee6adv/view`
 * Code the other tests following the same logic
 
+## Start JBoss application server
+
+* Start JBoss (`JBOSS_HOME/bin/standalone.sh`)
+* Make sure JBoss has enough memory `-Xms64m -Xmx1024m -XX:MaxPermSize=512m -Djava.net.preferIPv4Stack=true`
+
 ## Execute the tests
 
-* `mvn -Parquillian-jbossas-managed-7 test` will execute the tests within JBoss in a managed way
 * `mvn -Parquillian-jbossas-remote-7 test` will execute the tests with JBoss up and running and with the application deployed
 * If you have the following error, it's because you are not using a Maven profile `DeploymentScenario contains a target (_DEFAULT_) not matching any defined Container in the registry`
 
-## Deploy the application on JBoss application server
+## Debug the tests
 
-* Start JBoss (`JBOSS_HOME/bin/standalone.sh`)
-* Deploy the `cdbookstore/target/cdbookstore.war` file
+* Make sure JBoss has the debug settings `JAVA_OPTS="$JAVA_OPTS -agentlib:jdwp=transport=dt_socket,address=8787,server=y,suspend=n"`
 
 ## Check the web application
 

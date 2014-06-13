@@ -13,6 +13,7 @@
 ## Deploy the application on JBoss application server
 
 * Start JBoss (`JBOSS_HOME/bin/standalone.sh`)
+* Make sure JBoss has enough memory `-Xms64m -Xmx1024m -XX:MaxPermSize=512m -Djava.net.preferIPv4Stack=true`
 * Deploy the `cdbookstore/target/cdbookstore.war` file
 
 ## Check the web application
