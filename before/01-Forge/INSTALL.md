@@ -2,19 +2,24 @@
 
 ## Generate the project with JBoss Forge
 
-* Launch JBoss Forge (enter the `forge` command)
-* Go to the `cdbookstore` directory
+* Launch JBoss Forge (enter the `$FORGE_HOME/bin/forge` command)
 * Execute the `generate.fsh` script with the command `run before/01-Forge/generate.fsh` 
+* Go to the `cdbookstore` directory
 
 ## Add data to the database
  
 * Copy the file `before/01-Forge/import.sql` to `cdbookstore/src/main/resources`
 
-## Deploy the application on JBoss application server
+## Build the application
 
-* Start JBoss (`JBOSS_HOME/bin/standalone.sh`)
+* In Forge enter the command `build` 
+
+## Deploy the application on WildFly application server
+
+* Start WildFly (`$WILDFLY_HOME/bin/standalone.sh`)
 * Make sure JBoss has enough memory `-Xms64m -Xmx1024m -XX:MaxPermSize=512m -Djava.net.preferIPv4Stack=true`
-* Deploy the `cdbookstore/target/cdbookstore.war` file
+* Go to the [admin console](http://localhost:9990/)
+* Deploy the `cdbookstore/target/cdbookstore.war` file in _Runtime -> Manage Deployments -> Add -> Enable_
 
 ## Check the web application
 

@@ -8,6 +8,7 @@
 ## Write some tests
 
 * Copy the file `before/02-Forge/PublisherBeanTest.java` to `cdbookstore/src/test/java/org/agoncal/training/javaee6adv/view`
+* Copy the file `before/02-Forge/MusicianBeanTest.java` to `cdbookstore/src/test/java/org/agoncal/training/javaee6adv/view`
 * Code the other tests following the same logic
 
 ## Start JBoss application server
