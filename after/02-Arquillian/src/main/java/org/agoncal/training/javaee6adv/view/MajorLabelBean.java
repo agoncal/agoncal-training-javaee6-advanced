@@ -67,6 +67,10 @@ public class MajorLabelBean implements Serializable
       return this.majorLabel;
    }
 
+   public void setMajorLabel(MajorLabel majorLabel) {
+      this.majorLabel = majorLabel;
+   }
+
    @Inject
    private Conversation conversation;
 

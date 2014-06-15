@@ -67,6 +67,10 @@ public class MusicianBean implements Serializable
       return this.musician;
    }
 
+   public void setMusician(Musician musician) {
+      this.musician = musician;
+   }
+
    @Inject
    private Conversation conversation;
 

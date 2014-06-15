@@ -67,6 +67,10 @@ public class PublisherBean implements Serializable
       return this.publisher;
    }
 
+   public void setPublisher(Publisher publisher) {
+      this.publisher = publisher;
+   }
+
    @Inject
    private Conversation conversation;
 

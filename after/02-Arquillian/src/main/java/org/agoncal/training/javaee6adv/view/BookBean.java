@@ -68,6 +68,10 @@ public class BookBean implements Serializable
       return this.book;
    }
 
+   public void setBook(Book book) {
+      this.book = book;
+   }
+
    @Inject
    private Conversation conversation;
 

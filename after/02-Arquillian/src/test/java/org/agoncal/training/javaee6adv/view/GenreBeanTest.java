@@ -1,32 +1,32 @@
 package org.agoncal.training.javaee6adv.view;
 
-import org.agoncal.training.javaee6adv.model.Musician;
+import org.agoncal.training.javaee6adv.model.Genre;
+import org.agoncal.training.javaee6adv.view.GenreBean;
+import javax.inject.Inject;
 import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.junit.Arquillian;
 import org.jboss.shrinkwrap.api.ShrinkWrap;
-import org.jboss.shrinkwrap.api.asset.EmptyAsset;
 import org.jboss.shrinkwrap.api.spec.JavaArchive;
+import org.jboss.shrinkwrap.api.asset.EmptyAsset;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-
-import javax.inject.Inject;
-
 import static org.junit.Assert.*;
+import static org.hamcrest.core.Is.*;
 
 @RunWith(Arquillian.class)
-public class MusicianBeanTest
+public class GenreBeanTest
 {
 
    @Inject
-   private MusicianBean musicianbean;
+   private GenreBean genrebean;
 
    @Deployment
    public static JavaArchive createDeployment()
    {
       return ShrinkWrap.create(JavaArchive.class)
-            .addClass(MusicianBean.class)
-            .addClass(Musician.class)
+            .addClass(GenreBean.class)
+            .addClass(Genre.class)
             .addAsManifestResource("META-INF/persistence.xml", "persistence.xml")
             .addAsManifestResource(EmptyAsset.INSTANCE, "beans.xml");
    }
@@ -34,33 +34,32 @@ public class MusicianBeanTest
    @Test
    public void should_be_deployed()
    {
-      Assert.assertNotNull(musicianbean);
+      Assert.assertNotNull(genrebean);
    }
 
    @Test
    public void should_crud()
    {
       // Creates an object
-      Musician musician = new Musician();
-      musician.setFirstName("Dummy value");
-      musician.setLastName("Dummy value");
+      Genre genre = new Genre();
+      genre.setName("Dummy value");
 
       // Inserts the object into the database
-      musicianbean.setMusician(musician);
-      musicianbean.create();
-      musicianbean.update();
-      musician = musicianbean.getMusician();
-      assertNotNull(musician.getId());
+      genrebean.setGenre(genre);
+      genrebean.create();
+      genrebean.update();
+      genre = genrebean.getGenre();
+      assertNotNull(genre.getId());
 
       // Finds the object from the database and checks it's the right one
-      musician = musicianbean.findById(musician.getId());
-      assertEquals("Dummy value", musician.getFirstName());
+      genre = genrebean.findById(genre.getId());
+      assertEquals("Dummy value", genre.getName());
 
       // Deletes the object from the database and checks it's not there anymore
-      musicianbean.setId(musician.getId());
-      musicianbean.create();
-      musicianbean.delete();
-      musician = musicianbean.findById(musician.getId());
-      assertNull(musician);
+      genrebean.setId(genre.getId());
+      genrebean.create();
+      genrebean.delete();
+      genre = genrebean.findById(genre.getId());
+      assertNull(genre);
    }
 }

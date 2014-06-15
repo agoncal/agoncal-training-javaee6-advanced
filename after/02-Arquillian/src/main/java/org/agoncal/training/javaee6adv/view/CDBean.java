@@ -69,6 +69,10 @@ public class CDBean implements Serializable
       return this.CD;
    }
 
+   public void setCD(CD CD) {
+      this.CD = CD;
+   }
+
    @Inject
    private Conversation conversation;
 

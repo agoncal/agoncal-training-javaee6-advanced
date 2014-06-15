@@ -67,6 +67,10 @@ public class GenreBean implements Serializable
       return this.genre;
    }
 
+   public void setGenre(Genre genre) {
+      this.genre = genre;
+   }
+
    @Inject
    private Conversation conversation;
 

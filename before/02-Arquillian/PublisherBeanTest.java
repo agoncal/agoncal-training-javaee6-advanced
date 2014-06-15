@@ -1,3 +1,5 @@
+package org.agoncal.training.javaee6adv.view;
+
 import org.agoncal.training.javaee6adv.model.Publisher;
 import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.junit.Arquillian;
@@ -14,45 +16,46 @@ import static org.junit.Assert.*;
 @RunWith(Arquillian.class)
 public class PublisherBeanTest {
 
-	@Inject
-	private PublisherBean publisherbean;
+   @Inject
+   private PublisherBean publisherbean;
 
-	@Deployment
-	public static JavaArchive createDeployment() {
-		return ShrinkWrap.create(JavaArchive.class)
-				.addClass(PublisherBean.class)
-				.addClass(Publisher.class)
-				.addAsManifestResource("META-INF/persistence.xml", "persistence.xml")
-				.addAsManifestResource(EmptyAsset.INSTANCE, "beans.xml");
-	}
+   @Deployment
+   public static JavaArchive createDeployment() {
+      return ShrinkWrap.create(JavaArchive.class)
+            .addClass(PublisherBean.class)
+            .addClass(Publisher.class)
+            .addAsManifestResource("META-INF/persistence.xml", "persistence.xml")
+            .addAsManifestResource(EmptyAsset.INSTANCE, "beans.xml");
+   }
 
-	@Test
-	public void should_be_deployed() {
-		assertNotNull(publisherbean);
-	}
+   @Test
+   public void should_be_deployed() {
+      assertNotNull(publisherbean);
+   }
 
-	@Test
-	public void should_crud() {
-		// Creates an object
-		Publisher publisher = new Publisher();
-		publisher.setName("Dummy value");
+   @Test
+   public void should_crud()
+   {
+      // Creates an object
+      Publisher publisher = new Publisher();
+      publisher.setName("Dummy value");
 
-		// Inserts the object into the database
-		publisherbean.setPublisher(publisher);
-		publisherbean.create();
-		publisherbean.update();
-		publisher = publisherbean.getPublisher();
-		assertNotNull(publisher.getId());
+      // Inserts the object into the database
+      publisherbean.setPublisher(publisher);
+      publisherbean.create();
+      publisherbean.update();
+      publisher = publisherbean.getPublisher();
+      assertNotNull(publisher.getId());
 
-		// Finds the object from the database and checks it's the right one
-		publisher = publisherbean.findById(publisher.getId());
-		assertEquals("Dummy value", publisher.getName());
+      // Finds the object from the database and checks it's the right one
+      publisher = publisherbean.findById(publisher.getId());
+      assertEquals("Dummy value", publisher.getName());
 
-		// Deletes the object from the database and checks it's not there anymore
-		publisherbean.setId(publisher.getId());
-		publisherbean.create();
-		publisherbean.delete();
-		publisher = publisherbean.findById(publisher.getId());
-		assertNull(publisher);
-	}
+      // Deletes the object from the database and checks it's not there anymore
+      publisherbean.setId(publisher.getId());
+      publisherbean.create();
+      publisherbean.delete();
+      publisher = publisherbean.findById(publisher.getId());
+      assertNull(publisher);
+   }
 }

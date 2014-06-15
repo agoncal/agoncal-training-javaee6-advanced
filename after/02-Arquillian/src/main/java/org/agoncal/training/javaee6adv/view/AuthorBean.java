@@ -68,6 +68,10 @@ public class AuthorBean implements Serializable
       return this.author;
    }
 
+   public void setAuthor(Author author) {
+      this.author = author;
+   }
+
    @Inject
    private Conversation conversation;
 

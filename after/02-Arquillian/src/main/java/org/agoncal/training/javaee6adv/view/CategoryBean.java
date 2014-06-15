@@ -67,6 +67,10 @@ public class CategoryBean implements Serializable
       return this.category;
    }
 
+   public void setCategory(Category category) {
+      this.category = category;
+   }
+
    @Inject
    private Conversation conversation;
 

@@ -17,7 +17,7 @@
 ## Deploy the application on WildFly application server
 
 * Start WildFly (`$WILDFLY_HOME/bin/standalone.sh`)
-* Make sure JBoss has enough memory `-Xms64m -Xmx1024m -XX:MaxPermSize=512m -Djava.net.preferIPv4Stack=true`
+* Make sure WildFly has enough memory `-Xms64m -Xmx1024m -XX:MaxPermSize=512m -Djava.net.preferIPv4Stack=true`
 * Go to the [admin console](http://localhost:9990/)
 * Deploy the `cdbookstore/target/cdbookstore.war` file in _Runtime -> Manage Deployments -> Add -> Enable_
 
