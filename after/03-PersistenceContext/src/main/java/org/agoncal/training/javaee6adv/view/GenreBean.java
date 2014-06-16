@@ -39,234 +39,280 @@ import org.agoncal.training.javaee6adv.model.Genre;
 @Named
 @Stateful
 @ConversationScoped
-public class GenreBean implements Serializable {
+public class GenreBean implements Serializable
+{
 
-	private static final long serialVersionUID = 1L;
+   private static final long serialVersionUID = 1L;
 
-	/*
-	 * Support creating and retrieving Genre entities
-	 */
+   /*
+    * Support creating and retrieving Genre entities
+    */
 
-	private Long id;
+   private java.lang.Long id;
 
-	public Long getId() {
-		return this.id;
-	}
+   public java.lang.Long getId()
+   {
+      return this.id;
+   }
 
-	public void setId(Long id) {
-		this.id = id;
-	}
+   public void setId(java.lang.Long id)
+   {
+      this.id = id;
+   }
 
-	private Genre genre;
+   private Genre genre;
 
-	public Genre getGenre() {
-		return this.genre;
-	}
+   public Genre getGenre()
+   {
+      return this.genre;
+   }
 
-	@Inject
-	private Conversation conversation;
+   public void setGenre(Genre genre) {
+      this.genre = genre;
+   }
 
-	@PersistenceContext(unitName="cdbookstorePU")
-	private EntityManager entityManager;
+   @Inject
+   private Conversation conversation;
 
-	public String create() {
+   @PersistenceContext(unitName = "cdbookstorePU")
+   private EntityManager entityManager;
 
-		this.conversation.begin();
-		return "create?faces-redirect=true";
-	}
+   public String create()
+   {
 
-	public void retrieve() {
+      this.conversation.begin();
+      return "create?faces-redirect=true";
+   }
 
-		if (FacesContext.getCurrentInstance().isPostback()) {
-			return;
-		}
+   public void retrieve()
+   {
 
-		if (this.conversation.isTransient()) {
-			this.conversation.begin();
-		}
+      if (FacesContext.getCurrentInstance().isPostback())
+      {
+         return;
+      }
 
-		if (this.id == null) {
-			this.genre = this.example;
-		} else {
-			this.genre = findById(getId());
-		}
-	}
+      if (this.conversation.isTransient())
+      {
+         this.conversation.begin();
+      }
 
-	public Genre findById(Long id) {
+      if (this.id == null)
+      {
+         this.genre = this.example;
+      }
+      else
+      {
+         this.genre = findById(getId());
+      }
+   }
 
-		return this.entityManager.find(Genre.class, id);
-	}
+   public Genre findById(java.lang.Long id)
+   {
 
-	/*
-	 * Support updating and deleting Genre entities
-	 */
+      return this.entityManager.find(Genre.class, id);
+   }
 
-	public String update() {
-		this.conversation.end();
+   /*
+    * Support updating and deleting Genre entities
+    */
 
-		try {
-			if (this.id == null) {
-				this.entityManager.persist(this.genre);
-				return "search?faces-redirect=true";
-			} else {
-				this.entityManager.merge(this.genre);
-				return "view?faces-redirect=true&id=" + this.genre.getId();
-			}
-		} catch( Exception e ) {
-			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage( e.getMessage() ));
-			return null;
-		}
-	}
+   public String update()
+   {
+      this.conversation.end();
 
-	public String delete() {
-		this.conversation.end();
+      try
+      {
+         if (this.id == null)
+         {
+            this.entityManager.persist(this.genre);
+            return "search?faces-redirect=true";
+         }
+         else
+         {
+            this.entityManager.merge(this.genre);
+            return "view?faces-redirect=true&id=" + this.genre.getId();
+         }
+      }
+      catch (Exception e)
+      {
+         FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(e.getMessage()));
+         return null;
+      }
+   }
 
-		try {
-		    Genre deletableEntity = findById(getId());
-            
-			this.entityManager.remove(deletableEntity);
-			this.entityManager.flush();
-			return "search?faces-redirect=true";
-		} catch( Exception e ) {
-			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage( e.getMessage() ));
-			return null;
-		}
-	}
+   public String delete()
+   {
+      this.conversation.end();
 
-	/*
-	 * Support searching Genre entities with pagination
-	 */
+      try
+      {
+         Genre deletableEntity = findById(getId());
 
-	private int page;
-	private long count;
-	private List<Genre> pageItems;
+         this.entityManager.remove(deletableEntity);
+         this.entityManager.flush();
+         return "search?faces-redirect=true";
+      }
+      catch (Exception e)
+      {
+         FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(e.getMessage()));
+         return null;
+      }
+   }
 
-	private Genre example = new Genre();
+   /*
+    * Support searching Genre entities with pagination
+    */
 
-	public int getPage() {
-		return this.page;
-	}
+   private int page;
+   private long count;
+   private List<Genre> pageItems;
 
-	public void setPage(int page) {
-		this.page = page;
-	}
+   private Genre example = new Genre();
 
-	public int getPageSize() {
-		return 10;
-	}
+   public int getPage()
+   {
+      return this.page;
+   }
 
-	public Genre getExample() {
-		return this.example;
-	}
+   public void setPage(int page)
+   {
+      this.page = page;
+   }
 
-	public void setExample(Genre example) {
-		this.example = example;
-	}
+   public int getPageSize()
+   {
+      return 10;
+   }
 
-	public void search() {
-		this.page = 0;
-	}
+   public Genre getExample()
+   {
+      return this.example;
+   }
 
-	public void paginate() {
+   public void setExample(Genre example)
+   {
+      this.example = example;
+   }
 
-		CriteriaBuilder builder = this.entityManager.getCriteriaBuilder();
+   public void search()
+   {
+      this.page = 0;
+   }
 
-		// Populate this.count
+   public void paginate()
+   {
 
-		CriteriaQuery<Long> countCriteria = builder.createQuery(Long.class);
-		Root<Genre> root = countCriteria.from(Genre.class);
-		countCriteria = countCriteria.select(builder.count(root)).where(
-				getSearchPredicates(root));
-		this.count = this.entityManager.createQuery(countCriteria)
-				.getSingleResult();
+      CriteriaBuilder builder = this.entityManager.getCriteriaBuilder();
 
-		// Populate this.pageItems
+      // Populate this.count
 
-		CriteriaQuery<Genre> criteria = builder.createQuery(Genre.class);
-		root = criteria.from(Genre.class);
-		TypedQuery<Genre> query = this.entityManager.createQuery(criteria
-				.select(root).where(getSearchPredicates(root)));
-		query.setFirstResult(this.page * getPageSize()).setMaxResults(
-				getPageSize());
-		this.pageItems = query.getResultList();
-	}
+      CriteriaQuery<Long> countCriteria = builder.createQuery(Long.class);
+      Root<Genre> root = countCriteria.from(Genre.class);
+      countCriteria = countCriteria.select(builder.count(root)).where(
+            getSearchPredicates(root));
+      this.count = this.entityManager.createQuery(countCriteria)
+            .getSingleResult();
 
-	private Predicate[] getSearchPredicates(Root<Genre> root) {
+      // Populate this.pageItems
 
-		CriteriaBuilder builder = this.entityManager.getCriteriaBuilder();
-		List<Predicate> predicatesList = new ArrayList<Predicate>();
+      CriteriaQuery<Genre> criteria = builder.createQuery(Genre.class);
+      root = criteria.from(Genre.class);
+      TypedQuery<Genre> query = this.entityManager.createQuery(criteria
+            .select(root).where(getSearchPredicates(root)));
+      query.setFirstResult(this.page * getPageSize()).setMaxResults(
+            getPageSize());
+      this.pageItems = query.getResultList();
+   }
 
-		String name = this.example.getName();
-		if (name != null && !"".equals(name)) {
-			predicatesList.add(builder.like(builder.lower(root.<String>get("name")), '%' + name.toLowerCase() + '%'));
-		}
+   private Predicate[] getSearchPredicates(Root<Genre> root)
+   {
 
-		return predicatesList.toArray(new Predicate[predicatesList.size()]);
-	}
+      CriteriaBuilder builder = this.entityManager.getCriteriaBuilder();
+      List<Predicate> predicatesList = new ArrayList<Predicate>();
 
-	public List<Genre> getPageItems() {
-		return this.pageItems;
-	}
+      String name = this.example.getName();
+      if (name != null && !"".equals(name))
+      {
+         predicatesList.add(builder.like(builder.lower(root.<String> get("name")), '%' + name.toLowerCase() + '%'));
+      }
 
-	public long getCount() {
-		return this.count;
-	}
+      return predicatesList.toArray(new Predicate[predicatesList.size()]);
+   }
 
-	/*
-	 * Support listing and POSTing back Genre entities (e.g. from inside an
-	 * HtmlSelectOneMenu)
-	 */
+   public List<Genre> getPageItems()
+   {
+      return this.pageItems;
+   }
 
-	public List<Genre> getAll() {
+   public long getCount()
+   {
+      return this.count;
+   }
 
-		CriteriaQuery<Genre> criteria = this.entityManager
-				.getCriteriaBuilder().createQuery(Genre.class);
-		return this.entityManager.createQuery(
-				criteria.select(criteria.from(Genre.class))).getResultList();
-	}
+   /*
+    * Support listing and POSTing back Genre entities (e.g. from inside an
+    * HtmlSelectOneMenu)
+    */
 
-	@Resource
-	private SessionContext sessionContext;
+   public List<Genre> getAll()
+   {
 
-	public Converter getConverter() {
+      CriteriaQuery<Genre> criteria = this.entityManager
+            .getCriteriaBuilder().createQuery(Genre.class);
+      return this.entityManager.createQuery(
+            criteria.select(criteria.from(Genre.class))).getResultList();
+   }
 
-		final GenreBean ejbProxy = this.sessionContext.getBusinessObject(GenreBean.class);
+   @Resource
+   private SessionContext sessionContext;
 
-		return new Converter() {
+   public Converter getConverter()
+   {
 
-			@Override
-			public Object getAsObject(FacesContext context,
-					UIComponent component, String value) {
+      final GenreBean ejbProxy = this.sessionContext.getBusinessObject(GenreBean.class);
 
-				return ejbProxy.findById(Long.valueOf(value));
-			}
+      return new Converter()
+      {
 
-			@Override
-			public String getAsString(FacesContext context,
-					UIComponent component, Object value) {
+         @Override
+         public Object getAsObject(FacesContext context,
+               UIComponent component, String value)
+         {
 
-				if (value == null) {
-					return "";
-				}
+            return ejbProxy.findById(java.lang.Long.valueOf(value));
+         }
 
-				return String.valueOf(((Genre) value).getId());
-			}
-		};
-	}
+         @Override
+         public String getAsString(FacesContext context,
+               UIComponent component, Object value)
+         {
 
-	/*
-	 * Support adding children to bidirectional, one-to-many tables
-	 */
+            if (value == null)
+            {
+               return "";
+            }
 
-	private Genre add = new Genre();
+            return String.valueOf(((Genre) value).getId());
+         }
+      };
+   }
 
-	public Genre getAdd() {
-		return this.add;
-	}
+   /*
+    * Support adding children to bidirectional, one-to-many tables
+    */
 
-	public Genre getAdded() {
-		Genre added = this.add;
-		this.add = new Genre();
-		return added;
-	}
+   private Genre add = new Genre();
+
+   public Genre getAdd()
+   {
+      return this.add;
+   }
+
+   public Genre getAdded()
+   {
+      Genre added = this.add;
+      this.add = new Genre();
+      return added;
+   }
 }

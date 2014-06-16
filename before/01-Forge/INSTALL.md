@@ -8,7 +8,8 @@
 
 ## Add data to the database
  
-* Copy the file `before/01-Forge/import.sql` to `cdbookstore/src/main/resources`
+* Copy the file `import.sql` to `cdbookstore/src/main/resources`
+* `run -c "cp before/01-Forge/import.sql cdbookstore/src/main/resources`
 
 ## Build the application
 

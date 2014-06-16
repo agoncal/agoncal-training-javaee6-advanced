@@ -15,10 +15,7 @@ import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
 import javax.inject.Inject;
 import javax.inject.Named;
-import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
-import javax.persistence.NoResultException;
-import javax.persistence.TypedQuery;
+import javax.persistence.*;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Predicate;
@@ -40,258 +37,308 @@ import org.agoncal.training.javaee6adv.model.Language;
 @Named
 @Stateful
 @ConversationScoped
-public class BookBean implements Serializable {
+public class BookBean implements Serializable
+{
 
-	private static final long serialVersionUID = 1L;
+   private static final long serialVersionUID = 1L;
 
-	/*
-	 * Support creating and retrieving Book entities
-	 */
+   /*
+    * Support creating and retrieving Book entities
+    */
 
-	private Long id;
+   private java.lang.Long id;
 
-	public Long getId() {
-		return this.id;
-	}
+   public java.lang.Long getId()
+   {
+      return this.id;
+   }
 
-	public void setId(Long id) {
-		this.id = id;
-	}
+   public void setId(java.lang.Long id)
+   {
+      this.id = id;
+   }
 
-	private Book book;
+   private Book book;
 
-	public Book getBook() {
-		return this.book;
-	}
+   public Book getBook()
+   {
+      return this.book;
+   }
 
-	@Inject
-	private Conversation conversation;
+   public void setBook(Book book) {
+      this.book = book;
+   }
 
-	@PersistenceContext(unitName="cdbookstorePU")
-	private EntityManager entityManager;
+   @Inject
+   private Conversation conversation;
 
-	public String create() {
+   @PersistenceContext(unitName = "cdbookstorePU")
+   private EntityManager entityManager;
 
-		this.conversation.begin();
-		return "create?faces-redirect=true";
-	}
+   public String create()
+   {
 
-	public void retrieve() {
+      this.conversation.begin();
+      return "create?faces-redirect=true";
+   }
 
-		if (FacesContext.getCurrentInstance().isPostback()) {
-			return;
-		}
+   public void retrieve()
+   {
 
-		if (this.conversation.isTransient()) {
-			this.conversation.begin();
-		}
+      if (FacesContext.getCurrentInstance().isPostback())
+      {
+         return;
+      }
 
-		if (this.id == null) {
-			this.book = this.example;
-		} else {
-			this.book = findById(getId());
-		}
-	}
+      if (this.conversation.isTransient())
+      {
+         this.conversation.begin();
+      }
 
-	public Book findById(Long id) {
+      if (this.id == null)
+      {
+         this.book = this.example;
+      }
+      else
+      {
+         this.book = findById(getId());
+      }
+   }
 
-        TypedQuery<Book> findByIdQuery = this.entityManager.createQuery("SELECT DISTINCT b FROM Book b LEFT JOIN FETCH b.category LEFT JOIN FETCH b.author LEFT JOIN FETCH b.publisher WHERE b.id = :entityId ORDER BY b.id", Book.class);
-        findByIdQuery.setParameter("entityId", id);
-        Book entity;
-        try {
-            entity = findByIdQuery.getSingleResult();
-        } catch (NoResultException nre) {
-            entity = null;
-        }
-        return entity;
-    }
+   public Book findById(java.lang.Long id)
+   {
 
-	/*
-	 * Support updating and deleting Book entities
-	 */
+      TypedQuery<Book> findByIdQuery = this.entityManager.createQuery("SELECT DISTINCT b FROM Book b LEFT JOIN FETCH b.category LEFT JOIN FETCH b.author LEFT JOIN FETCH b.publisher WHERE b.id = :entityId ORDER BY b.id", Book.class);
+      findByIdQuery.setParameter("entityId", id);
+      Book entity;
+      try {
+         entity = findByIdQuery.getSingleResult();
+      } catch (NoResultException nre) {
+         entity = null;
+      }
+      return entity;
+   }
 
-	public String update() {
-		this.conversation.end();
+   /*
+    * Support updating and deleting Book entities
+    */
 
-		try {
-			if (this.id == null) {
-				this.entityManager.persist(this.book);
-				return "search?faces-redirect=true";
-			} else {
-				this.entityManager.merge(this.book);
-				return "view?faces-redirect=true&id=" + this.book.getId();
-			}
-		} catch( Exception e ) {
-			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage( e.getMessage() ));
-			return null;
-		}
-	}
+   public String update()
+   {
+      this.conversation.end();
 
-	public String delete() {
-		this.conversation.end();
+      try
+      {
+         if (this.id == null)
+         {
+            this.entityManager.persist(this.book);
+            return "search?faces-redirect=true";
+         }
+         else
+         {
+            this.entityManager.merge(this.book);
+            return "view?faces-redirect=true&id=" + this.book.getId();
+         }
+      }
+      catch (Exception e)
+      {
+         FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(e.getMessage()));
+         return null;
+      }
+   }
 
-		try {
-		    Book deletableEntity = findById(getId());
-            
-			this.entityManager.remove(deletableEntity);
-			this.entityManager.flush();
-			return "search?faces-redirect=true";
-		} catch( Exception e ) {
-			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage( e.getMessage() ));
-			return null;
-		}
-	}
+   public String delete()
+   {
+      this.conversation.end();
 
-	/*
-	 * Support searching Book entities with pagination
-	 */
+      try
+      {
+         Book deletableEntity = findById(getId());
 
-	private int page;
-	private long count;
-	private List<Book> pageItems;
+         this.entityManager.remove(deletableEntity);
+         this.entityManager.flush();
+         return "search?faces-redirect=true";
+      }
+      catch (Exception e)
+      {
+         FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(e.getMessage()));
+         return null;
+      }
+   }
 
-	private Book example = new Book();
+   /*
+    * Support searching Book entities with pagination
+    */
 
-	public int getPage() {
-		return this.page;
-	}
+   private int page;
+   private long count;
+   private List<Book> pageItems;
 
-	public void setPage(int page) {
-		this.page = page;
-	}
+   private Book example = new Book();
 
-	public int getPageSize() {
-		return 10;
-	}
+   public int getPage()
+   {
+      return this.page;
+   }
 
-	public Book getExample() {
-		return this.example;
-	}
+   public void setPage(int page)
+   {
+      this.page = page;
+   }
 
-	public void setExample(Book example) {
-		this.example = example;
-	}
+   public int getPageSize()
+   {
+      return 10;
+   }
 
-	public void search() {
-		this.page = 0;
-	}
+   public Book getExample()
+   {
+      return this.example;
+   }
 
-	public void paginate() {
+   public void setExample(Book example)
+   {
+      this.example = example;
+   }
 
-		CriteriaBuilder builder = this.entityManager.getCriteriaBuilder();
+   public void search()
+   {
+      this.page = 0;
+   }
 
-		// Populate this.count
+   public void paginate()
+   {
 
-		CriteriaQuery<Long> countCriteria = builder.createQuery(Long.class);
-		Root<Book> root = countCriteria.from(Book.class);
-		countCriteria = countCriteria.select(builder.count(root)).where(
-				getSearchPredicates(root));
-		this.count = this.entityManager.createQuery(countCriteria)
-				.getSingleResult();
+      CriteriaBuilder builder = this.entityManager.getCriteriaBuilder();
 
-		// Populate this.pageItems
+      // Populate this.count
 
-		CriteriaQuery<Book> criteria = builder.createQuery(Book.class);
-		root = criteria.from(Book.class);
-		TypedQuery<Book> query = this.entityManager.createQuery(criteria
-				.select(root).where(getSearchPredicates(root)));
-		query.setFirstResult(this.page * getPageSize()).setMaxResults(
-				getPageSize());
-		this.pageItems = query.getResultList();
-	}
+      CriteriaQuery<Long> countCriteria = builder.createQuery(Long.class);
+      Root<Book> root = countCriteria.from(Book.class);
+      countCriteria = countCriteria.select(builder.count(root)).where(
+            getSearchPredicates(root));
+      this.count = this.entityManager.createQuery(countCriteria)
+            .getSingleResult();
 
-	private Predicate[] getSearchPredicates(Root<Book> root) {
+      // Populate this.pageItems
 
-		CriteriaBuilder builder = this.entityManager.getCriteriaBuilder();
-		List<Predicate> predicatesList = new ArrayList<Predicate>();
+      CriteriaQuery<Book> criteria = builder.createQuery(Book.class);
+      root = criteria.from(Book.class);
+      TypedQuery<Book> query = this.entityManager.createQuery(criteria
+            .select(root).where(getSearchPredicates(root)));
+      query.setFirstResult(this.page * getPageSize()).setMaxResults(
+            getPageSize());
+      this.pageItems = query.getResultList();
+   }
 
-		String title = this.example.getTitle();
-		if (title != null && !"".equals(title)) {
-			predicatesList.add(builder.like(builder.lower(root.<String>get("title")), '%' + title.toLowerCase() + '%'));
-		}
-		String description = this.example.getDescription();
-		if (description != null && !"".equals(description)) {
-			predicatesList.add(builder.like(builder.lower(root.<String>get("description")), '%' + description.toLowerCase() + '%'));
-		}
-		String isbn = this.example.getIsbn();
-		if (isbn != null && !"".equals(isbn)) {
-			predicatesList.add(builder.like(builder.lower(root.<String>get("isbn")), '%' + isbn.toLowerCase() + '%'));
-		}
-		Integer nbOfPages = this.example.getNbOfPages();
-		if (nbOfPages != null && nbOfPages.intValue() != 0) {
-			predicatesList.add(builder.equal(root.get("nbOfPages"), nbOfPages));
-		}
-		Language language = this.example.getLanguage();
-		if (language != null) {
-			predicatesList.add(builder.equal(root.get("language"), language));
-		}
+   private Predicate[] getSearchPredicates(Root<Book> root)
+   {
 
-		return predicatesList.toArray(new Predicate[predicatesList.size()]);
-	}
+      CriteriaBuilder builder = this.entityManager.getCriteriaBuilder();
+      List<Predicate> predicatesList = new ArrayList<Predicate>();
 
-	public List<Book> getPageItems() {
-		return this.pageItems;
-	}
+      String title = this.example.getTitle();
+      if (title != null && !"".equals(title))
+      {
+         predicatesList.add(builder.like(builder.lower(root.<String> get("title")), '%' + title.toLowerCase() + '%'));
+      }
+      String description = this.example.getDescription();
+      if (description != null && !"".equals(description))
+      {
+         predicatesList.add(builder.like(builder.lower(root.<String> get("description")), '%' + description.toLowerCase() + '%'));
+      }
+      String isbn = this.example.getIsbn();
+      if (isbn != null && !"".equals(isbn))
+      {
+         predicatesList.add(builder.like(builder.lower(root.<String> get("isbn")), '%' + isbn.toLowerCase() + '%'));
+      }
+      Integer nbOfPages = this.example.getNbOfPages();
+      if (nbOfPages != null && nbOfPages.intValue() != 0)
+      {
+         predicatesList.add(builder.equal(root.get("nbOfPages"), nbOfPages));
+      }
+      Language language = this.example.getLanguage();
+      if (language != null)
+      {
+         predicatesList.add(builder.equal(root.get("language"), language));
+      }
 
-	public long getCount() {
-		return this.count;
-	}
+      return predicatesList.toArray(new Predicate[predicatesList.size()]);
+   }
 
-	/*
-	 * Support listing and POSTing back Book entities (e.g. from inside an
-	 * HtmlSelectOneMenu)
-	 */
+   public List<Book> getPageItems()
+   {
+      return this.pageItems;
+   }
 
-	public List<Book> getAll() {
+   public long getCount()
+   {
+      return this.count;
+   }
 
-		CriteriaQuery<Book> criteria = this.entityManager
-				.getCriteriaBuilder().createQuery(Book.class);
-		return this.entityManager.createQuery(
-				criteria.select(criteria.from(Book.class))).getResultList();
-	}
+   /*
+    * Support listing and POSTing back Book entities (e.g. from inside an
+    * HtmlSelectOneMenu)
+    */
 
-	@Resource
-	private SessionContext sessionContext;
+   public List<Book> getAll()
+   {
 
-	public Converter getConverter() {
+      CriteriaQuery<Book> criteria = this.entityManager
+            .getCriteriaBuilder().createQuery(Book.class);
+      return this.entityManager.createQuery(
+            criteria.select(criteria.from(Book.class))).getResultList();
+   }
 
-		final BookBean ejbProxy = this.sessionContext.getBusinessObject(BookBean.class);
+   @Resource
+   private SessionContext sessionContext;
 
-		return new Converter() {
+   public Converter getConverter()
+   {
 
-			@Override
-			public Object getAsObject(FacesContext context,
-					UIComponent component, String value) {
+      final BookBean ejbProxy = this.sessionContext.getBusinessObject(BookBean.class);
 
-				return ejbProxy.findById(Long.valueOf(value));
-			}
+      return new Converter()
+      {
 
-			@Override
-			public String getAsString(FacesContext context,
-					UIComponent component, Object value) {
+         @Override
+         public Object getAsObject(FacesContext context,
+               UIComponent component, String value)
+         {
 
-				if (value == null) {
-					return "";
-				}
+            return ejbProxy.findById(java.lang.Long.valueOf(value));
+         }
 
-				return String.valueOf(((Book) value).getId());
-			}
-		};
-	}
+         @Override
+         public String getAsString(FacesContext context,
+               UIComponent component, Object value)
+         {
 
-	/*
-	 * Support adding children to bidirectional, one-to-many tables
-	 */
+            if (value == null)
+            {
+               return "";
+            }
 
-	private Book add = new Book();
+            return String.valueOf(((Book) value).getId());
+         }
+      };
+   }
 
-	public Book getAdd() {
-		return this.add;
-	}
+   /*
+    * Support adding children to bidirectional, one-to-many tables
+    */
 
-	public Book getAdded() {
-		Book added = this.add;
-		this.add = new Book();
-		return added;
-	}
+   private Book add = new Book();
+
+   public Book getAdd()
+   {
+      return this.add;
+   }
+
+   public Book getAdded()
+   {
+      Book added = this.add;
+      this.add = new Book();
+      return added;
+   }
 }

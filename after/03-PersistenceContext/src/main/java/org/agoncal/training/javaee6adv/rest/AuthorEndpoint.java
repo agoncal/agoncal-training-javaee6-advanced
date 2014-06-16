@@ -20,7 +20,7 @@ import org.agoncal.training.javaee6adv.model.Author;
 @Path("/authors")
 public class AuthorEndpoint
 {
-   @PersistenceContext(unitName="cdbookstorePU")
+   @PersistenceContext(unitName = "cdbookstorePU")
    private EntityManager em;
 
    @POST
@@ -36,8 +36,9 @@ public class AuthorEndpoint
    public Response deleteById(@PathParam("id") Long id)
    {
       Author entity = em.find(Author.class, id);
-      if (entity == null) {
-        return Response.status(Status.NOT_FOUND).build();
+      if (entity == null)
+      {
+         return Response.status(Status.NOT_FOUND).build();
       }
       em.remove(entity);
       return Response.noContent().build();
@@ -51,13 +52,17 @@ public class AuthorEndpoint
       TypedQuery<Author> findByIdQuery = em.createQuery("SELECT DISTINCT a FROM Author a WHERE a.id = :entityId ORDER BY a.id", Author.class);
       findByIdQuery.setParameter("entityId", id);
       Author entity;
-      try {
+      try
+      {
          entity = findByIdQuery.getSingleResult();
-      } catch (NoResultException nre) {
+      }
+      catch (NoResultException nre)
+      {
          entity = null;
       }
-      if (entity == null) {
-        return Response.status(Status.NOT_FOUND).build();
+      if (entity == null)
+      {
+         return Response.status(Status.NOT_FOUND).build();
       }
       return Response.ok(entity).build();
    }

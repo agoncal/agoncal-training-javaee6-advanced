@@ -39,234 +39,280 @@ import org.agoncal.training.javaee6adv.model.MajorLabel;
 @Named
 @Stateful
 @ConversationScoped
-public class MajorLabelBean implements Serializable {
+public class MajorLabelBean implements Serializable
+{
 
-	private static final long serialVersionUID = 1L;
+   private static final long serialVersionUID = 1L;
 
-	/*
-	 * Support creating and retrieving MajorLabel entities
-	 */
+   /*
+    * Support creating and retrieving MajorLabel entities
+    */
 
-	private Long id;
+   private java.lang.Long id;
 
-	public Long getId() {
-		return this.id;
-	}
+   public java.lang.Long getId()
+   {
+      return this.id;
+   }
 
-	public void setId(Long id) {
-		this.id = id;
-	}
+   public void setId(java.lang.Long id)
+   {
+      this.id = id;
+   }
 
-	private MajorLabel majorLabel;
+   private MajorLabel majorLabel;
 
-	public MajorLabel getMajorLabel() {
-		return this.majorLabel;
-	}
+   public MajorLabel getMajorLabel()
+   {
+      return this.majorLabel;
+   }
 
-	@Inject
-	private Conversation conversation;
+   public void setMajorLabel(MajorLabel majorLabel) {
+      this.majorLabel = majorLabel;
+   }
 
-	@PersistenceContext(unitName="cdbookstorePU")
-	private EntityManager entityManager;
+   @Inject
+   private Conversation conversation;
 
-	public String create() {
+   @PersistenceContext(unitName = "cdbookstorePU")
+   private EntityManager entityManager;
 
-		this.conversation.begin();
-		return "create?faces-redirect=true";
-	}
+   public String create()
+   {
 
-	public void retrieve() {
+      this.conversation.begin();
+      return "create?faces-redirect=true";
+   }
 
-		if (FacesContext.getCurrentInstance().isPostback()) {
-			return;
-		}
+   public void retrieve()
+   {
 
-		if (this.conversation.isTransient()) {
-			this.conversation.begin();
-		}
+      if (FacesContext.getCurrentInstance().isPostback())
+      {
+         return;
+      }
 
-		if (this.id == null) {
-			this.majorLabel = this.example;
-		} else {
-			this.majorLabel = findById(getId());
-		}
-	}
+      if (this.conversation.isTransient())
+      {
+         this.conversation.begin();
+      }
 
-	public MajorLabel findById(Long id) {
+      if (this.id == null)
+      {
+         this.majorLabel = this.example;
+      }
+      else
+      {
+         this.majorLabel = findById(getId());
+      }
+   }
 
-		return this.entityManager.find(MajorLabel.class, id);
-	}
+   public MajorLabel findById(java.lang.Long id)
+   {
 
-	/*
-	 * Support updating and deleting MajorLabel entities
-	 */
+      return this.entityManager.find(MajorLabel.class, id);
+   }
 
-	public String update() {
-		this.conversation.end();
+   /*
+    * Support updating and deleting MajorLabel entities
+    */
 
-		try {
-			if (this.id == null) {
-				this.entityManager.persist(this.majorLabel);
-				return "search?faces-redirect=true";
-			} else {
-				this.entityManager.merge(this.majorLabel);
-				return "view?faces-redirect=true&id=" + this.majorLabel.getId();
-			}
-		} catch( Exception e ) {
-			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage( e.getMessage() ));
-			return null;
-		}
-	}
+   public String update()
+   {
+      this.conversation.end();
 
-	public String delete() {
-		this.conversation.end();
+      try
+      {
+         if (this.id == null)
+         {
+            this.entityManager.persist(this.majorLabel);
+            return "search?faces-redirect=true";
+         }
+         else
+         {
+            this.entityManager.merge(this.majorLabel);
+            return "view?faces-redirect=true&id=" + this.majorLabel.getId();
+         }
+      }
+      catch (Exception e)
+      {
+         FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(e.getMessage()));
+         return null;
+      }
+   }
 
-		try {
-		    MajorLabel deletableEntity = findById(getId());
-            
-			this.entityManager.remove(deletableEntity);
-			this.entityManager.flush();
-			return "search?faces-redirect=true";
-		} catch( Exception e ) {
-			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage( e.getMessage() ));
-			return null;
-		}
-	}
+   public String delete()
+   {
+      this.conversation.end();
 
-	/*
-	 * Support searching MajorLabel entities with pagination
-	 */
+      try
+      {
+         MajorLabel deletableEntity = findById(getId());
 
-	private int page;
-	private long count;
-	private List<MajorLabel> pageItems;
+         this.entityManager.remove(deletableEntity);
+         this.entityManager.flush();
+         return "search?faces-redirect=true";
+      }
+      catch (Exception e)
+      {
+         FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(e.getMessage()));
+         return null;
+      }
+   }
 
-	private MajorLabel example = new MajorLabel();
+   /*
+    * Support searching MajorLabel entities with pagination
+    */
 
-	public int getPage() {
-		return this.page;
-	}
+   private int page;
+   private long count;
+   private List<MajorLabel> pageItems;
 
-	public void setPage(int page) {
-		this.page = page;
-	}
+   private MajorLabel example = new MajorLabel();
 
-	public int getPageSize() {
-		return 10;
-	}
+   public int getPage()
+   {
+      return this.page;
+   }
 
-	public MajorLabel getExample() {
-		return this.example;
-	}
+   public void setPage(int page)
+   {
+      this.page = page;
+   }
 
-	public void setExample(MajorLabel example) {
-		this.example = example;
-	}
+   public int getPageSize()
+   {
+      return 10;
+   }
 
-	public void search() {
-		this.page = 0;
-	}
+   public MajorLabel getExample()
+   {
+      return this.example;
+   }
 
-	public void paginate() {
+   public void setExample(MajorLabel example)
+   {
+      this.example = example;
+   }
 
-		CriteriaBuilder builder = this.entityManager.getCriteriaBuilder();
+   public void search()
+   {
+      this.page = 0;
+   }
 
-		// Populate this.count
+   public void paginate()
+   {
 
-		CriteriaQuery<Long> countCriteria = builder.createQuery(Long.class);
-		Root<MajorLabel> root = countCriteria.from(MajorLabel.class);
-		countCriteria = countCriteria.select(builder.count(root)).where(
-				getSearchPredicates(root));
-		this.count = this.entityManager.createQuery(countCriteria)
-				.getSingleResult();
+      CriteriaBuilder builder = this.entityManager.getCriteriaBuilder();
 
-		// Populate this.pageItems
+      // Populate this.count
 
-		CriteriaQuery<MajorLabel> criteria = builder.createQuery(MajorLabel.class);
-		root = criteria.from(MajorLabel.class);
-		TypedQuery<MajorLabel> query = this.entityManager.createQuery(criteria
-				.select(root).where(getSearchPredicates(root)));
-		query.setFirstResult(this.page * getPageSize()).setMaxResults(
-				getPageSize());
-		this.pageItems = query.getResultList();
-	}
+      CriteriaQuery<Long> countCriteria = builder.createQuery(Long.class);
+      Root<MajorLabel> root = countCriteria.from(MajorLabel.class);
+      countCriteria = countCriteria.select(builder.count(root)).where(
+            getSearchPredicates(root));
+      this.count = this.entityManager.createQuery(countCriteria)
+            .getSingleResult();
 
-	private Predicate[] getSearchPredicates(Root<MajorLabel> root) {
+      // Populate this.pageItems
 
-		CriteriaBuilder builder = this.entityManager.getCriteriaBuilder();
-		List<Predicate> predicatesList = new ArrayList<Predicate>();
+      CriteriaQuery<MajorLabel> criteria = builder.createQuery(MajorLabel.class);
+      root = criteria.from(MajorLabel.class);
+      TypedQuery<MajorLabel> query = this.entityManager.createQuery(criteria
+            .select(root).where(getSearchPredicates(root)));
+      query.setFirstResult(this.page * getPageSize()).setMaxResults(
+            getPageSize());
+      this.pageItems = query.getResultList();
+   }
 
-		String name = this.example.getName();
-		if (name != null && !"".equals(name)) {
-			predicatesList.add(builder.like(builder.lower(root.<String>get("name")), '%' + name.toLowerCase() + '%'));
-		}
+   private Predicate[] getSearchPredicates(Root<MajorLabel> root)
+   {
 
-		return predicatesList.toArray(new Predicate[predicatesList.size()]);
-	}
+      CriteriaBuilder builder = this.entityManager.getCriteriaBuilder();
+      List<Predicate> predicatesList = new ArrayList<Predicate>();
 
-	public List<MajorLabel> getPageItems() {
-		return this.pageItems;
-	}
+      String name = this.example.getName();
+      if (name != null && !"".equals(name))
+      {
+         predicatesList.add(builder.like(builder.lower(root.<String> get("name")), '%' + name.toLowerCase() + '%'));
+      }
 
-	public long getCount() {
-		return this.count;
-	}
+      return predicatesList.toArray(new Predicate[predicatesList.size()]);
+   }
 
-	/*
-	 * Support listing and POSTing back MajorLabel entities (e.g. from inside an
-	 * HtmlSelectOneMenu)
-	 */
+   public List<MajorLabel> getPageItems()
+   {
+      return this.pageItems;
+   }
 
-	public List<MajorLabel> getAll() {
+   public long getCount()
+   {
+      return this.count;
+   }
 
-		CriteriaQuery<MajorLabel> criteria = this.entityManager
-				.getCriteriaBuilder().createQuery(MajorLabel.class);
-		return this.entityManager.createQuery(
-				criteria.select(criteria.from(MajorLabel.class))).getResultList();
-	}
+   /*
+    * Support listing and POSTing back MajorLabel entities (e.g. from inside an
+    * HtmlSelectOneMenu)
+    */
 
-	@Resource
-	private SessionContext sessionContext;
+   public List<MajorLabel> getAll()
+   {
 
-	public Converter getConverter() {
+      CriteriaQuery<MajorLabel> criteria = this.entityManager
+            .getCriteriaBuilder().createQuery(MajorLabel.class);
+      return this.entityManager.createQuery(
+            criteria.select(criteria.from(MajorLabel.class))).getResultList();
+   }
 
-		final MajorLabelBean ejbProxy = this.sessionContext.getBusinessObject(MajorLabelBean.class);
+   @Resource
+   private SessionContext sessionContext;
 
-		return new Converter() {
+   public Converter getConverter()
+   {
 
-			@Override
-			public Object getAsObject(FacesContext context,
-					UIComponent component, String value) {
+      final MajorLabelBean ejbProxy = this.sessionContext.getBusinessObject(MajorLabelBean.class);
 
-				return ejbProxy.findById(Long.valueOf(value));
-			}
+      return new Converter()
+      {
 
-			@Override
-			public String getAsString(FacesContext context,
-					UIComponent component, Object value) {
+         @Override
+         public Object getAsObject(FacesContext context,
+               UIComponent component, String value)
+         {
 
-				if (value == null) {
-					return "";
-				}
+            return ejbProxy.findById(java.lang.Long.valueOf(value));
+         }
 
-				return String.valueOf(((MajorLabel) value).getId());
-			}
-		};
-	}
+         @Override
+         public String getAsString(FacesContext context,
+               UIComponent component, Object value)
+         {
 
-	/*
-	 * Support adding children to bidirectional, one-to-many tables
-	 */
+            if (value == null)
+            {
+               return "";
+            }
 
-	private MajorLabel add = new MajorLabel();
+            return String.valueOf(((MajorLabel) value).getId());
+         }
+      };
+   }
 
-	public MajorLabel getAdd() {
-		return this.add;
-	}
+   /*
+    * Support adding children to bidirectional, one-to-many tables
+    */
 
-	public MajorLabel getAdded() {
-		MajorLabel added = this.add;
-		this.add = new MajorLabel();
-		return added;
-	}
+   private MajorLabel add = new MajorLabel();
+
+   public MajorLabel getAdd()
+   {
+      return this.add;
+   }
+
+   public MajorLabel getAdded()
+   {
+      MajorLabel added = this.add;
+      this.add = new MajorLabel();
+      return added;
+   }
 }

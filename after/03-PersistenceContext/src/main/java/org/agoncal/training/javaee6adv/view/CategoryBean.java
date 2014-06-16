@@ -39,234 +39,280 @@ import org.agoncal.training.javaee6adv.model.Category;
 @Named
 @Stateful
 @ConversationScoped
-public class CategoryBean implements Serializable {
+public class CategoryBean implements Serializable
+{
 
-	private static final long serialVersionUID = 1L;
+   private static final long serialVersionUID = 1L;
 
-	/*
-	 * Support creating and retrieving Category entities
-	 */
+   /*
+    * Support creating and retrieving Category entities
+    */
 
-	private Long id;
+   private java.lang.Long id;
 
-	public Long getId() {
-		return this.id;
-	}
+   public java.lang.Long getId()
+   {
+      return this.id;
+   }
 
-	public void setId(Long id) {
-		this.id = id;
-	}
+   public void setId(java.lang.Long id)
+   {
+      this.id = id;
+   }
 
-	private Category category;
+   private Category category;
 
-	public Category getCategory() {
-		return this.category;
-	}
+   public Category getCategory()
+   {
+      return this.category;
+   }
 
-	@Inject
-	private Conversation conversation;
+   public void setCategory(Category category) {
+      this.category = category;
+   }
 
-	@PersistenceContext(unitName="cdbookstorePU")
-	private EntityManager entityManager;
+   @Inject
+   private Conversation conversation;
 
-	public String create() {
+   @PersistenceContext(unitName = "cdbookstorePU")
+   private EntityManager entityManager;
 
-		this.conversation.begin();
-		return "create?faces-redirect=true";
-	}
+   public String create()
+   {
 
-	public void retrieve() {
+      this.conversation.begin();
+      return "create?faces-redirect=true";
+   }
 
-		if (FacesContext.getCurrentInstance().isPostback()) {
-			return;
-		}
+   public void retrieve()
+   {
 
-		if (this.conversation.isTransient()) {
-			this.conversation.begin();
-		}
+      if (FacesContext.getCurrentInstance().isPostback())
+      {
+         return;
+      }
 
-		if (this.id == null) {
-			this.category = this.example;
-		} else {
-			this.category = findById(getId());
-		}
-	}
+      if (this.conversation.isTransient())
+      {
+         this.conversation.begin();
+      }
 
-	public Category findById(Long id) {
+      if (this.id == null)
+      {
+         this.category = this.example;
+      }
+      else
+      {
+         this.category = findById(getId());
+      }
+   }
 
-		return this.entityManager.find(Category.class, id);
-	}
+   public Category findById(java.lang.Long id)
+   {
 
-	/*
-	 * Support updating and deleting Category entities
-	 */
+      return this.entityManager.find(Category.class, id);
+   }
 
-	public String update() {
-		this.conversation.end();
+   /*
+    * Support updating and deleting Category entities
+    */
 
-		try {
-			if (this.id == null) {
-				this.entityManager.persist(this.category);
-				return "search?faces-redirect=true";
-			} else {
-				this.entityManager.merge(this.category);
-				return "view?faces-redirect=true&id=" + this.category.getId();
-			}
-		} catch( Exception e ) {
-			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage( e.getMessage() ));
-			return null;
-		}
-	}
+   public String update()
+   {
+      this.conversation.end();
 
-	public String delete() {
-		this.conversation.end();
+      try
+      {
+         if (this.id == null)
+         {
+            this.entityManager.persist(this.category);
+            return "search?faces-redirect=true";
+         }
+         else
+         {
+            this.entityManager.merge(this.category);
+            return "view?faces-redirect=true&id=" + this.category.getId();
+         }
+      }
+      catch (Exception e)
+      {
+         FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(e.getMessage()));
+         return null;
+      }
+   }
 
-		try {
-		    Category deletableEntity = findById(getId());
-            
-			this.entityManager.remove(deletableEntity);
-			this.entityManager.flush();
-			return "search?faces-redirect=true";
-		} catch( Exception e ) {
-			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage( e.getMessage() ));
-			return null;
-		}
-	}
+   public String delete()
+   {
+      this.conversation.end();
 
-	/*
-	 * Support searching Category entities with pagination
-	 */
+      try
+      {
+         Category deletableEntity = findById(getId());
 
-	private int page;
-	private long count;
-	private List<Category> pageItems;
+         this.entityManager.remove(deletableEntity);
+         this.entityManager.flush();
+         return "search?faces-redirect=true";
+      }
+      catch (Exception e)
+      {
+         FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(e.getMessage()));
+         return null;
+      }
+   }
 
-	private Category example = new Category();
+   /*
+    * Support searching Category entities with pagination
+    */
 
-	public int getPage() {
-		return this.page;
-	}
+   private int page;
+   private long count;
+   private List<Category> pageItems;
 
-	public void setPage(int page) {
-		this.page = page;
-	}
+   private Category example = new Category();
 
-	public int getPageSize() {
-		return 10;
-	}
+   public int getPage()
+   {
+      return this.page;
+   }
 
-	public Category getExample() {
-		return this.example;
-	}
+   public void setPage(int page)
+   {
+      this.page = page;
+   }
 
-	public void setExample(Category example) {
-		this.example = example;
-	}
+   public int getPageSize()
+   {
+      return 10;
+   }
 
-	public void search() {
-		this.page = 0;
-	}
+   public Category getExample()
+   {
+      return this.example;
+   }
 
-	public void paginate() {
+   public void setExample(Category example)
+   {
+      this.example = example;
+   }
 
-		CriteriaBuilder builder = this.entityManager.getCriteriaBuilder();
+   public void search()
+   {
+      this.page = 0;
+   }
 
-		// Populate this.count
+   public void paginate()
+   {
 
-		CriteriaQuery<Long> countCriteria = builder.createQuery(Long.class);
-		Root<Category> root = countCriteria.from(Category.class);
-		countCriteria = countCriteria.select(builder.count(root)).where(
-				getSearchPredicates(root));
-		this.count = this.entityManager.createQuery(countCriteria)
-				.getSingleResult();
+      CriteriaBuilder builder = this.entityManager.getCriteriaBuilder();
 
-		// Populate this.pageItems
+      // Populate this.count
 
-		CriteriaQuery<Category> criteria = builder.createQuery(Category.class);
-		root = criteria.from(Category.class);
-		TypedQuery<Category> query = this.entityManager.createQuery(criteria
-				.select(root).where(getSearchPredicates(root)));
-		query.setFirstResult(this.page * getPageSize()).setMaxResults(
-				getPageSize());
-		this.pageItems = query.getResultList();
-	}
+      CriteriaQuery<Long> countCriteria = builder.createQuery(Long.class);
+      Root<Category> root = countCriteria.from(Category.class);
+      countCriteria = countCriteria.select(builder.count(root)).where(
+            getSearchPredicates(root));
+      this.count = this.entityManager.createQuery(countCriteria)
+            .getSingleResult();
 
-	private Predicate[] getSearchPredicates(Root<Category> root) {
+      // Populate this.pageItems
 
-		CriteriaBuilder builder = this.entityManager.getCriteriaBuilder();
-		List<Predicate> predicatesList = new ArrayList<Predicate>();
+      CriteriaQuery<Category> criteria = builder.createQuery(Category.class);
+      root = criteria.from(Category.class);
+      TypedQuery<Category> query = this.entityManager.createQuery(criteria
+            .select(root).where(getSearchPredicates(root)));
+      query.setFirstResult(this.page * getPageSize()).setMaxResults(
+            getPageSize());
+      this.pageItems = query.getResultList();
+   }
 
-		String name = this.example.getName();
-		if (name != null && !"".equals(name)) {
-			predicatesList.add(builder.like(builder.lower(root.<String>get("name")), '%' + name.toLowerCase() + '%'));
-		}
+   private Predicate[] getSearchPredicates(Root<Category> root)
+   {
 
-		return predicatesList.toArray(new Predicate[predicatesList.size()]);
-	}
+      CriteriaBuilder builder = this.entityManager.getCriteriaBuilder();
+      List<Predicate> predicatesList = new ArrayList<Predicate>();
 
-	public List<Category> getPageItems() {
-		return this.pageItems;
-	}
+      String name = this.example.getName();
+      if (name != null && !"".equals(name))
+      {
+         predicatesList.add(builder.like(builder.lower(root.<String> get("name")), '%' + name.toLowerCase() + '%'));
+      }
 
-	public long getCount() {
-		return this.count;
-	}
+      return predicatesList.toArray(new Predicate[predicatesList.size()]);
+   }
 
-	/*
-	 * Support listing and POSTing back Category entities (e.g. from inside an
-	 * HtmlSelectOneMenu)
-	 */
+   public List<Category> getPageItems()
+   {
+      return this.pageItems;
+   }
 
-	public List<Category> getAll() {
+   public long getCount()
+   {
+      return this.count;
+   }
 
-		CriteriaQuery<Category> criteria = this.entityManager
-				.getCriteriaBuilder().createQuery(Category.class);
-		return this.entityManager.createQuery(
-				criteria.select(criteria.from(Category.class))).getResultList();
-	}
+   /*
+    * Support listing and POSTing back Category entities (e.g. from inside an
+    * HtmlSelectOneMenu)
+    */
 
-	@Resource
-	private SessionContext sessionContext;
+   public List<Category> getAll()
+   {
 
-	public Converter getConverter() {
+      CriteriaQuery<Category> criteria = this.entityManager
+            .getCriteriaBuilder().createQuery(Category.class);
+      return this.entityManager.createQuery(
+            criteria.select(criteria.from(Category.class))).getResultList();
+   }
 
-		final CategoryBean ejbProxy = this.sessionContext.getBusinessObject(CategoryBean.class);
+   @Resource
+   private SessionContext sessionContext;
 
-		return new Converter() {
+   public Converter getConverter()
+   {
 
-			@Override
-			public Object getAsObject(FacesContext context,
-					UIComponent component, String value) {
+      final CategoryBean ejbProxy = this.sessionContext.getBusinessObject(CategoryBean.class);
 
-				return ejbProxy.findById(Long.valueOf(value));
-			}
+      return new Converter()
+      {
 
-			@Override
-			public String getAsString(FacesContext context,
-					UIComponent component, Object value) {
+         @Override
+         public Object getAsObject(FacesContext context,
+               UIComponent component, String value)
+         {
 
-				if (value == null) {
-					return "";
-				}
+            return ejbProxy.findById(java.lang.Long.valueOf(value));
+         }
 
-				return String.valueOf(((Category) value).getId());
-			}
-		};
-	}
+         @Override
+         public String getAsString(FacesContext context,
+               UIComponent component, Object value)
+         {
 
-	/*
-	 * Support adding children to bidirectional, one-to-many tables
-	 */
+            if (value == null)
+            {
+               return "";
+            }
 
-	private Category add = new Category();
+            return String.valueOf(((Category) value).getId());
+         }
+      };
+   }
 
-	public Category getAdd() {
-		return this.add;
-	}
+   /*
+    * Support adding children to bidirectional, one-to-many tables
+    */
 
-	public Category getAdded() {
-		Category added = this.add;
-		this.add = new Category();
-		return added;
-	}
+   private Category add = new Category();
+
+   public Category getAdd()
+   {
+      return this.add;
+   }
+
+   public Category getAdded()
+   {
+      Category added = this.add;
+      this.add = new Category();
+      return added;
+   }
 }

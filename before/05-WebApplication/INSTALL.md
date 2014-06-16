@@ -14,11 +14,13 @@
 
 ## Copy the new JSF template
 
-* Copy the file `before/05-WebApplication/mainTemplate.xhtml` to `cdbookstore/src/main/webapp/resources/scaffold`
+* Copy the file `mainTemplate.xhtml` to `cdbookstore/src/main/webapp/resources/scaffold`
+* `run -c "cp before/05-WebApplication/mainTemplate.xhtml cdbookstore/src/main/webapp/resources/scaffold`
 
 ## Copy the Arquillian tests for the service
 
-* Copy the file `service` package to `cdbookstore/src/main/test/org/agoncal/training/javaee6adv`
+* Copy the files under the `service` package to `cdbookstore/src/main/test/org/agoncal/training/javaee6adv`
+* `run -c "cp service cdbookstore/src/main/test/org/agoncal/training/javaee6adv`
 
 ## Deploy the application on WildFly application server
 

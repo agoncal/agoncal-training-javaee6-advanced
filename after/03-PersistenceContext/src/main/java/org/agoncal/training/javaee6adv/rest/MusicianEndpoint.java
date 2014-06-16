@@ -20,7 +20,7 @@ import org.agoncal.training.javaee6adv.model.Musician;
 @Path("/musicians")
 public class MusicianEndpoint
 {
-   @PersistenceContext(unitName="cdbookstorePU")
+   @PersistenceContext(unitName = "cdbookstorePU")
    private EntityManager em;
 
    @POST
@@ -36,8 +36,9 @@ public class MusicianEndpoint
    public Response deleteById(@PathParam("id") Long id)
    {
       Musician entity = em.find(Musician.class, id);
-      if (entity == null) {
-        return Response.status(Status.NOT_FOUND).build();
+      if (entity == null)
+      {
+         return Response.status(Status.NOT_FOUND).build();
       }
       em.remove(entity);
       return Response.noContent().build();
@@ -51,13 +52,17 @@ public class MusicianEndpoint
       TypedQuery<Musician> findByIdQuery = em.createQuery("SELECT DISTINCT m FROM Musician m WHERE m.id = :entityId ORDER BY m.id", Musician.class);
       findByIdQuery.setParameter("entityId", id);
       Musician entity;
-      try {
+      try
+      {
          entity = findByIdQuery.getSingleResult();
-      } catch (NoResultException nre) {
+      }
+      catch (NoResultException nre)
+      {
          entity = null;
       }
-      if (entity == null) {
-        return Response.status(Status.NOT_FOUND).build();
+      if (entity == null)
+      {
+         return Response.status(Status.NOT_FOUND).build();
       }
       return Response.ok(entity).build();
    }

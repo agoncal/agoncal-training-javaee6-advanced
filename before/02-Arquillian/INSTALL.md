@@ -11,8 +11,10 @@
 
 ## Write some tests
 
-* Copy the file `before/02-Arquillian/PublisherBeanTest.java` to `cdbookstore/src/test/java/org/agoncal/training/javaee6adv/view`
-* Copy the file `before/02-Arquillian/MusicianBeanTest.java` to `cdbookstore/src/test/java/org/agoncal/training/javaee6adv/view`
+* Copy the file `PublisherBeanTest.java` to `cdbookstore/src/test/java/org/agoncal/training/javaee6adv/view`
+* `run -c "cp before/02-Arquillian/PublisherBeanTest.java cdbookstore/src/test/java/org/agoncal/training/javaee6adv/view`
+* Copy the file `MusicianBeanTest.java` to `cdbookstore/src/test/java/org/agoncal/training/javaee6adv/view`
+* `run -c "cp MusicianBeanTest.java cdbookstore/src/test/java/org/agoncal/training/javaee6adv/view`
 * Code the other tests following the same logic until all the tests pass
 
 ## Start WildFly application server

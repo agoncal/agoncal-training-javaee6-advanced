@@ -13,7 +13,8 @@
 
 ## Write some tests
 
-* Copy the file `before/04-Service/PublisherServiceTest.java` to `cdbookstore/src/test/java/org/agoncal/training/javaee6adv/service`
+* Copy the file `PublisherServiceTest.java` to `cdbookstore/src/test/java/org/agoncal/training/javaee6adv/service`
+* `run -c "cp before/04-Service/PublisherServiceTest.java cdbookstore/src/test/java/org/agoncal/training/javaee6adv/service`
 * Code the other tests following the same logic
 
 ## Code the services until the tests pass
