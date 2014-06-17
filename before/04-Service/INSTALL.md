@@ -2,41 +2,56 @@
 
 ## Generate the service tier with JBoss Forge
 
-* Launch JBoss Forge (enter the `forge` command)
+* Launch JBoss Forge (enter the `$FORGE_HOME/bin/forge` command)
+* Execute the `generate.fsh` script with the command `run ../before/02-Arquillian/generate.fsh` 
 * Go to the `cdbookstore` directory
-* Execute the `generate.fsh` script with the command `run before/04-Service/generate.fsh` 
 
 ## Add producers to the Resources class
 
-* Produce the `EntityManager`
-* Produce a `Logger` with an `InjectionPoint`
+* The class `org.agoncal.training.javaee6adv.util.Resources` should produce an `EntityManager` and a `Logger` 
+* Produce the `EntityManager` for `cdbookstorePU`
+* Produce a `java.util.logging.Logger` with an `InjectionPoint`
 
-## Write some tests
+## Write the services
 
-* Copy the file `PublisherServiceTest.java` to `cdbookstore/src/test/java/org/agoncal/training/javaee6adv/service`
+* Copy the files `AbstractService.java`, `MusicianService.java` and `PublisherService.java` to `cdbookstore/src/test/java/org/agoncal/training/javaee6adv/service`
 * `run -c "cp before/04-Service/PublisherServiceTest.java cdbookstore/src/test/java/org/agoncal/training/javaee6adv/service`
-* Code the other tests following the same logic
+* `run -c "cp before/04-Service/MusicianService.java cdbookstore/src/test/java/org/agoncal/training/javaee6adv/service`
+* `run -c "cp before/04-Service/PublisherService.java cdbookstore/src/test/java/org/agoncal/training/javaee6adv/service`
+* Code the other services following the same logic until all the tests pass
+* Services should extend `AbstractService`
+* Add the produced `EntityManager` to the services
+
+## Refactor the code
+
+* In REST enpoints get rid of `EntityManager` and instead call the services
+* In JSF backing beans get rid of `EntityManager` and instead call the services
+* In JSF Backing beans get rid of `SessionContext` (why do we have `sessionContext.getBusinessObject(AuthorBean.class)`)
+* These components don't need to be transactional now
 
 ## Code the services until the tests pass
 
-* Copy the file `before/04-Service/AbstractService.java` to `cdbookstore/src/main/java/org/agoncal/training/javaee6adv/service`
-* Services should extend `AbstractService`
-* Get rid of `EntityManager` in REST enpoints and instead call the services
-* Get rid of `EntityManager` in JSF backing beans and instead call the services
-* Add the produced `EntityManager` to the services
-* Get rid of `SessionContext` in JSF Backing beans (why do we have `sessionContext.getBusinessObject(AuthorBean.class)`)
+## Execute the tests in a remote environment until all tests pass
 
-## Execute the tests
-
-* `mvn -Parquillian-wildfly-managed test` will execute the tests within WildFly in a managed way
 * `mvn -Parquillian-wildfly-remote test` will execute the tests with WildFly up and running and with the application deployed
-* If you have the following error, it's because you are not using a Maven profile `DeploymentScenario contains a target (_DEFAULT_) not matching any defined Container in the registry`
+* If you have the following error, it's because you are not using the Arquillian Maven profile `DeploymentScenario contains a target (_DEFAULT_) not matching any defined Container in the registry`
+* `NoClassDefFoundError` means that your ShrinkWrap packaging misses some classes (check the `createDeployment` method) 
+* `ConstraintViolationException` is thrown when the entity is not valid
+
+## Debug the tests if needed
+
+* Make sure JBoss has the debug settings `JAVA_OPTS="$JAVA_OPTS -agentlib:jdwp=transport=dt_socket,address=8787,server=y,suspend=n"`
+
+## Build the application
+
+* In Forge enter the command `build` 
 
 ## Deploy the application on WildFly application server
 
-* Start WildFly (`WILDFLY_HOME/bin/standalone.sh`)
+* Start WildFly (`$WILDFLY_HOME/bin/standalone.sh`)
 * Make sure WildFly has enough memory `-Xms64m -Xmx1024m -XX:MaxPermSize=512m -Djava.net.preferIPv4Stack=true`
-* Deploy the `cdbookstore/target/cdbookstore.war` file
+* Go to the [admin console](http://localhost:9990/)
+* Deploy the `cdbookstore/target/cdbookstore.war` file in _Runtime -> Manage Deployments -> Add -> Enable_
 
 ## Check the web application
 

@@ -42,6 +42,12 @@
 							<h:message for="cDBeanExampleDescription" styleClass="error"/>
 						</h:panelGroup>
 						<h:outputText/>
+						<h:outputLabel for="cDBeanExampleImageURL" value="Image URL:"/>
+						<h:panelGroup>
+							<h:inputText id="cDBeanExampleImageURL" value="#{CDBean.example.imageURL}"/>
+							<h:message for="cDBeanExampleImageURL" styleClass="error"/>
+						</h:panelGroup>
+						<h:outputText/>
 						<h:outputLabel for="cDBeanExampleLabel" value="Label:"/>
 						<h:panelGroup>
 							<h:selectOneMenu converter="#{majorLabelBean.converter}" id="cDBeanExampleLabel" value="#{CDBean.example.label}">

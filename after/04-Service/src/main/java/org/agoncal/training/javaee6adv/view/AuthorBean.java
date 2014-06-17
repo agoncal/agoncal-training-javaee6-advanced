@@ -46,19 +46,27 @@ public class AuthorBean implements Serializable {
 
 	private Long id;
 
-	public Long getId() {
+   public Long getId()
+   {
 		return this.id;
 	}
 
-	public void setId(Long id) {
+   public void setId(Long id)
+   {
 		this.id = id;
 	}
 
 	private Author author;
 
-	public Author getAuthor() {
+   public Author getAuthor()
+   {
 		return this.author;
 	}
+
+   public void setAuthor(Author author)
+   {
+      this.author = author;
+   }
 
 	@Inject
 	private Conversation conversation;
@@ -66,30 +74,38 @@ public class AuthorBean implements Serializable {
 	@Inject
 	private AuthorService service;
 
-	public String create() {
+   public String create()
+   {
 
 		this.conversation.begin();
 		return "create?faces-redirect=true";
 	}
 
-	public void retrieve() {
+   public void retrieve()
+   {
 
-		if (FacesContext.getCurrentInstance().isPostback()) {
+      if (FacesContext.getCurrentInstance().isPostback())
+      {
 			return;
 		}
 
-		if (this.conversation.isTransient()) {
+      if (this.conversation.isTransient())
+      {
 			this.conversation.begin();
 		}
 
-		if (this.id == null) {
+      if (this.id == null)
+      {
 			this.author = this.example;
-		} else {
+      }
+      else
+      {
 			this.author = findById(getId());
 		}
 	}
 
-	public Author findById(Long id) {
+   public Author findById(Long id)
+   {
 
 		return service.findById(id);
 	}

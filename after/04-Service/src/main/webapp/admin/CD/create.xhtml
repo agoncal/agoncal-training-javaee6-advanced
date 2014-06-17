@@ -61,6 +61,12 @@
 					<h:message for="cDBeanCDTotalDuration" styleClass="error"/>
 				</h:panelGroup>
 				<h:outputText/>
+				<h:outputLabel for="cDBeanCDImageURL" value="Image URL:"/>
+				<h:panelGroup>
+					<h:inputText id="cDBeanCDImageURL" value="#{CDBean.CD.imageURL}"/>
+					<h:message for="cDBeanCDImageURL" styleClass="error"/>
+				</h:panelGroup>
+				<h:outputText/>
 				<h:outputLabel for="cDBeanCDLabel" value="Label:"/>
 				<h:panelGroup>
 					<h:selectOneMenu converter="#{majorLabelBean.converter}" id="cDBeanCDLabel" value="#{CDBean.CD.label}">

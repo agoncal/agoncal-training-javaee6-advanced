@@ -21,10 +21,9 @@ cdi-new-bean --named Resources --targetPackage org.agoncal.training.javaee6adv.u
 #  Adding Arquillian Tests  #
 #  #######################  #
 
-arquillian-create-test --value cdbookstore/src/main/java/org/agoncal/training/javaee6adv/service/AuthorService.java
-arquillian-create-test --value cdbookstore/src/main/java/org/agoncal/training/javaee6adv/service/BookService.java
-arquillian-create-test --value cdbookstore/src/main/java/org/agoncal/training/javaee6adv/service/CategoryService.java
-arquillian-create-test --value cdbookstore/src/main/java/org/agoncal/training/javaee6adv/service/CDService.java
-arquillian-create-test --value cdbookstore/src/main/java/org/agoncal/training/javaee6adv/service/GenreService.java
-arquillian-create-test --value cdbookstore/src/main/java/org/agoncal/training/javaee6adv/service/MajorLabelService.java
-arquillian-create-test --value cdbookstore/src/main/java/org/agoncal/training/javaee6adv/service/MusicianService.java
+arquillian-create-test --value cdbookstore/src/main/java/org/agoncal/training/javaee6adv/service/AuthorService.java ;
+arquillian-create-test --value cdbookstore/src/main/java/org/agoncal/training/javaee6adv/service/BookService.java ;
+arquillian-create-test --value cdbookstore/src/main/java/org/agoncal/training/javaee6adv/service/CategoryService.java ;
+arquillian-create-test --value cdbookstore/src/main/java/org/agoncal/training/javaee6adv/service/CDService.java ;
+arquillian-create-test --value cdbookstore/src/main/java/org/agoncal/training/javaee6adv/service/GenreService.java ;
+arquillian-create-test --value cdbookstore/src/main/java/org/agoncal/training/javaee6adv/service/MajorLabelService.java ;
