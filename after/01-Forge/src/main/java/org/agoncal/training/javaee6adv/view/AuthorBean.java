@@ -49,14 +49,14 @@ public class AuthorBean implements Serializable
     * Support creating and retrieving Author entities
     */
 
-   private java.lang.Long id;
+   private Long id;
 
-   public java.lang.Long getId()
+   public Long getId()
    {
       return this.id;
    }
 
-   public void setId(java.lang.Long id)
+   public void setId(Long id)
    {
       this.id = id;
    }
@@ -66,6 +66,11 @@ public class AuthorBean implements Serializable
    public Author getAuthor()
    {
       return this.author;
+   }
+
+   public void setAuthor(Author author)
+   {
+      this.author = author;
    }
 
    @Inject
@@ -104,7 +109,7 @@ public class AuthorBean implements Serializable
       }
    }
 
-   public Author findById(java.lang.Long id)
+   public Author findById(Long id)
    {
 
       return this.entityManager.find(Author.class, id);
@@ -297,7 +302,7 @@ public class AuthorBean implements Serializable
                UIComponent component, String value)
          {
 
-            return ejbProxy.findById(java.lang.Long.valueOf(value));
+            return ejbProxy.findById(Long.valueOf(value));
          }
 
          @Override

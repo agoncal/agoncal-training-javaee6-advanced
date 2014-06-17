@@ -49,14 +49,14 @@ public class BookBean implements Serializable
     * Support creating and retrieving Book entities
     */
 
-   private java.lang.Long id;
+   private Long id;
 
-   public java.lang.Long getId()
+   public Long getId()
    {
       return this.id;
    }
 
-   public void setId(java.lang.Long id)
+   public void setId(Long id)
    {
       this.id = id;
    }
@@ -66,6 +66,11 @@ public class BookBean implements Serializable
    public Book getBook()
    {
       return this.book;
+   }
+
+   public void setBook(Book book)
+   {
+      this.book = book;
    }
 
    @Inject
@@ -104,7 +109,7 @@ public class BookBean implements Serializable
       }
    }
 
-   public Book findById(java.lang.Long id)
+   public Book findById(Long id)
    {
 
       return this.entityManager.find(Book.class, id);
@@ -297,7 +302,7 @@ public class BookBean implements Serializable
                UIComponent component, String value)
          {
 
-            return ejbProxy.findById(java.lang.Long.valueOf(value));
+            return ejbProxy.findById(Long.valueOf(value));
          }
 
          @Override

@@ -48,14 +48,14 @@ public class GenreBean implements Serializable
     * Support creating and retrieving Genre entities
     */
 
-   private java.lang.Long id;
+   private Long id;
 
-   public java.lang.Long getId()
+   public Long getId()
    {
       return this.id;
    }
 
-   public void setId(java.lang.Long id)
+   public void setId(Long id)
    {
       this.id = id;
    }
@@ -65,6 +65,11 @@ public class GenreBean implements Serializable
    public Genre getGenre()
    {
       return this.genre;
+   }
+
+   public void setGenre(Genre genre)
+   {
+      this.genre = genre;
    }
 
    @Inject
@@ -103,7 +108,7 @@ public class GenreBean implements Serializable
       }
    }
 
-   public Genre findById(java.lang.Long id)
+   public Genre findById(Long id)
    {
 
       return this.entityManager.find(Genre.class, id);

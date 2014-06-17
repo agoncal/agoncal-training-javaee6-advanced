@@ -48,14 +48,14 @@ public class MusicianBean implements Serializable
     * Support creating and retrieving Musician entities
     */
 
-   private java.lang.Long id;
+   private Long id;
 
-   public java.lang.Long getId()
+   public Long getId()
    {
       return this.id;
    }
 
-   public void setId(java.lang.Long id)
+   public void setId(Long id)
    {
       this.id = id;
    }
@@ -65,6 +65,11 @@ public class MusicianBean implements Serializable
    public Musician getMusician()
    {
       return this.musician;
+   }
+
+   public void setMusician(Musician musician)
+   {
+      this.musician = musician;
    }
 
    @Inject
@@ -103,7 +108,7 @@ public class MusicianBean implements Serializable
       }
    }
 
-   public Musician findById(java.lang.Long id)
+   public Musician findById(Long id)
    {
 
       return this.entityManager.find(Musician.class, id);
@@ -296,7 +301,7 @@ public class MusicianBean implements Serializable
                UIComponent component, String value)
          {
 
-            return ejbProxy.findById(java.lang.Long.valueOf(value));
+            return ejbProxy.findById(Long.valueOf(value));
          }
 
          @Override
