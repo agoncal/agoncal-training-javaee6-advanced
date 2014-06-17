@@ -50,14 +50,14 @@ public class CDBean implements Serializable
     * Support creating and retrieving CD entities
     */
 
-   private java.lang.Long id;
+   private Long id;
 
-   public java.lang.Long getId()
+   public Long getId()
    {
       return this.id;
    }
 
-   public void setId(java.lang.Long id)
+   public void setId(Long id)
    {
       this.id = id;
    }
@@ -69,7 +69,8 @@ public class CDBean implements Serializable
       return this.CD;
    }
 
-   public void setCD(CD CD) {
+   public void setCD(CD CD)
+   {
       this.CD = CD;
    }
 
@@ -109,7 +110,7 @@ public class CDBean implements Serializable
       }
    }
 
-   public CD findById(java.lang.Long id)
+   public CD findById(Long id)
    {
 
       return this.entityManager.find(CD.class, id);
@@ -302,7 +303,7 @@ public class CDBean implements Serializable
                UIComponent component, String value)
          {
 
-            return ejbProxy.findById(java.lang.Long.valueOf(value));
+            return ejbProxy.findById(Long.valueOf(value));
          }
 
          @Override

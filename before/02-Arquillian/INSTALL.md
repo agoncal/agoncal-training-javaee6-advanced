@@ -11,10 +11,9 @@
 
 ## Write some tests
 
-* Copy the file `PublisherBeanTest.java` to `cdbookstore/src/test/java/org/agoncal/training/javaee6adv/view`
-* `run -c "cp before/02-Arquillian/PublisherBeanTest.java cdbookstore/src/test/java/org/agoncal/training/javaee6adv/view`
-* Copy the file `MusicianBeanTest.java` to `cdbookstore/src/test/java/org/agoncal/training/javaee6adv/view`
-* `run -c "cp MusicianBeanTest.java cdbookstore/src/test/java/org/agoncal/training/javaee6adv/view`
+* Copy the files `PublisherBeanTest.java` and `MusicianBeanTest.java` to the `view` package
+* `cp ../before/02-Arquillian/PublisherBeanTest.java cdbookstore/src/test/java/org/agoncal/training/javaee6adv/view`
+* `cp ../before/02-Arquillian/MusicianBeanTest.java cdbookstore/src/test/java/org/agoncal/training/javaee6adv/view`
 * Code the other tests following the same logic until all the tests pass
 
 ## Start WildFly application server
@@ -45,6 +44,8 @@
 
 ## Deploy the application on WildFly application server
 
+* Start WildFly (`$WILDFLY_HOME/bin/standalone.sh`)
+* Make sure WildFly has enough memory `-Xms64m -Xmx1024m -XX:MaxPermSize=512m -Djava.net.preferIPv4Stack=true`
 * Go to the [admin console](http://localhost:9990/)
 * Deploy the `cdbookstore/target/cdbookstore.war` file in _Runtime -> Manage Deployments -> Add -> Enable_
 

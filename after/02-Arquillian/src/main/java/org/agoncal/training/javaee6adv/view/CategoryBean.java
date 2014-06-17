@@ -48,14 +48,14 @@ public class CategoryBean implements Serializable
     * Support creating and retrieving Category entities
     */
 
-   private java.lang.Long id;
+   private Long id;
 
-   public java.lang.Long getId()
+   public Long getId()
    {
       return this.id;
    }
 
-   public void setId(java.lang.Long id)
+   public void setId(Long id)
    {
       this.id = id;
    }
@@ -67,7 +67,8 @@ public class CategoryBean implements Serializable
       return this.category;
    }
 
-   public void setCategory(Category category) {
+   public void setCategory(Category category)
+   {
       this.category = category;
    }
 
@@ -107,7 +108,7 @@ public class CategoryBean implements Serializable
       }
    }
 
-   public Category findById(java.lang.Long id)
+   public Category findById(Long id)
    {
 
       return this.entityManager.find(Category.class, id);
@@ -280,7 +281,7 @@ public class CategoryBean implements Serializable
                UIComponent component, String value)
          {
 
-            return ejbProxy.findById(java.lang.Long.valueOf(value));
+            return ejbProxy.findById(Long.valueOf(value));
          }
 
          @Override
