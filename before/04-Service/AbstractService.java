@@ -1,3 +1,5 @@
+package org.agoncal.training.javaee6adv.service;
+
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
 import javax.persistence.TypedQuery;

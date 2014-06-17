@@ -3,8 +3,8 @@
 ## Generate the service tier with JBoss Forge
 
 * Launch JBoss Forge (enter the `$FORGE_HOME/bin/forge` command)
-* Execute the `generate.fsh` script with the command `run ../before/02-Arquillian/generate.fsh` 
 * Go to the `cdbookstore` directory
+* Execute the `generate.fsh` script with the command `run ../before/04-Service/generate.fsh` 
 
 ## Add producers to the Resources class
 
@@ -15,21 +15,24 @@
 ## Write the services
 
 * Copy the files `AbstractService.java`, `MusicianService.java` and `PublisherService.java` to `cdbookstore/src/test/java/org/agoncal/training/javaee6adv/service`
-* `run -c "cp before/04-Service/PublisherServiceTest.java cdbookstore/src/test/java/org/agoncal/training/javaee6adv/service`
-* `run -c "cp before/04-Service/MusicianService.java cdbookstore/src/test/java/org/agoncal/training/javaee6adv/service`
-* `run -c "cp before/04-Service/PublisherService.java cdbookstore/src/test/java/org/agoncal/training/javaee6adv/service`
+* `cp ../before/04-Service/AbstractService.java src/main/java/org/agoncal/training/javaee6adv/service`
+* `cp ../before/04-Service/MusicianService.java src/main/java/org/agoncal/training/javaee6adv/service`
+* `cp ../before/04-Service/PublisherService.java src/main/java/org/agoncal/training/javaee6adv/service`
 * Code the other services following the same logic until all the tests pass
-* Services should extend `AbstractService`
-* Add the produced `EntityManager` to the services
+* Services should extend `AbstractService` (which uses the produced `EntityManager`) 
+* Each service overides the `getSearchPredicates` method
 
-## Refactor the code
+## Refactor the JSF backing beans and REST endpoints
 
-* In REST enpoints get rid of `EntityManager` and instead call the services
-* In JSF backing beans get rid of `EntityManager` and instead call the services
+* In REST enpoints get rid of `EntityManager` and instead inject the appropriate service
+* In JSF backing beans get rid of `EntityManager` and instead inject the appropriate service
 * In JSF Backing beans get rid of `SessionContext` (why do we have `sessionContext.getBusinessObject(AuthorBean.class)`)
 * These components don't need to be transactional now
 
-## Code the services until the tests pass
+## Write the service tests
+
+* `cp ../before/04-Service/PublisherServiceTest.java cdbookstore/src/test/java/org/agoncal/training/javaee6adv/service`
+* `cp ../before/04-Service/MusicianService.java cdbookstore/src/test/java/org/agoncal/training/javaee6adv/service`
 
 ## Execute the tests in a remote environment until all tests pass
 
