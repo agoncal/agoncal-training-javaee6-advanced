@@ -47,6 +47,10 @@
 * `cp ../before/04-Service/PublisherServiceTest.java cdbookstore/src/test/java/org/agoncal/training/javaee6adv/service`
 * Code the other tests following the same logic until all the tests pass
 
+## Refactor the backing beans tests
+
+* JSF backing beans need now to add service dependencies in the packaging (`Resources`, `AbstractService`, `AuthorService`)
+
 ## Execute the tests in a remote environment
 
 * Start WildFly (`$WILDFLY_HOME/bin/standalone.sh`)

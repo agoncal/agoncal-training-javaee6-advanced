@@ -1,11 +1,8 @@
 package org.agoncal.training.javaee6adv.view;
 
 import java.io.Serializable;
-import java.util.ArrayList;
 import java.util.List;
 
-import javax.annotation.Resource;
-import javax.ejb.SessionContext;
 import javax.enterprise.context.Conversation;
 import javax.enterprise.context.ConversationScoped;
 import javax.faces.application.FacesMessage;
@@ -14,14 +11,8 @@ import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
 import javax.inject.Inject;
 import javax.inject.Named;
-import javax.persistence.TypedQuery;
-import javax.persistence.criteria.CriteriaBuilder;
-import javax.persistence.criteria.CriteriaQuery;
-import javax.persistence.criteria.Predicate;
-import javax.persistence.criteria.Root;
 
 import org.agoncal.training.javaee6adv.model.Author;
-import org.agoncal.training.javaee6adv.model.Language;
 import org.agoncal.training.javaee6adv.service.AuthorService;
 
 /**
@@ -36,212 +27,241 @@ import org.agoncal.training.javaee6adv.service.AuthorService;
 
 @Named
 @ConversationScoped
-public class AuthorBean implements Serializable {
+public class AuthorBean implements Serializable
+{
 
-	private static final long serialVersionUID = 1L;
+   private static final long serialVersionUID = 1L;
 
-	/*
-	 * Support creating and retrieving Author entities
-	 */
+   /*
+    * Support creating and retrieving Author entities
+    */
 
-	private Long id;
+   private Long id;
 
    public Long getId()
    {
-		return this.id;
-	}
+      return this.id;
+   }
 
    public void setId(Long id)
    {
-		this.id = id;
-	}
+      this.id = id;
+   }
 
-	private Author author;
+   private Author author;
 
    public Author getAuthor()
    {
-		return this.author;
-	}
+      return this.author;
+   }
 
    public void setAuthor(Author author)
    {
       this.author = author;
    }
 
-	@Inject
-	private Conversation conversation;
+   @Inject
+   private Conversation conversation;
 
-	@Inject
-	private AuthorService service;
+   @Inject
+   private AuthorService service;
 
    public String create()
    {
 
-		this.conversation.begin();
-		return "create?faces-redirect=true";
-	}
+      this.conversation.begin();
+      return "create?faces-redirect=true";
+   }
 
    public void retrieve()
    {
 
       if (FacesContext.getCurrentInstance().isPostback())
       {
-			return;
-		}
+         return;
+      }
 
       if (this.conversation.isTransient())
       {
-			this.conversation.begin();
-		}
+         this.conversation.begin();
+      }
 
       if (this.id == null)
       {
-			this.author = this.example;
+         this.author = this.example;
       }
       else
       {
-			this.author = findById(getId());
-		}
-	}
+         this.author = findById(getId());
+      }
+   }
 
    public Author findById(Long id)
    {
 
-		return service.findById(id);
-	}
+      return this.service.findById(id);
+   }
 
-	/*
-	 * Support updating and deleting Author entities
-	 */
+   /*
+    * Support updating and deleting Author entities
+    */
 
-	public String update() {
-		this.conversation.end();
+   public String update()
+   {
+      this.conversation.end();
 
-		try {
-			if (this.id == null) {
-				service.persist(this.author);
-				return "search?faces-redirect=true";
-			} else {
-				service.merge(this.author);
-				return "view?faces-redirect=true&id=" + this.author.getId();
-			}
-		} catch( Exception e ) {
-			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage( e.getMessage() ));
-			return null;
-		}
-	}
+      try
+      {
+         if (this.id == null)
+         {
+            this.service.persist(this.author);
+            return "search?faces-redirect=true";
+         }
+         else
+         {
+            this.service.merge(this.author);
+            return "view?faces-redirect=true&id=" + this.author.getId();
+         }
+      }
+      catch (Exception e)
+      {
+         FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(e.getMessage()));
+         return null;
+      }
+   }
 
-	public String delete() {
-		this.conversation.end();
+   public String delete()
+   {
+      this.conversation.end();
 
-		try {
-		    Author deletableEntity = findById(getId());
-            
-			service.remove(deletableEntity);
-			return "search?faces-redirect=true";
-		} catch( Exception e ) {
-			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage( e.getMessage() ));
-			return null;
-		}
-	}
+      try
+      {
+         Author deletableEntity = findById(getId());
 
-	/*
-	 * Support searching Author entities with pagination
-	 */
+         this.service.remove(deletableEntity);
+         return "search?faces-redirect=true";
+      }
+      catch (Exception e)
+      {
+         FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(e.getMessage()));
+         return null;
+      }
+   }
 
-	private int page;
-	private long count;
-	private List<Author> pageItems;
+   /*
+    * Support searching Author entities with pagination
+    */
 
-	private Author example = new Author();
+   private int page;
+   private long count;
+   private List<Author> pageItems;
 
-	public int getPage() {
-		return this.page;
-	}
+   private Author example = new Author();
 
-	public void setPage(int page) {
-		this.page = page;
-	}
+   public int getPage()
+   {
+      return this.page;
+   }
 
-	public int getPageSize() {
-		return 10;
-	}
+   public void setPage(int page)
+   {
+      this.page = page;
+   }
 
-	public Author getExample() {
-		return this.example;
-	}
+   public int getPageSize()
+   {
+      return 10;
+   }
 
-	public void setExample(Author example) {
-		this.example = example;
-	}
+   public Author getExample()
+   {
+      return this.example;
+   }
 
-	public void search() {
-		this.page = 0;
-	}
+   public void setExample(Author example)
+   {
+      this.example = example;
+   }
 
-	public void paginate() {
+   public void search()
+   {
+      this.page = 0;
+   }
 
-        // Populate this.count
-        this.count = service.count(example);
+   public void paginate()
+   {
 
-        // Populate this.pageItems
-        this.pageItems = service.page(example, page, getPageSize());
-	}
+      // Populate this.count
+      this.count = service.count(example);
 
-	public List<Author> getPageItems() {
-		return this.pageItems;
-	}
+      // Populate this.pageItems
+      this.pageItems = service.page(example, page, getPageSize());
+   }
 
-	public long getCount() {
-		return this.count;
-	}
+   public List<Author> getPageItems()
+   {
+      return this.pageItems;
+   }
 
-	/*
-	 * Support listing and POSTing back Author entities (e.g. from inside an
-	 * HtmlSelectOneMenu)
-	 */
+   public long getCount()
+   {
+      return this.count;
+   }
 
-	public List<Author> getAll() {
-		return service.listAll();
-	}
+   /*
+    * Support listing and POSTing back Author entities (e.g. from inside an
+    * HtmlSelectOneMenu)
+    */
 
-	public Converter getConverter() {
+   public List<Author> getAll()
+   {
+      return service.listAll();
+   }
 
-		return new Converter() {
+   public Converter getConverter()
+   {
 
-			@Override
-			public Object getAsObject(FacesContext context,
-					UIComponent component, String value) {
+      return new Converter()
+      {
 
-				return service.findById(Long.valueOf(value));
-			}
+         @Override
+         public Object getAsObject(FacesContext context,
+               UIComponent component, String value)
+         {
 
-			@Override
-			public String getAsString(FacesContext context,
-					UIComponent component, Object value) {
+            return service.findById(Long.valueOf(value));
+         }
 
-				if (value == null) {
-					return "";
-				}
+         @Override
+         public String getAsString(FacesContext context,
+               UIComponent component, Object value)
+         {
 
-				return String.valueOf(((Author) value).getId());
-			}
-		};
-	}
+            if (value == null)
+            {
+               return "";
+            }
 
-	/*
-	 * Support adding children to bidirectional, one-to-many tables
-	 */
+            return String.valueOf(((Author) value).getId());
+         }
+      };
+   }
 
-	private Author add = new Author();
+   /*
+    * Support adding children to bidirectional, one-to-many tables
+    */
 
-	public Author getAdd() {
-		return this.add;
-	}
+   private Author add = new Author();
 
-	public Author getAdded() {
-		Author added = this.add;
-		this.add = new Author();
-		return added;
-	}
+   public Author getAdd()
+   {
+      return this.add;
+   }
+
+   public Author getAdded()
+   {
+      Author added = this.add;
+      this.add = new Author();
+      return added;
+   }
 }

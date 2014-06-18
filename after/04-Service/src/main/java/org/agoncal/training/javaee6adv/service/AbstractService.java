@@ -37,7 +37,7 @@ public abstract class AbstractService<T> {
     }
 
     public void remove(T entity) {
-        em.remove(entity);
+        em.remove(em.merge(entity));
     }
 
     public T merge(T entity) {

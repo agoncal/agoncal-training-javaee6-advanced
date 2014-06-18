@@ -1,11 +1,8 @@
 package org.agoncal.training.javaee6adv.view;
 
 import java.io.Serializable;
-import java.util.ArrayList;
 import java.util.List;
 
-import javax.annotation.Resource;
-import javax.ejb.SessionContext;
 import javax.enterprise.context.Conversation;
 import javax.enterprise.context.ConversationScoped;
 import javax.faces.application.FacesMessage;
@@ -14,14 +11,8 @@ import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
 import javax.inject.Inject;
 import javax.inject.Named;
-import javax.persistence.TypedQuery;
-import javax.persistence.criteria.CriteriaBuilder;
-import javax.persistence.criteria.CriteriaQuery;
-import javax.persistence.criteria.Predicate;
-import javax.persistence.criteria.Root;
 
 import org.agoncal.training.javaee6adv.model.Book;
-import org.agoncal.training.javaee6adv.model.Language;
 import org.agoncal.training.javaee6adv.service.BookService;
 
 /**
@@ -36,197 +27,241 @@ import org.agoncal.training.javaee6adv.service.BookService;
 
 @Named
 @ConversationScoped
-public class BookBean implements Serializable {
+public class BookBean implements Serializable
+{
 
-	private static final long serialVersionUID = 1L;
+   private static final long serialVersionUID = 1L;
 
-	/*
-	 * Support creating and retrieving Book entities
-	 */
+   /*
+    * Support creating and retrieving Book entities
+    */
 
-	private Long id;
+   private Long id;
 
-	public Long getId() {
-		return this.id;
-	}
+   public Long getId()
+   {
+      return this.id;
+   }
 
-	public void setId(Long id) {
-		this.id = id;
-	}
+   public void setId(Long id)
+   {
+      this.id = id;
+   }
 
-	private Book book;
+   private Book book;
 
-	public Book getBook() {
-		return this.book;
-	}
+   public Book getBook()
+   {
+      return this.book;
+   }
 
-	@Inject
-	private Conversation conversation;
+   public void setBook(Book book)
+   {
+      this.book = book;
+   }
 
-	@Inject
-	private BookService service;
+   @Inject
+   private Conversation conversation;
 
-	public String create() {
+   @Inject
+   private BookService service;
 
-		this.conversation.begin();
-		return "create?faces-redirect=true";
-	}
+   public String create()
+   {
 
-	public void retrieve() {
+      this.conversation.begin();
+      return "create?faces-redirect=true";
+   }
 
-		if (FacesContext.getCurrentInstance().isPostback()) {
-			return;
-		}
+   public void retrieve()
+   {
 
-		if (this.conversation.isTransient()) {
-			this.conversation.begin();
-		}
+      if (FacesContext.getCurrentInstance().isPostback())
+      {
+         return;
+      }
 
-		if (this.id == null) {
-			this.book = this.example;
-		} else {
-			this.book = findById(getId());
-		}
-	}
+      if (this.conversation.isTransient())
+      {
+         this.conversation.begin();
+      }
 
-	public Book findById(Long id) {
+      if (this.id == null)
+      {
+         this.book = this.example;
+      }
+      else
+      {
+         this.book = findById(getId());
+      }
+   }
 
-		return service.findById(id);
-	}
+   public Book findById(Long id)
+   {
 
-	/*
-	 * Support updating and deleting Book entities
-	 */
+      return this.service.findById(id);
+   }
 
-	public String update() {
-		this.conversation.end();
+   /*
+    * Support updating and deleting Book entities
+    */
 
-		try {
-			if (this.id == null) {
-				service.persist(this.book);
-				return "search?faces-redirect=true";
-			} else {
-				service.merge(this.book);
-				return "view?faces-redirect=true&id=" + this.book.getId();
-			}
-		} catch( Exception e ) {
-			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage( e.getMessage() ));
-			return null;
-		}
-	}
+   public String update()
+   {
+      this.conversation.end();
 
-	public String delete() {
-		this.conversation.end();
+      try
+      {
+         if (this.id == null)
+         {
+            this.service.persist(this.book);
+            return "search?faces-redirect=true";
+         }
+         else
+         {
+            this.service.merge(this.book);
+            return "view?faces-redirect=true&id=" + this.book.getId();
+         }
+      }
+      catch (Exception e)
+      {
+         FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(e.getMessage()));
+         return null;
+      }
+   }
 
-		try {
-		    Book deletableEntity = findById(getId());
-            
-			service.remove(deletableEntity);
-			return "search?faces-redirect=true";
-		} catch( Exception e ) {
-			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage( e.getMessage() ));
-			return null;
-		}
-	}
+   public String delete()
+   {
+      this.conversation.end();
 
-	/*
-	 * Support searching Book entities with pagination
-	 */
+      try
+      {
+         Book deletableEntity = findById(getId());
 
-	private int page;
-	private long count;
-	private List<Book> pageItems;
+         this.service.remove(deletableEntity);
+         return "search?faces-redirect=true";
+      }
+      catch (Exception e)
+      {
+         FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(e.getMessage()));
+         return null;
+      }
+   }
 
-	private Book example = new Book();
+   /*
+    * Support searching Book entities with pagination
+    */
 
-	public int getPage() {
-		return this.page;
-	}
+   private int page;
+   private long count;
+   private List<Book> pageItems;
 
-	public void setPage(int page) {
-		this.page = page;
-	}
+   private Book example = new Book();
 
-	public int getPageSize() {
-		return 10;
-	}
+   public int getPage()
+   {
+      return this.page;
+   }
 
-	public Book getExample() {
-		return this.example;
-	}
+   public void setPage(int page)
+   {
+      this.page = page;
+   }
 
-	public void setExample(Book example) {
-		this.example = example;
-	}
+   public int getPageSize()
+   {
+      return 10;
+   }
 
-	public void search() {
-		this.page = 0;
-	}
+   public Book getExample()
+   {
+      return this.example;
+   }
 
-	public void paginate() {
+   public void setExample(Book example)
+   {
+      this.example = example;
+   }
 
-        // Populate this.count
-        this.count = service.count(example);
+   public void search()
+   {
+      this.page = 0;
+   }
 
-        // Populate this.pageItems
-        this.pageItems = service.page(example, page, getPageSize());
-	}
+   public void paginate()
+   {
 
-	public List<Book> getPageItems() {
-		return this.pageItems;
-	}
+      // Populate this.count
+      this.count = service.count(example);
 
-	public long getCount() {
-		return this.count;
-	}
+      // Populate this.pageItems
+      this.pageItems = service.page(example, page, getPageSize());
+   }
 
-	/*
-	 * Support listing and POSTing back Book entities (e.g. from inside an
-	 * HtmlSelectOneMenu)
-	 */
+   public List<Book> getPageItems()
+   {
+      return this.pageItems;
+   }
 
-	public List<Book> getAll() {
+   public long getCount()
+   {
+      return this.count;
+   }
 
-		return service.listAll();
-	}
+   /*
+    * Support listing and POSTing back Book entities (e.g. from inside an
+    * HtmlSelectOneMenu)
+    */
 
-	public Converter getConverter() {
+   public List<Book> getAll()
+   {
+      return service.listAll();
+   }
 
-		return new Converter() {
+   public Converter getConverter()
+   {
 
-			@Override
-			public Object getAsObject(FacesContext context,
-					UIComponent component, String value) {
+      return new Converter()
+      {
 
-				return service.findById(Long.valueOf(value));
-			}
+         @Override
+         public Object getAsObject(FacesContext context,
+               UIComponent component, String value)
+         {
 
-			@Override
-			public String getAsString(FacesContext context,
-					UIComponent component, Object value) {
+            return service.findById(Long.valueOf(value));
+         }
 
-				if (value == null) {
-					return "";
-				}
+         @Override
+         public String getAsString(FacesContext context,
+               UIComponent component, Object value)
+         {
 
-				return String.valueOf(((Book) value).getId());
-			}
-		};
-	}
+            if (value == null)
+            {
+               return "";
+            }
 
-	/*
-	 * Support adding children to bidirectional, one-to-many tables
-	 */
+            return String.valueOf(((Book) value).getId());
+         }
+      };
+   }
 
-	private Book add = new Book();
+   /*
+    * Support adding children to bidirectional, one-to-many tables
+    */
 
-	public Book getAdd() {
-		return this.add;
-	}
+   private Book add = new Book();
 
-	public Book getAdded() {
-		Book added = this.add;
-		this.add = new Book();
-		return added;
-	}
+   public Book getAdd()
+   {
+      return this.add;
+   }
+
+   public Book getAdded()
+   {
+      Book added = this.add;
+      this.add = new Book();
+      return added;
+   }
 }

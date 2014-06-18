@@ -1,12 +1,8 @@
 package org.agoncal.training.javaee6adv.view;
 
 import java.io.Serializable;
-import java.util.ArrayList;
 import java.util.List;
 
-import javax.annotation.Resource;
-import javax.ejb.SessionContext;
-import javax.ejb.Stateful;
 import javax.enterprise.context.Conversation;
 import javax.enterprise.context.ConversationScoped;
 import javax.faces.application.FacesMessage;
@@ -15,14 +11,6 @@ import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
 import javax.inject.Inject;
 import javax.inject.Named;
-import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
-import javax.persistence.PersistenceContextType;
-import javax.persistence.TypedQuery;
-import javax.persistence.criteria.CriteriaBuilder;
-import javax.persistence.criteria.CriteriaQuery;
-import javax.persistence.criteria.Predicate;
-import javax.persistence.criteria.Root;
 
 import org.agoncal.training.javaee6adv.model.Musician;
 import org.agoncal.training.javaee6adv.service.MusicianService;
@@ -39,197 +27,241 @@ import org.agoncal.training.javaee6adv.service.MusicianService;
 
 @Named
 @ConversationScoped
-public class MusicianBean implements Serializable {
+public class MusicianBean implements Serializable
+{
 
-	private static final long serialVersionUID = 1L;
+   private static final long serialVersionUID = 1L;
 
-	/*
-	 * Support creating and retrieving Musician entities
-	 */
+   /*
+    * Support creating and retrieving Musician entities
+    */
 
-	private Long id;
+   private Long id;
 
-	public Long getId() {
-		return this.id;
-	}
+   public Long getId()
+   {
+      return this.id;
+   }
 
-	public void setId(Long id) {
-		this.id = id;
-	}
+   public void setId(Long id)
+   {
+      this.id = id;
+   }
 
-	private Musician musician;
+   private Musician musician;
 
-	public Musician getMusician() {
-		return this.musician;
-	}
+   public Musician getMusician()
+   {
+      return this.musician;
+   }
 
-	@Inject
-	private Conversation conversation;
+   public void setMusician(Musician musician)
+   {
+      this.musician = musician;
+   }
 
-	@Inject
-	private MusicianService service;
+   @Inject
+   private Conversation conversation;
 
-	public String create() {
+   @Inject
+   private MusicianService service;
 
-		this.conversation.begin();
-		return "create?faces-redirect=true";
-	}
+   public String create()
+   {
 
-	public void retrieve() {
+      this.conversation.begin();
+      return "create?faces-redirect=true";
+   }
 
-		if (FacesContext.getCurrentInstance().isPostback()) {
-			return;
-		}
+   public void retrieve()
+   {
 
-		if (this.conversation.isTransient()) {
-			this.conversation.begin();
-		}
+      if (FacesContext.getCurrentInstance().isPostback())
+      {
+         return;
+      }
 
-		if (this.id == null) {
-			this.musician = this.example;
-		} else {
-			this.musician = findById(getId());
-		}
-	}
+      if (this.conversation.isTransient())
+      {
+         this.conversation.begin();
+      }
 
-	public Musician findById(Long id) {
+      if (this.id == null)
+      {
+         this.musician = this.example;
+      }
+      else
+      {
+         this.musician = findById(getId());
+      }
+   }
 
-		return service.findById(id);
-	}
+   public Musician findById(Long id)
+   {
 
-	/*
-	 * Support updating and deleting Musician entities
-	 */
+      return this.service.findById(id);
+   }
 
-	public String update() {
-		this.conversation.end();
+   /*
+    * Support updating and deleting Musician entities
+    */
 
-		try {
-			if (this.id == null) {
-				service.persist(this.musician);
-				return "search?faces-redirect=true";
-			} else {
-				service.merge(this.musician);
-				return "view?faces-redirect=true&id=" + this.musician.getId();
-			}
-		} catch( Exception e ) {
-			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage( e.getMessage() ));
-			return null;
-		}
-	}
+   public String update()
+   {
+      this.conversation.end();
 
-	public String delete() {
-		this.conversation.end();
+      try
+      {
+         if (this.id == null)
+         {
+            this.service.persist(this.musician);
+            return "search?faces-redirect=true";
+         }
+         else
+         {
+            this.service.merge(this.musician);
+            return "view?faces-redirect=true&id=" + this.musician.getId();
+         }
+      }
+      catch (Exception e)
+      {
+         FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(e.getMessage()));
+         return null;
+      }
+   }
 
-		try {
-		    Musician deletableEntity = findById(getId());
-            
-			service.remove(deletableEntity);
-			return "search?faces-redirect=true";
-		} catch( Exception e ) {
-			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage( e.getMessage() ));
-			return null;
-		}
-	}
+   public String delete()
+   {
+      this.conversation.end();
 
-	/*
-	 * Support searching Musician entities with pagination
-	 */
+      try
+      {
+         Musician deletableEntity = findById(getId());
 
-	private int page;
-	private long count;
-	private List<Musician> pageItems;
+         this.service.remove(deletableEntity);
+         return "search?faces-redirect=true";
+      }
+      catch (Exception e)
+      {
+         FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(e.getMessage()));
+         return null;
+      }
+   }
 
-	private Musician example = new Musician();
+   /*
+    * Support searching Musician entities with pagination
+    */
 
-	public int getPage() {
-		return this.page;
-	}
+   private int page;
+   private long count;
+   private List<Musician> pageItems;
 
-	public void setPage(int page) {
-		this.page = page;
-	}
+   private Musician example = new Musician();
 
-	public int getPageSize() {
-		return 10;
-	}
+   public int getPage()
+   {
+      return this.page;
+   }
 
-	public Musician getExample() {
-		return this.example;
-	}
+   public void setPage(int page)
+   {
+      this.page = page;
+   }
 
-	public void setExample(Musician example) {
-		this.example = example;
-	}
+   public int getPageSize()
+   {
+      return 10;
+   }
 
-	public void search() {
-		this.page = 0;
-	}
+   public Musician getExample()
+   {
+      return this.example;
+   }
 
-	public void paginate() {
+   public void setExample(Musician example)
+   {
+      this.example = example;
+   }
 
-        // Populate this.count
-        this.count = service.count(example);
+   public void search()
+   {
+      this.page = 0;
+   }
 
-        // Populate this.pageItems
-        this.pageItems = service.page(example, page, getPageSize());
-	}
+   public void paginate()
+   {
 
-	public List<Musician> getPageItems() {
-		return this.pageItems;
-	}
+      // Populate this.count
+      this.count = service.count(example);
 
-	public long getCount() {
-		return this.count;
-	}
+      // Populate this.pageItems
+      this.pageItems = service.page(example, page, getPageSize());
+   }
 
-	/*
-	 * Support listing and POSTing back Musician entities (e.g. from inside an
-	 * HtmlSelectOneMenu)
-	 */
+   public List<Musician> getPageItems()
+   {
+      return this.pageItems;
+   }
 
-	public List<Musician> getAll() {
+   public long getCount()
+   {
+      return this.count;
+   }
 
-		return service.listAll();
-	}
+   /*
+    * Support listing and POSTing back Musician entities (e.g. from inside an
+    * HtmlSelectOneMenu)
+    */
 
-	public Converter getConverter() {
+   public List<Musician> getAll()
+   {
+      return service.listAll();
+   }
 
-		return new Converter() {
+   public Converter getConverter()
+   {
 
-			@Override
-			public Object getAsObject(FacesContext context,
-					UIComponent component, String value) {
+      return new Converter()
+      {
 
-				return service.findById(Long.valueOf(value));
-			}
+         @Override
+         public Object getAsObject(FacesContext context,
+               UIComponent component, String value)
+         {
 
-			@Override
-			public String getAsString(FacesContext context,
-					UIComponent component, Object value) {
+            return service.findById(Long.valueOf(value));
+         }
 
-				if (value == null) {
-					return "";
-				}
+         @Override
+         public String getAsString(FacesContext context,
+               UIComponent component, Object value)
+         {
 
-				return String.valueOf(((Musician) value).getId());
-			}
-		};
-	}
+            if (value == null)
+            {
+               return "";
+            }
 
-	/*
-	 * Support adding children to bidirectional, one-to-many tables
-	 */
+            return String.valueOf(((Musician) value).getId());
+         }
+      };
+   }
 
-	private Musician add = new Musician();
+   /*
+    * Support adding children to bidirectional, one-to-many tables
+    */
 
-	public Musician getAdd() {
-		return this.add;
-	}
+   private Musician add = new Musician();
 
-	public Musician getAdded() {
-		Musician added = this.add;
-		this.add = new Musician();
-		return added;
-	}
+   public Musician getAdd()
+   {
+      return this.add;
+   }
+
+   public Musician getAdded()
+   {
+      Musician added = this.add;
+      this.add = new Musician();
+      return added;
+   }
 }

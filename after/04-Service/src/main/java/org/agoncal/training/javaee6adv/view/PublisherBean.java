@@ -1,12 +1,8 @@
 package org.agoncal.training.javaee6adv.view;
 
 import java.io.Serializable;
-import java.util.ArrayList;
 import java.util.List;
 
-import javax.annotation.Resource;
-import javax.ejb.SessionContext;
-import javax.ejb.Stateful;
 import javax.enterprise.context.Conversation;
 import javax.enterprise.context.ConversationScoped;
 import javax.faces.application.FacesMessage;
@@ -15,14 +11,6 @@ import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
 import javax.inject.Inject;
 import javax.inject.Named;
-import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
-import javax.persistence.PersistenceContextType;
-import javax.persistence.TypedQuery;
-import javax.persistence.criteria.CriteriaBuilder;
-import javax.persistence.criteria.CriteriaQuery;
-import javax.persistence.criteria.Predicate;
-import javax.persistence.criteria.Root;
 
 import org.agoncal.training.javaee6adv.model.Publisher;
 import org.agoncal.training.javaee6adv.service.PublisherService;
@@ -39,197 +27,241 @@ import org.agoncal.training.javaee6adv.service.PublisherService;
 
 @Named
 @ConversationScoped
-public class PublisherBean implements Serializable {
+public class PublisherBean implements Serializable
+{
 
-	private static final long serialVersionUID = 1L;
+   private static final long serialVersionUID = 1L;
 
-	/*
-	 * Support creating and retrieving Publisher entities
-	 */
+   /*
+    * Support creating and retrieving Publisher entities
+    */
 
-	private Long id;
+   private Long id;
 
-	public Long getId() {
-		return this.id;
-	}
+   public Long getId()
+   {
+      return this.id;
+   }
 
-	public void setId(Long id) {
-		this.id = id;
-	}
+   public void setId(Long id)
+   {
+      this.id = id;
+   }
 
-	private Publisher publisher;
+   private Publisher publisher;
 
-	public Publisher getPublisher() {
-		return this.publisher;
-	}
+   public Publisher getPublisher()
+   {
+      return this.publisher;
+   }
 
-	@Inject
-	private Conversation conversation;
+   public void setPublisher(Publisher publisher)
+   {
+      this.publisher = publisher;
+   }
 
-	@Inject
-	private PublisherService service;
+   @Inject
+   private Conversation conversation;
 
-	public String create() {
+   @Inject
+   private PublisherService service;
 
-		this.conversation.begin();
-		return "create?faces-redirect=true";
-	}
+   public String create()
+   {
 
-	public void retrieve() {
+      this.conversation.begin();
+      return "create?faces-redirect=true";
+   }
 
-		if (FacesContext.getCurrentInstance().isPostback()) {
-			return;
-		}
+   public void retrieve()
+   {
 
-		if (this.conversation.isTransient()) {
-			this.conversation.begin();
-		}
+      if (FacesContext.getCurrentInstance().isPostback())
+      {
+         return;
+      }
 
-		if (this.id == null) {
-			this.publisher = this.example;
-		} else {
-			this.publisher = findById(getId());
-		}
-	}
+      if (this.conversation.isTransient())
+      {
+         this.conversation.begin();
+      }
 
-	public Publisher findById(Long id) {
+      if (this.id == null)
+      {
+         this.publisher = this.example;
+      }
+      else
+      {
+         this.publisher = findById(getId());
+      }
+   }
 
-		return service.findById(id);
-	}
+   public Publisher findById(Long id)
+   {
 
-	/*
-	 * Support updating and deleting Publisher entities
-	 */
+      return this.service.findById(id);
+   }
 
-	public String update() {
-		this.conversation.end();
+   /*
+    * Support updating and deleting Publisher entities
+    */
 
-		try {
-			if (this.id == null) {
-				service.persist(this.publisher);
-				return "search?faces-redirect=true";
-			} else {
-				service.merge(this.publisher);
-				return "view?faces-redirect=true&id=" + this.publisher.getId();
-			}
-		} catch( Exception e ) {
-			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage( e.getMessage() ));
-			return null;
-		}
-	}
+   public String update()
+   {
+      this.conversation.end();
 
-	public String delete() {
-		this.conversation.end();
+      try
+      {
+         if (this.id == null)
+         {
+            this.service.persist(this.publisher);
+            return "search?faces-redirect=true";
+         }
+         else
+         {
+            this.service.merge(this.publisher);
+            return "view?faces-redirect=true&id=" + this.publisher.getId();
+         }
+      }
+      catch (Exception e)
+      {
+         FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(e.getMessage()));
+         return null;
+      }
+   }
 
-		try {
-		    Publisher deletableEntity = findById(getId());
-            
-			service.remove(deletableEntity);
-			return "search?faces-redirect=true";
-		} catch( Exception e ) {
-			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage( e.getMessage() ));
-			return null;
-		}
-	}
+   public String delete()
+   {
+      this.conversation.end();
 
-	/*
-	 * Support searching Publisher entities with pagination
-	 */
+      try
+      {
+         Publisher deletableEntity = findById(getId());
 
-	private int page;
-	private long count;
-	private List<Publisher> pageItems;
+         this.service.remove(deletableEntity);
+         return "search?faces-redirect=true";
+      }
+      catch (Exception e)
+      {
+         FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(e.getMessage()));
+         return null;
+      }
+   }
 
-	private Publisher example = new Publisher();
+   /*
+    * Support searching Publisher entities with pagination
+    */
 
-	public int getPage() {
-		return this.page;
-	}
+   private int page;
+   private long count;
+   private List<Publisher> pageItems;
 
-	public void setPage(int page) {
-		this.page = page;
-	}
+   private Publisher example = new Publisher();
 
-	public int getPageSize() {
-		return 10;
-	}
+   public int getPage()
+   {
+      return this.page;
+   }
 
-	public Publisher getExample() {
-		return this.example;
-	}
+   public void setPage(int page)
+   {
+      this.page = page;
+   }
 
-	public void setExample(Publisher example) {
-		this.example = example;
-	}
+   public int getPageSize()
+   {
+      return 10;
+   }
 
-	public void search() {
-		this.page = 0;
-	}
+   public Publisher getExample()
+   {
+      return this.example;
+   }
 
-	public void paginate() {
+   public void setExample(Publisher example)
+   {
+      this.example = example;
+   }
 
-        // Populate this.count
-        this.count = service.count(example);
+   public void search()
+   {
+      this.page = 0;
+   }
 
-        // Populate this.pageItems
-        this.pageItems = service.page(example, page, getPageSize());
-	}
+   public void paginate()
+   {
 
-	public List<Publisher> getPageItems() {
-		return this.pageItems;
-	}
+      // Populate this.count
+      this.count = service.count(example);
 
-	public long getCount() {
-		return this.count;
-	}
+      // Populate this.pageItems
+      this.pageItems = service.page(example, page, getPageSize());
+   }
 
-	/*
-	 * Support listing and POSTing back Publisher entities (e.g. from inside an
-	 * HtmlSelectOneMenu)
-	 */
+   public List<Publisher> getPageItems()
+   {
+      return this.pageItems;
+   }
 
-	public List<Publisher> getAll() {
+   public long getCount()
+   {
+      return this.count;
+   }
 
-		return service.listAll();
-	}
+   /*
+    * Support listing and POSTing back Publisher entities (e.g. from inside an
+    * HtmlSelectOneMenu)
+    */
 
-	public Converter getConverter() {
+   public List<Publisher> getAll()
+   {
+      return service.listAll();
+   }
 
-		return new Converter() {
+   public Converter getConverter()
+   {
 
-			@Override
-			public Object getAsObject(FacesContext context,
-					UIComponent component, String value) {
+      return new Converter()
+      {
 
-				return service.findById(Long.valueOf(value));
-			}
+         @Override
+         public Object getAsObject(FacesContext context,
+               UIComponent component, String value)
+         {
 
-			@Override
-			public String getAsString(FacesContext context,
-					UIComponent component, Object value) {
+            return service.findById(Long.valueOf(value));
+         }
 
-				if (value == null) {
-					return "";
-				}
+         @Override
+         public String getAsString(FacesContext context,
+               UIComponent component, Object value)
+         {
 
-				return String.valueOf(((Publisher) value).getId());
-			}
-		};
-	}
+            if (value == null)
+            {
+               return "";
+            }
 
-	/*
-	 * Support adding children to bidirectional, one-to-many tables
-	 */
+            return String.valueOf(((Publisher) value).getId());
+         }
+      };
+   }
 
-	private Publisher add = new Publisher();
+   /*
+    * Support adding children to bidirectional, one-to-many tables
+    */
 
-	public Publisher getAdd() {
-		return this.add;
-	}
+   private Publisher add = new Publisher();
 
-	public Publisher getAdded() {
-		Publisher added = this.add;
-		this.add = new Publisher();
-		return added;
-	}
+   public Publisher getAdd()
+   {
+      return this.add;
+   }
+
+   public Publisher getAdded()
+   {
+      Publisher added = this.add;
+      this.add = new Publisher();
+      return added;
+   }
 }

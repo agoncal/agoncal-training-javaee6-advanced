@@ -1,12 +1,8 @@
 package org.agoncal.training.javaee6adv.view;
 
 import java.io.Serializable;
-import java.util.ArrayList;
 import java.util.List;
 
-import javax.annotation.Resource;
-import javax.ejb.SessionContext;
-import javax.ejb.Stateful;
 import javax.enterprise.context.Conversation;
 import javax.enterprise.context.ConversationScoped;
 import javax.faces.application.FacesMessage;
@@ -15,14 +11,6 @@ import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
 import javax.inject.Inject;
 import javax.inject.Named;
-import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
-import javax.persistence.PersistenceContextType;
-import javax.persistence.TypedQuery;
-import javax.persistence.criteria.CriteriaBuilder;
-import javax.persistence.criteria.CriteriaQuery;
-import javax.persistence.criteria.Predicate;
-import javax.persistence.criteria.Root;
 
 import org.agoncal.training.javaee6adv.model.MajorLabel;
 import org.agoncal.training.javaee6adv.service.MajorLabelService;
@@ -39,197 +27,241 @@ import org.agoncal.training.javaee6adv.service.MajorLabelService;
 
 @Named
 @ConversationScoped
-public class MajorLabelBean implements Serializable {
+public class MajorLabelBean implements Serializable
+{
 
-	private static final long serialVersionUID = 1L;
+   private static final long serialVersionUID = 1L;
 
-	/*
-	 * Support creating and retrieving MajorLabel entities
-	 */
+   /*
+    * Support creating and retrieving MajorLabel entities
+    */
 
-	private Long id;
+   private Long id;
 
-	public Long getId() {
-		return this.id;
-	}
+   public Long getId()
+   {
+      return this.id;
+   }
 
-	public void setId(Long id) {
-		this.id = id;
-	}
+   public void setId(Long id)
+   {
+      this.id = id;
+   }
 
-	private MajorLabel majorLabel;
+   private MajorLabel majorLabel;
 
-	public MajorLabel getMajorLabel() {
-		return this.majorLabel;
-	}
+   public MajorLabel getMajorLabel()
+   {
+      return this.majorLabel;
+   }
 
-	@Inject
-	private Conversation conversation;
+   public void setMajorLabel(MajorLabel majorLabel)
+   {
+      this.majorLabel = majorLabel;
+   }
 
-	@Inject
-	private MajorLabelService service;
+   @Inject
+   private Conversation conversation;
 
-	public String create() {
+   @Inject
+   private MajorLabelService service;
 
-		this.conversation.begin();
-		return "create?faces-redirect=true";
-	}
+   public String create()
+   {
 
-	public void retrieve() {
+      this.conversation.begin();
+      return "create?faces-redirect=true";
+   }
 
-		if (FacesContext.getCurrentInstance().isPostback()) {
-			return;
-		}
+   public void retrieve()
+   {
 
-		if (this.conversation.isTransient()) {
-			this.conversation.begin();
-		}
+      if (FacesContext.getCurrentInstance().isPostback())
+      {
+         return;
+      }
 
-		if (this.id == null) {
-			this.majorLabel = this.example;
-		} else {
-			this.majorLabel = findById(getId());
-		}
-	}
+      if (this.conversation.isTransient())
+      {
+         this.conversation.begin();
+      }
 
-	public MajorLabel findById(Long id) {
+      if (this.id == null)
+      {
+         this.majorLabel = this.example;
+      }
+      else
+      {
+         this.majorLabel = findById(getId());
+      }
+   }
 
-		return service.findById(id);
-	}
+   public MajorLabel findById(Long id)
+   {
 
-	/*
-	 * Support updating and deleting MajorLabel entities
-	 */
+      return this.service.findById(id);
+   }
 
-	public String update() {
-		this.conversation.end();
+   /*
+    * Support updating and deleting MajorLabel entities
+    */
 
-		try {
-			if (this.id == null) {
-				service.persist(this.majorLabel);
-				return "search?faces-redirect=true";
-			} else {
-				service.merge(this.majorLabel);
-				return "view?faces-redirect=true&id=" + this.majorLabel.getId();
-			}
-		} catch( Exception e ) {
-			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage( e.getMessage() ));
-			return null;
-		}
-	}
+   public String update()
+   {
+      this.conversation.end();
 
-	public String delete() {
-		this.conversation.end();
+      try
+      {
+         if (this.id == null)
+         {
+            this.service.persist(this.majorLabel);
+            return "search?faces-redirect=true";
+         }
+         else
+         {
+            this.service.merge(this.majorLabel);
+            return "view?faces-redirect=true&id=" + this.majorLabel.getId();
+         }
+      }
+      catch (Exception e)
+      {
+         FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(e.getMessage()));
+         return null;
+      }
+   }
 
-		try {
-		    MajorLabel deletableEntity = findById(getId());
-            
-			service.remove(deletableEntity);
-			return "search?faces-redirect=true";
-		} catch( Exception e ) {
-			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage( e.getMessage() ));
-			return null;
-		}
-	}
+   public String delete()
+   {
+      this.conversation.end();
 
-	/*
-	 * Support searching MajorLabel entities with pagination
-	 */
+      try
+      {
+         MajorLabel deletableEntity = findById(getId());
 
-	private int page;
-	private long count;
-	private List<MajorLabel> pageItems;
+         this.service.remove(deletableEntity);
+         return "search?faces-redirect=true";
+      }
+      catch (Exception e)
+      {
+         FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(e.getMessage()));
+         return null;
+      }
+   }
 
-	private MajorLabel example = new MajorLabel();
+   /*
+    * Support searching MajorLabel entities with pagination
+    */
 
-	public int getPage() {
-		return this.page;
-	}
+   private int page;
+   private long count;
+   private List<MajorLabel> pageItems;
 
-	public void setPage(int page) {
-		this.page = page;
-	}
+   private MajorLabel example = new MajorLabel();
 
-	public int getPageSize() {
-		return 10;
-	}
+   public int getPage()
+   {
+      return this.page;
+   }
 
-	public MajorLabel getExample() {
-		return this.example;
-	}
+   public void setPage(int page)
+   {
+      this.page = page;
+   }
 
-	public void setExample(MajorLabel example) {
-		this.example = example;
-	}
+   public int getPageSize()
+   {
+      return 10;
+   }
 
-	public void search() {
-		this.page = 0;
-	}
+   public MajorLabel getExample()
+   {
+      return this.example;
+   }
 
-	public void paginate() {
+   public void setExample(MajorLabel example)
+   {
+      this.example = example;
+   }
 
-        // Populate this.count
-        this.count = service.count(example);
+   public void search()
+   {
+      this.page = 0;
+   }
 
-        // Populate this.pageItems
-        this.pageItems = service.page(example, page, getPageSize());
-	}
+   public void paginate()
+   {
 
-	public List<MajorLabel> getPageItems() {
-		return this.pageItems;
-	}
+      // Populate this.count
+      this.count = service.count(example);
 
-	public long getCount() {
-		return this.count;
-	}
+      // Populate this.pageItems
+      this.pageItems = service.page(example, page, getPageSize());
+   }
 
-	/*
-	 * Support listing and POSTing back MajorLabel entities (e.g. from inside an
-	 * HtmlSelectOneMenu)
-	 */
+   public List<MajorLabel> getPageItems()
+   {
+      return this.pageItems;
+   }
 
-	public List<MajorLabel> getAll() {
+   public long getCount()
+   {
+      return this.count;
+   }
 
-		return service.listAll();
-	}
+   /*
+    * Support listing and POSTing back MajorLabel entities (e.g. from inside an
+    * HtmlSelectOneMenu)
+    */
 
-	public Converter getConverter() {
+   public List<MajorLabel> getAll()
+   {
+      return service.listAll();
+   }
 
-		return new Converter() {
+   public Converter getConverter()
+   {
 
-			@Override
-			public Object getAsObject(FacesContext context,
-					UIComponent component, String value) {
+      return new Converter()
+      {
 
-				return service.findById(Long.valueOf(value));
-			}
+         @Override
+         public Object getAsObject(FacesContext context,
+               UIComponent component, String value)
+         {
 
-			@Override
-			public String getAsString(FacesContext context,
-					UIComponent component, Object value) {
+            return service.findById(Long.valueOf(value));
+         }
 
-				if (value == null) {
-					return "";
-				}
+         @Override
+         public String getAsString(FacesContext context,
+               UIComponent component, Object value)
+         {
 
-				return String.valueOf(((MajorLabel) value).getId());
-			}
-		};
-	}
+            if (value == null)
+            {
+               return "";
+            }
 
-	/*
-	 * Support adding children to bidirectional, one-to-many tables
-	 */
+            return String.valueOf(((MajorLabel) value).getId());
+         }
+      };
+   }
 
-	private MajorLabel add = new MajorLabel();
+   /*
+    * Support adding children to bidirectional, one-to-many tables
+    */
 
-	public MajorLabel getAdd() {
-		return this.add;
-	}
+   private MajorLabel add = new MajorLabel();
 
-	public MajorLabel getAdded() {
-		MajorLabel added = this.add;
-		this.add = new MajorLabel();
-		return added;
-	}
+   public MajorLabel getAdd()
+   {
+      return this.add;
+   }
+
+   public MajorLabel getAdded()
+   {
+      MajorLabel added = this.add;
+      this.add = new MajorLabel();
+      return added;
+   }
 }
