@@ -58,4 +58,16 @@ public class PublisherBeanTest {
       publisher = publisherbean.findById(publisher.getId());
       assertNull(publisher);
    }
+
+   @Test
+   public void should_paginate()
+   {
+      // Creates an empty example
+      Publisher example = new Publisher();
+
+      // Paginates through the example
+      publisherbean.setExample(example);
+      publisherbean.paginate();
+      assertEquals(publisherbean.getCount(), publisherbean.getPageItems().size());
+   }
 }

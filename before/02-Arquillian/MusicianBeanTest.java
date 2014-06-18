@@ -63,4 +63,16 @@ public class MusicianBeanTest
       musician = musicianbean.findById(musician.getId());
       assertNull(musician);
    }
+
+   @Test
+   public void should_paginate()
+   {
+      // Creates an empty example
+      Musician example = new Musician();
+
+      // Paginates through the example
+      musicianbean.setExample(example);
+      musicianbean.paginate();
+      assertEquals(musicianbean.getCount(), musicianbean.getPageItems().size());
+   }
 }

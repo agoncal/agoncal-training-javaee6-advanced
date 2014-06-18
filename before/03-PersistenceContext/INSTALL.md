@@ -42,4 +42,6 @@
 
 ## Execute the tests in a remote environment
 
+* Start WildFly (`$WILDFLY_HOME/bin/standalone.sh`)
+* Make sure WildFly has enough memory `-Xms64m -Xmx1024m -XX:MaxPermSize=512m -Djava.net.preferIPv4Stack=true`
 * `mvn -Parquillian-wildfly-remote test` will execute the tests with WildFly up and running and with the application deployed

@@ -24,18 +24,33 @@
 
 ## Refactor the JSF backing beans and REST endpoints
 
+### REST endpoints
+
 * In REST enpoints get rid of `EntityManager` and instead inject the appropriate service
+* REST enpoints don't need to be transactional now
+
+### JSF backing beans
+
 * In JSF backing beans get rid of `EntityManager` and instead inject the appropriate service
-* In JSF Backing beans get rid of `SessionContext` (why do we have `sessionContext.getBusinessObject(AuthorBean.class)`)
-* These components don't need to be transactional now
+* Each call to the `entityManager` variable has to be replaced by a call to the service (eg. `entityManager.find` replaced by `service.findById`)
+* Why can we get rid of the `entityManager.flush` call ?
+* Methods `getSearchPredicates` are move to the services
+* To `paginate` user `service.count` and `service.page`
+* Remove `SessionContext` (why do we have `sessionContext.getBusinessObject(AuthorBean.class)`)
+* Remove `ejbProxy` and replace `ejbProxy.findById` by `service.findById`  
+* Backing beans don't need to be transactional now
 
 ## Write the service tests
 
-* `cp ../before/04-Service/PublisherServiceTest.java cdbookstore/src/test/java/org/agoncal/training/javaee6adv/service`
+* Copy the files `MusicianService.java` and `PublisherServiceTest.java` to the `service` package
 * `cp ../before/04-Service/MusicianService.java cdbookstore/src/test/java/org/agoncal/training/javaee6adv/service`
+* `cp ../before/04-Service/PublisherServiceTest.java cdbookstore/src/test/java/org/agoncal/training/javaee6adv/service`
+* Code the other tests following the same logic until all the tests pass
 
-## Execute the tests in a remote environment until all tests pass
+## Execute the tests in a remote environment
 
+* Start WildFly (`$WILDFLY_HOME/bin/standalone.sh`)
+* Make sure WildFly has enough memory `-Xms64m -Xmx1024m -XX:MaxPermSize=512m -Djava.net.preferIPv4Stack=true`
 * `mvn -Parquillian-wildfly-remote test` will execute the tests with WildFly up and running and with the application deployed
 * If you have the following error, it's because you are not using the Arquillian Maven profile `DeploymentScenario contains a target (_DEFAULT_) not matching any defined Container in the registry`
 * `NoClassDefFoundError` means that your ShrinkWrap packaging misses some classes (check the `createDeployment` method) 
@@ -43,7 +58,7 @@
 
 ## Debug the tests if needed
 
-* Make sure JBoss has the debug settings `JAVA_OPTS="$JAVA_OPTS -agentlib:jdwp=transport=dt_socket,address=8787,server=y,suspend=n"`
+* Make sure WildFly has the debug settings `JAVA_OPTS="$JAVA_OPTS -agentlib:jdwp=transport=dt_socket,address=8787,server=y,suspend=n"`
 
 ## Build the application
 
