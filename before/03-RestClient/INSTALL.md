@@ -61,8 +61,8 @@
 
 * In the `Main` create a method that creates one book given some JSON
 * Method `private static void createBook()`
-* JSon to be past `String json = "{\"title\":\"Dummy Title\",\"price\":29.99,\"description\":\"Dummy Description\",\"isbn\":\"1430258489\",\"nbOfPages\":240,\"publicationDate\":\"2013-06-26\"}";`
-* `Response response = target.request(MediaType.APPLICATION_JSON).post(Entity.json(json));`
+* Create this JSon String with `Json.createObjectBuilder()` = `String json = "{\"title\":\"Dummy Title\",\"price\":29.99,\"description\":\"Dummy Description\",\"isbn\":\"1430258489\",\"nbOfPages\":240,\"publicationDate\":\"2013-06-26\"}";`
+* `Response response = target.request(MediaType.APPLICATION_JSON).post(Entity.json(json.toString()));`
 * Display the location `System.out.println(response.getLocation());`
 
 ## Find a book given an id

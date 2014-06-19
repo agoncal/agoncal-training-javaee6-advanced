@@ -8,3 +8,4 @@ project-new --named cdbookclient --topLevelPackage org.agoncal.training.javaee6a
 #  ##################  #
 
 project-add-dependencies org.jboss.resteasy:resteasy-client:3.0.8.Final ;
+project-add-dependencies org.glassfish:javax.json:1.0.4 ;
