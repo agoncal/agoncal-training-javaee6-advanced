@@ -80,3 +80,7 @@
 
 * With a browser go to [http://localhost:8080/cdbookstore]()
 
+## Check the CDBook-Client application is running
+
+* Go to `cdbookclient` directory
+* Run `mvn install` which executes the `Main` class

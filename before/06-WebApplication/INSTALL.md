@@ -38,5 +38,9 @@
 
 ## Check WebJar and JSF Resources
 
+## Check the CDBook-Client application is running
+
+* Go to `cdbookclient` directory
+* Run `mvn install` which executes the `Main` class
 
 
