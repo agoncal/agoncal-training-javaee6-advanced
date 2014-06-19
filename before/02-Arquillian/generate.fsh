@@ -1,6 +1,3 @@
-#  #######################  #
-#  Adding Arquillian Tests  #
-#  #######################  #
 
 # Install Arquillian add-on
 # addon-install --groupId org.arquillian.forge --name arquillian-addon --version 1.0.0-SNAPSHOT
@@ -16,3 +13,8 @@ arquillian-create-test --value cdbookstore/src/main/java/org/agoncal/training/ja
 arquillian-create-test --value cdbookstore/src/main/java/org/agoncal/training/javaee6adv/view/CDBean.java
 arquillian-create-test --value cdbookstore/src/main/java/org/agoncal/training/javaee6adv/view/GenreBean.java
 arquillian-create-test --value cdbookstore/src/main/java/org/agoncal/training/javaee6adv/view/MajorLabelBean.java
+
+arquillian-create-test --value cdbookstore/src/main/java/org/agoncal/training/javaee6adv/rest/AuthorEndpoint.java
+arquillian-create-test --value cdbookstore/src/main/java/org/agoncal/training/javaee6adv/rest/BookEndpoint.java
+arquillian-create-test --value cdbookstore/src/main/java/org/agoncal/training/javaee6adv/rest/CDEndpoint.java
+arquillian-create-test --value cdbookstore/src/main/java/org/agoncal/training/javaee6adv/rest/MusicianEndpoint.java

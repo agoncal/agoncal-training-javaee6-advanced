@@ -2,6 +2,8 @@
 
 ## Install the Arquillian Addon on Forge
 
+* In Forge, execute the following command `addon-install-from-git --url https://github.com/aslakknutsen/plugin-arquillian.git  --branch forge2`
+
 ## Generate the project with JBoss Forge
 
 * Launch JBoss Forge (enter the `$FORGE_HOME/bin/forge` command)
@@ -15,6 +17,13 @@
 * `cp ../before/02-Arquillian/PublisherBeanTest.java cdbookstore/src/test/java/org/agoncal/training/javaee6adv/view`
 * `cp ../before/02-Arquillian/MusicianBeanTest.java cdbookstore/src/test/java/org/agoncal/training/javaee6adv/view`
 * Code the other tests following the same logic until all the tests pass
+
+## Write the REST endpoints tests
+
+* Copy the files `MusicianEndpointTest.java` to the `rest` package
+* `cp ../before/02-Arquillian/MusicianEndpointTest.java cdbookstore/src/test/java/org/agoncal/training/javaee6adv/rest`
+* Code the other tests following the same logic until all the tests pass
+* Notice that the Arquillian tests are `@RunAsClient`
 
 ## Execute the tests in a remote environment
 

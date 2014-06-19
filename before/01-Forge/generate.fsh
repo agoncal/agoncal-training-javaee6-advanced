@@ -186,4 +186,5 @@ project-remove-managed-dependencies javax.annotation:jsr250-api:jar::1.0 ;
 project-remove-managed-dependencies org.jboss.spec.javax.faces:jboss-jsf-api_2.0_spec:jar::1.0.0.Final ;
 project-remove-managed-dependencies org.jboss.spec:jboss-javaee-6.0:pom::3.0.2.Final ;
 
-project-add-dependencies javax:javaee-api:6.0:provided:jar ;
+project-add-dependencies org.jboss.spec:jboss-javaee-6.0:3.0.2.Final:provided:pom ;
+project-add-dependencies org.jboss.resteasy:resteasy-client:3.0.8.Final:test:jar ;
