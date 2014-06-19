@@ -2,7 +2,6 @@ package org.agoncal.training.javaee6adv.rest;
 
 import java.util.List;
 
-import javax.ejb.Stateless;
 import javax.inject.Inject;
 import javax.ws.rs.*;
 import javax.ws.rs.core.Response;
@@ -14,7 +13,6 @@ import org.agoncal.training.javaee6adv.service.AuthorService;
 /**
  * 
  */
-@Stateless
 @Path("/authors")
 public class AuthorEndpoint
 {
