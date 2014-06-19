@@ -3,7 +3,7 @@
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
   <modelVersion>4.0.0</modelVersion>
   <groupId>org.agoncal.training.javaee6.advanced.after</groupId>
-  <artifactId>03-PersistenceContext</artifactId>
+  <artifactId>04-PersistenceContext</artifactId>
   <version>1.0.0-SNAPSHOT</version>
   <packaging>war</packaging>
   <properties>
