@@ -79,6 +79,6 @@ public class GenreBeanTest
       // Paginates through the example
       genrebean.setExample(example);
       genrebean.paginate();
-      assertEquals(genrebean.getCount(), genrebean.getPageItems().size());
+      assertTrue((genrebean.getPageItems().size()==genrebean.getPageSize()) || (genrebean.getPageItems().size()==genrebean.getCount()));
    }
 }

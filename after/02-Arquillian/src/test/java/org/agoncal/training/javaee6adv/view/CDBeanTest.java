@@ -79,6 +79,6 @@ public class CDBeanTest
       // Paginates through the example
       cdbean.setExample(example);
       cdbean.paginate();
-      assertEquals(cdbean.getCount(), cdbean.getPageItems().size());
+      assertTrue((cdbean.getPageItems().size()==cdbean.getPageSize()) || (cdbean.getPageItems().size()==cdbean.getCount()));
    }
 }

@@ -75,5 +75,4 @@ public class BookService extends AbstractService<Book> implements Serializable {
 
         return predicatesList.toArray(new Predicate[predicatesList.size()]);
     }
-
 }

@@ -4,7 +4,7 @@
 
 * Launch JBoss Forge (enter the `$FORGE_HOME/bin/forge` command)
 * Go to the `cdbookstore` directory
-* Execute the `generate.fsh` script with the command `run ../before/04-Service/generate.fsh` 
+* Execute the `generate.fsh` script with the command `run ../before/05-Service/generate.fsh` 
 
 ## Add producers to the Resources class
 

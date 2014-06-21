@@ -2,6 +2,7 @@
 
 ## Add JSON support in CDBook-Store
 
+* In the REST endpoints :
 * Replace all the `@Consumes("application/xml")` with `@Consumes({"application/xml","application/json"})`
 * Replace all the `@Produces("application/xml")` with `@Produces({"application/xml","application/json"})`
 

@@ -15,7 +15,10 @@ import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
 import javax.inject.Inject;
 import javax.inject.Named;
-import javax.persistence.*;
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
+import javax.persistence.PersistenceContextType;
+import javax.persistence.TypedQuery;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Predicate;
@@ -47,14 +50,14 @@ public class CDBean implements Serializable
     * Support creating and retrieving CD entities
     */
 
-   private java.lang.Long id;
+   private Long id;
 
-   public java.lang.Long getId()
+   public Long getId()
    {
       return this.id;
    }
 
-   public void setId(java.lang.Long id)
+   public void setId(Long id)
    {
       this.id = id;
    }
@@ -66,7 +69,8 @@ public class CDBean implements Serializable
       return this.CD;
    }
 
-   public void setCD(CD CD) {
+   public void setCD(CD CD)
+   {
       this.CD = CD;
    }
 
@@ -106,7 +110,7 @@ public class CDBean implements Serializable
       }
    }
 
-   public CD findById(java.lang.Long id)
+   public CD findById(Long id)
    {
 
       TypedQuery<CD> findByIdQuery = this.entityManager.createQuery("SELECT DISTINCT c FROM CD c LEFT JOIN FETCH c.label LEFT JOIN FETCH c.genre LEFT JOIN FETCH c.musicians WHERE c.id = :entityId ORDER BY c.id", CD.class);
@@ -307,7 +311,7 @@ public class CDBean implements Serializable
                UIComponent component, String value)
          {
 
-            return ejbProxy.findById(java.lang.Long.valueOf(value));
+            return ejbProxy.findById(Long.valueOf(value));
          }
 
          @Override

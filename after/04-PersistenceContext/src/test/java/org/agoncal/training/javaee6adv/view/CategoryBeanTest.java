@@ -77,6 +77,6 @@ public class CategoryBeanTest
       // Paginates through the example
       categorybean.setExample(example);
       categorybean.paginate();
-      assertEquals(categorybean.getCount(), categorybean.getPageItems().size());
+      assertTrue((categorybean.getPageItems().size()==categorybean.getPageSize()) || (categorybean.getPageItems().size()==categorybean.getCount()));
    }
 }

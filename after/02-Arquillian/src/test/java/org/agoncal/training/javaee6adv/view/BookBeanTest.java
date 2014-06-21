@@ -77,6 +77,6 @@ public class BookBeanTest
       // Paginates through the example
       bookbean.setExample(example);
       bookbean.paginate();
-      assertEquals(bookbean.getCount(), bookbean.getPageItems().size());
+      assertTrue((bookbean.getPageItems().size()==bookbean.getPageSize()) || (bookbean.getPageItems().size()==bookbean.getCount()));
    }
 }

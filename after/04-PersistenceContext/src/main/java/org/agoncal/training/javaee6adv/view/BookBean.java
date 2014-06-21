@@ -15,7 +15,10 @@ import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
 import javax.inject.Inject;
 import javax.inject.Named;
-import javax.persistence.*;
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
+import javax.persistence.PersistenceContextType;
+import javax.persistence.TypedQuery;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Predicate;
@@ -46,14 +49,14 @@ public class BookBean implements Serializable
     * Support creating and retrieving Book entities
     */
 
-   private java.lang.Long id;
+   private Long id;
 
-   public java.lang.Long getId()
+   public Long getId()
    {
       return this.id;
    }
 
-   public void setId(java.lang.Long id)
+   public void setId(Long id)
    {
       this.id = id;
    }
@@ -65,7 +68,8 @@ public class BookBean implements Serializable
       return this.book;
    }
 
-   public void setBook(Book book) {
+   public void setBook(Book book)
+   {
       this.book = book;
    }
 
@@ -105,7 +109,7 @@ public class BookBean implements Serializable
       }
    }
 
-   public Book findById(java.lang.Long id)
+   public Book findById(Long id)
    {
 
       TypedQuery<Book> findByIdQuery = this.entityManager.createQuery("SELECT DISTINCT b FROM Book b LEFT JOIN FETCH b.category LEFT JOIN FETCH b.author LEFT JOIN FETCH b.publisher WHERE b.id = :entityId ORDER BY b.id", Book.class);
@@ -306,7 +310,7 @@ public class BookBean implements Serializable
                UIComponent component, String value)
          {
 
-            return ejbProxy.findById(java.lang.Long.valueOf(value));
+            return ejbProxy.findById(Long.valueOf(value));
          }
 
          @Override

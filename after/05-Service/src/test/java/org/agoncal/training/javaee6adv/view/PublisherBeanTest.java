@@ -75,6 +75,6 @@ public class PublisherBeanTest {
       // Paginates through the example
       publisherbean.setExample(example);
       publisherbean.paginate();
-      assertEquals(publisherbean.getCount(), publisherbean.getPageItems().size());
+      assertTrue((publisherbean.getPageItems().size()==publisherbean.getPageSize()) || (publisherbean.getPageItems().size()==publisherbean.getCount()));
    }
 }

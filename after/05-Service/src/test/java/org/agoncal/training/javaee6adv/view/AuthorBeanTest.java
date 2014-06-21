@@ -82,6 +82,6 @@ public class AuthorBeanTest
       // Paginates through the example
       authorbean.setExample(example);
       authorbean.paginate();
-      assertEquals(authorbean.getCount(), authorbean.getPageItems().size());
+      assertTrue((authorbean.getPageItems().size()==authorbean.getPageSize()) || (authorbean.getPageItems().size()==authorbean.getCount()));
    }
 }

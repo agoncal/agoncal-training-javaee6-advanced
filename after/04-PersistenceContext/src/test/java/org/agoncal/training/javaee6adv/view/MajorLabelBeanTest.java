@@ -73,6 +73,6 @@ public class MajorLabelBeanTest
       // Paginates through the example
       majorlabelbean.setExample(example);
       majorlabelbean.paginate();
-      assertEquals(majorlabelbean.getCount(), majorlabelbean.getPageItems().size());
+      assertTrue((majorlabelbean.getPageItems().size()==majorlabelbean.getPageSize()) || (majorlabelbean.getPageItems().size()==majorlabelbean.getCount()));
    }
 }
