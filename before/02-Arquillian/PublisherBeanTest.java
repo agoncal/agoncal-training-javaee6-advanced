@@ -12,6 +12,7 @@ import org.junit.runner.RunWith;
 import javax.inject.Inject;
 
 import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
 
 @RunWith(Arquillian.class)
 public class PublisherBeanTest {
@@ -68,6 +69,6 @@ public class PublisherBeanTest {
       // Paginates through the example
       publisherbean.setExample(example);
       publisherbean.paginate();
-      assertEquals(publisherbean.getCount(), publisherbean.getPageItems().size());
+      assertTrue((publisherbean.getPageItems().size()==publisherbean.getPageSize()) || (publisherbean.getPageItems().size()==publisherbean.getCount()));
    }
 }

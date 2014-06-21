@@ -73,6 +73,6 @@ public class MusicianBeanTest
       // Paginates through the example
       musicianbean.setExample(example);
       musicianbean.paginate();
-      assertEquals(musicianbean.getCount(), musicianbean.getPageItems().size());
+      assertTrue((musicianbean.getPageItems().size()==musicianbean.getPageSize()) || (musicianbean.getPageItems().size()==musicianbean.getCount()));
    }
 }
