@@ -59,3 +59,6 @@
 
 * With a browser go to [http://localhost:8080/cdbookstore]()
 
+## Backup your code
+
+* Save a backup of your code at `../after/02-Arquillian/`

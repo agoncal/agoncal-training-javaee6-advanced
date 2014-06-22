@@ -84,3 +84,7 @@
 
 * Go to `cdbookclient` directory
 * Run `mvn install` which executes the `Main` class
+
+## Backup your code
+
+* Save a backup of your code at `../after/05-Service/`

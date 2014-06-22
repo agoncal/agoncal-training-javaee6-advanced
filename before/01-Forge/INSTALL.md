@@ -58,3 +58,7 @@
 * Use the JPA `Predicate` and `CriteriaBuilder` APIs
 * Configuration done with `RestApplication`
 * Methods return the `Response` API
+
+## Backup your code
+
+* Save a backup of your code at `../after/01-Forge/`
