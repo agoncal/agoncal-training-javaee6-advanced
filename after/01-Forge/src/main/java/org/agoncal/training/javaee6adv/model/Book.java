@@ -49,6 +49,9 @@ public class Book implements Serializable
    @Size(min = 1, max = 3000)
    private String description;
 
+   @Column(name = "image_url")
+   private String imageURL;
+
    @Column(length = 15)
    @NotNull
    private String isbn;
@@ -64,9 +67,6 @@ public class Book implements Serializable
 
    @Enumerated
    private Language language;
-
-   @Column(name = "image_url")
-   private String imageURL;
 
    @ManyToOne
    private Category category;
@@ -158,6 +158,16 @@ public class Book implements Serializable
       this.description = description;
    }
 
+   public String getImageURL()
+   {
+      return imageURL;
+   }
+
+   public void setImageURL(String imageURL)
+   {
+      this.imageURL = imageURL;
+   }
+
    public String getIsbn()
    {
       return isbn;
@@ -198,16 +208,6 @@ public class Book implements Serializable
       this.language = language;
    }
 
-   public String getImageURL()
-   {
-      return imageURL;
-   }
-
-   public void setImageURL(String imageURL)
-   {
-      this.imageURL = imageURL;
-   }
-
    @Override
    public String toString()
    {
@@ -221,6 +221,8 @@ public class Book implements Serializable
          result += ", price: " + price;
       if (description != null && !description.trim().isEmpty())
          result += ", description: " + description;
+      if (imageURL != null && !imageURL.trim().isEmpty())
+         result += ", imageURL: " + imageURL;
       if (isbn != null && !isbn.trim().isEmpty())
          result += ", isbn: " + isbn;
       if (nbOfPages != null)
@@ -229,8 +231,6 @@ public class Book implements Serializable
          result += ", publicationDate: " + publicationDate;
       if (language != null)
          result += ", language: " + language;
-      if (imageURL != null && !imageURL.trim().isEmpty())
-         result += ", imageURL: " + imageURL;
       return result;
    }
 

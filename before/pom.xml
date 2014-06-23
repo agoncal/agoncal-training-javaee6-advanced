@@ -10,10 +10,14 @@
     <modules>
         <module>01-Forge</module>
         <module>02-Arquillian</module>
-        <module>03-RestClient</module>
-        <module>04-PersistenceContext</module>
-        <module>05-Service</module>
-        <module>06-WebApplication</module>
+        <module>03-Domain</module>
+        <module>04-RestClient</module>
+        <module>05-PersistenceContext</module>
+        <module>06-Service</module>
+        <module>07-WebApplication</module>
+        <module>08-ShoppingCart</module>
+        <module>09-Events</module>
+        <module>10-Postgres</module>
     </modules>
 
 </project>

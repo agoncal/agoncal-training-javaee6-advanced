@@ -25,7 +25,6 @@ import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
 
 import org.agoncal.training.javaee6adv.model.Book;
-import org.agoncal.training.javaee6adv.model.Language;
 
 /**
  * Backing bean for Book entities.
@@ -243,6 +242,11 @@ public class BookBean implements Serializable
       {
          predicatesList.add(builder.like(builder.lower(root.<String> get("description")), '%' + description.toLowerCase() + '%'));
       }
+      String imageURL = this.example.getImageURL();
+      if (imageURL != null && !"".equals(imageURL))
+      {
+         predicatesList.add(builder.like(builder.lower(root.<String> get("imageURL")), '%' + imageURL.toLowerCase() + '%'));
+      }
       String isbn = this.example.getIsbn();
       if (isbn != null && !"".equals(isbn))
       {
@@ -252,11 +256,6 @@ public class BookBean implements Serializable
       if (nbOfPages != null && nbOfPages.intValue() != 0)
       {
          predicatesList.add(builder.equal(root.get("nbOfPages"), nbOfPages));
-      }
-      Language language = this.example.getLanguage();
-      if (language != null)
-      {
-         predicatesList.add(builder.equal(root.get("language"), language));
       }
 
       return predicatesList.toArray(new Predicate[predicatesList.size()]);

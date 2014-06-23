@@ -55,6 +55,12 @@
 					<h:message for="bookBeanBookDescription" styleClass="error"/>
 				</h:panelGroup>
 				<h:outputText/>
+				<h:outputLabel for="bookBeanBookImageURL" value="Image URL:"/>
+				<h:panelGroup>
+					<h:inputText id="bookBeanBookImageURL" value="#{bookBean.book.imageURL}"/>
+					<h:message for="bookBeanBookImageURL" styleClass="error"/>
+				</h:panelGroup>
+				<h:outputText/>
 				<h:outputLabel for="bookBeanBookIsbn" value="Isbn:"/>
 				<h:panelGroup>
 					<h:inputText id="bookBeanBookIsbn" maxLength="15" required="true" value="#{bookBean.book.isbn}"/>
@@ -90,12 +96,6 @@
 						<f:selectItem itemValue="RUSSIAN"/>
 					</h:selectOneMenu>
 					<h:message for="bookBeanBookLanguage" styleClass="error"/>
-				</h:panelGroup>
-				<h:outputText/>
-				<h:outputLabel for="bookBeanBookImageURL" value="Image URL:"/>
-				<h:panelGroup>
-					<h:inputText id="bookBeanBookImageURL" value="#{bookBean.book.imageURL}"/>
-					<h:message for="bookBeanBookImageURL" styleClass="error"/>
 				</h:panelGroup>
 				<h:outputText/>
 				<h:outputLabel for="bookBeanBookCategory" value="Category:"/>

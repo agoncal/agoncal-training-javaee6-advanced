@@ -42,7 +42,9 @@ In this module you will generate the CDBookStore application. It is a full Java 
 * [http://localhost:8080/cdbookstore/rest/authors]()
 * [http://localhost:8080/cdbookstore/rest/books]()
 * [http://localhost:8080/cdbookstore/rest/cds]()
+* [http://localhost:8080/cdbookstore/rest/customers]()
 * [http://localhost:8080/cdbookstore/rest/musicians]()
+* [http://localhost:8080/cdbookstore/rest/purchaseorders]()
 * Use [PostMan REST client](https://chrome.google.com/webstore/detail/postman-rest-client/fdmmgilgnpjigdojojpjoooidkmcomcm) to create/update/remove entities
 
 ## Check the code of the application
