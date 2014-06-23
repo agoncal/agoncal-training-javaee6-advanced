@@ -124,11 +124,11 @@ jpa-new-entity --named Book ;
 jpa-new-field --named title --length 50 ;
 jpa-new-field --named price --type java.lang.Float ;
 jpa-new-field --named description --length 3000 ;
+jpa-new-field --named imageURL --columnName image_url ;
 jpa-new-field --named isbn  --length 15 ;
 jpa-new-field --named nbOfPages --type java.lang.Integer --columnName nb_of_pages ;
 jpa-new-field --named publicationDate --type java.util.Date --temporalType DATE --columnName publication_date ;
 jpa-new-field --named language --type org.agoncal.training.javaee6adv.model.Language ;
-jpa-new-field --named imageURL --columnName image_url ;
 # Relationships
 jpa-new-field --named category --type org.agoncal.training.javaee6adv.model.Category --relationshipType Many-to-One
 jpa-new-field --named author --type org.agoncal.training.javaee6adv.model.Author --relationshipType Many-to-One ;
@@ -150,8 +150,8 @@ jpa-new-entity --named CD ;
 jpa-new-field --named title --length 50;
 jpa-new-field --named price --type java.lang.Float ;
 jpa-new-field --named description --length 3000 ;
-jpa-new-field --named totalDuration --type java.lang.Float --columnName total_duration ;
 jpa-new-field --named imageURL --columnName image_url ;
+jpa-new-field --named totalDuration --type java.lang.Float --columnName total_duration ;
 # Relationships
 jpa-new-field --named label --type org.agoncal.training.javaee6adv.model.MajorLabel --relationshipType Many-to-One ;
 jpa-new-field --named genre --type org.agoncal.training.javaee6adv.model.Genre --relationshipType Many-to-One ;
@@ -299,6 +299,7 @@ scaffold-generate --webRoot /admin --targets org.agoncal.training.javaee6adv.mod
 scaffold-generate --webRoot /admin --targets org.agoncal.training.javaee6adv.model.MajorLabel
 scaffold-generate --webRoot /admin --targets org.agoncal.training.javaee6adv.model.Author
 scaffold-generate --webRoot /admin --targets org.agoncal.training.javaee6adv.model.Musician
+scaffold-generate --webRoot /admin --targets org.agoncal.training.javaee6adv.model.Item
 scaffold-generate --webRoot /admin --targets org.agoncal.training.javaee6adv.model.Book
 scaffold-generate --webRoot /admin --targets org.agoncal.training.javaee6adv.model.CD
 scaffold-generate --webRoot /admin --targets org.agoncal.training.javaee6adv.model.Customer

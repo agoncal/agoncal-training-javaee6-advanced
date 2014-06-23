@@ -1,0 +1,11 @@
+# ####################
+# #  JDBC Drivers
+# ####################
+
+/subsystem=datasources/jdbc-driver=postgres:add(driver-name=postgres, driver-module-name=org.postgresql, driver-class-name=org.postgresql.Driver)
+
+# ####################
+# #  Datasources
+# ####################
+
+/subsystem=datasources/data-source=PostgresDS:add(driver-name=postgres, user-name=postgres, password=postgres, connection-url="jdbc:postgresql://localhost:5432/postgres", jndi-name=java:/global/datasources/PostgresDS, enabled=true)

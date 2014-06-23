@@ -1,5 +1,9 @@
 # Java EE 6 Advanced Training - Arquillian
 
+In this module you will write Arquillian tests for the JSF backing beans and REST endpoints. Then you will refactor the domain model to follow JPA best practices 
+
+# DOJO - Writing the Arquillian tests
+
 ## Install the Arquillian Addon on Forge
 
 * In Forge, execute the following command `addon-install-from-git --url https://github.com/aslakknutsen/plugin-arquillian.git  --branch forge2`
@@ -11,19 +15,24 @@
 * Make sure the `jbossHome` variable in `before/02-Arquillian/generate.fsh` is pointing to `$WILDFLY_HOME`
 * Execute the `generate.fsh` script with the command `run ../before/02-Arquillian/generate.fsh` 
 
-## Write the JSB backing bean tests
+## Write the JSF backing bean tests
 
-* Copy the files `PublisherBeanTest.java` and `MusicianBeanTest.java` to the `view` package
-* `cp ../before/02-Arquillian/PublisherBeanTest.java cdbookstore/src/test/java/org/agoncal/training/javaee6adv/view`
-* `cp ../before/02-Arquillian/MusicianBeanTest.java cdbookstore/src/test/java/org/agoncal/training/javaee6adv/view`
+* Copy the files `CustomerBeanTest.java`, `PublisherBeanTest.java` and `MusicianBeanTest.java` to the `view` package
+* `cp ../before/02-Arquillian/CustomerBeanTest.java src/test/java/org/agoncal/training/javaee6adv/view`
+* `cp ../before/02-Arquillian/PublisherBeanTest.java src/test/java/org/agoncal/training/javaee6adv/view`
+* `cp ../before/02-Arquillian/MusicianBeanTest.java src/test/java/org/agoncal/training/javaee6adv/view`
 * Code the other tests following the same logic until all the tests pass
+* Add the methods `should_crud` and `should_paginate` to every test
 
 ## Write the REST endpoints tests
 
-* Copy the files `MusicianEndpointTest.java` to the `rest` package
+* Copy the files `CustomerEndpointTest.java` and `MusicianEndpointTest.java` to the `rest` package
+* `cp ../before/02-Arquillian/CustomerEndpointTest.java cdbookstore/src/test/java/org/agoncal/training/javaee6adv/rest`
 * `cp ../before/02-Arquillian/MusicianEndpointTest.java cdbookstore/src/test/java/org/agoncal/training/javaee6adv/rest`
 * Code the other tests following the same logic until all the tests pass
-* Notice that the Arquillian tests are `@RunAsClient`
+* Notice that the Arquillian tests are `@RunAsClient` and that they package a `WebArchive` (instead of a `JarArchive`) in `@Deployment(testable = false)`
+* Package the `persistence.xml` as a resource and the `beans.xml` as WEB-INF resource
+* Inject the `baseURL` as an `@ArquillianResource` instead of injecting the bean
 
 ## Execute the tests in a remote environment
 
@@ -44,9 +53,34 @@
 * Make sure the `jbossHome` variable in `cdbookstore/src/test/resources/arquillian.xml` is pointing to `$WILDFLY_HOME`
 * `mvn -Parquillian-wildfly-managed test` will execute the tests managing WildFly
 
+# DOJO - Refactor the domain model
+
+JBoss Forge doesn't know how to generate Mapped Super Classes or Embeddable. The refactoring will bring those two components to the domain model.
+
+## Book and CD should extend from Item
+
+* `Item` should define the inheritance `@Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)`
+* `Item` attributes should be `protected` instead of `private`
+* `Book` and `CD` should `extends Item`
+* `Book` and `CD` should get rid of the duplicate attributes, getters and setters : `id`, `version`, `title`, `price`, `description` and `imageURL` ;
+* Add `.addClass(Item.class)` to the Arquillian test `BookEndpointTest`, `CDEndpointTest`, `BookBeanTest` and `CDBeanTest`
+
+## Address and CreditCard should be embeddables
+
+* `Address` and `CreditCard` should be `@Embeddable` instead of an `@Entity` (get rid of `id` and `version`)
+* `Customer` and `PurchaseOrder` should get rid of the duplicate attributes of `Address` : `street1`, `street2`, `city`, `state` ,`zipcode` and `country` 
+* A `Customer` has an `@Embedded` home address that needs to be `@Valid` (`@Embedded @Valid private Address homeAddress = new Address();`)
+* A `PurchaseOrder` has an `@Embedded` delivery address that needs to be `@Valid` (`@Embedded @Valid private Address deliveryAddress = new Address();`)
+* `PurchaseOrder` should get rid of the duplicate attributes of `CreditCard` : `creditCardNumber`, `creditCardType` and `creditCardExpDate` 
+* Refactor getters `public String getStreet1() { return homeAddress.getStreet1(); }`
+* Refactor setters `public void setState(String state) { this.homeAddress.setState(state); }`
+* Refactory `toString` `if (homeAddress.getStreet1() != null && !homeAddress.getStreet1().trim().isEmpty()) result += ", street1: " + homeAddress.getStreet1();`
+* Add `.addClass(Address.class)` to the Arquillian test `CustomerEndpointTest`, `CustomerBeanTest` and `CDBeanTest`
+
+
 ## Build the application
 
-* In Forge enter the command `build` 
+* Use Maven and build the application with `mvn clean install`
 
 ## Deploy the application on WildFly application server
 
