@@ -3,7 +3,7 @@
 ## Generate the project with JBoss Forge
 
 * Launch JBoss Forge (enter the `$FORGE_HOME/bin/forge` command)
-* Execute the `generate.fsh` script with the command `run ../before/01-Forge/generate.fsh` 
+* Execute the `generate.fsh` script with the command `run before/01-Forge/generate.fsh` 
 * Go to the `cdbookstore` directory
 
 ## Add data to the database
@@ -11,9 +11,15 @@
 * Copy the file `import.sql` to `src/main/resources`
 * `cp ../before/01-Forge/import.sql src/main/resources`
 
+## Add a welcome page
+
+* Copy both `index` pages to the web application root
+* `cp ../before/01-Forge/index.html src/main/webapp/`
+* `cp ../before/01-Forge/index.xhtml src/main/webapp/`
+ 
 ## Build the application
 
-* In Forge enter the command `build` 
+* Use Maven and build the application with `mvn clean install`
 
 ## Deploy the application on WildFly application server
 
