@@ -1,6 +1,10 @@
 # Java EE 6 Advanced Training - REST Client
 
-## Add JSON support in CDBook-Store
+In this module you will use the JAX-RS 2.0 Client API to invoke programmatically the CDBook-Store REST endpoints. For that you will create the new project CDBook-Client
+
+# DOJO - Add JSON support in CDBook-Store Endpoints
+ 
+## Add JSON support in CDBook-Store Endpoints
 
 * In the REST endpoints :
 * Replace all the `@Consumes("application/xml")` with `@Consumes({"application/xml","application/json"})`
@@ -18,6 +22,8 @@
 * Install Postman REST Client from the Chrome store 
 * Do CRUD operations on the REST interfaces using Postman REST Client
  
+# DOJO - The CDBook-Client application consumes the REST endpoints
+
 ## Generate the new project CDBook-Client with JBoss Forge
 
 * Launch JBoss Forge (enter the `$FORGE_HOME/bin/forge` command)
