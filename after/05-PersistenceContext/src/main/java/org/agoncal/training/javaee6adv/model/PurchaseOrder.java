@@ -18,12 +18,9 @@ import org.agoncal.training.javaee6adv.model.OrderLine;
 import java.util.Set;
 import java.util.HashSet;
 import javax.persistence.OneToMany;
-import javax.persistence.Enumerated;
 import org.agoncal.training.javaee6adv.model.CreditCardType;
 
 import javax.validation.Valid;
-import javax.validation.constraints.Size;
-import javax.validation.constraints.NotNull;
 import javax.xml.bind.annotation.XmlRootElement;
 
 @Entity

@@ -1,13 +1,8 @@
 package org.agoncal.training.javaee6adv.model;
 
 import javax.persistence.Embeddable;
-import javax.persistence.Entity;
 import java.io.Serializable;
-import javax.persistence.Id;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Column;
-import javax.persistence.Version;
 import java.lang.Override;
 import javax.persistence.Enumerated;
 import org.agoncal.training.javaee6adv.model.CreditCardType;

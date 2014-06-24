@@ -2,11 +2,7 @@ package org.agoncal.training.javaee6adv.model;
 
 import javax.persistence.Entity;
 import java.io.Serializable;
-import javax.persistence.Id;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Column;
-import javax.persistence.Version;
 import java.lang.Override;
 import org.agoncal.training.javaee6adv.model.MajorLabel;
 import javax.persistence.ManyToOne;
@@ -15,9 +11,6 @@ import org.agoncal.training.javaee6adv.model.Musician;
 import java.util.Set;
 import java.util.HashSet;
 import javax.persistence.ManyToMany;
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Size;
-import javax.validation.constraints.Min;
 import javax.xml.bind.annotation.XmlRootElement;
 
 @Entity
