@@ -55,31 +55,6 @@ In this module you will write Arquillian tests for the JSF backing beans and RES
 * Make sure the `jbossHome` variable in `cdbookstore/src/test/resources/arquillian.xml` is pointing to `$WILDFLY_HOME`
 * `mvn -Parquillian-wildfly-managed test` will execute the tests managing WildFly
 
-# DOJO - Refactor the domain model
-
-JBoss Forge doesn't know how to generate Mapped Super Classes or Embeddable. The refactoring will bring those two components to the domain model.
-
-## Book and CD should extend from Item
-
-* `Item` should define the inheritance `@Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)`
-* `Item` attributes should be `protected` instead of `private`
-* `Book` and `CD` should `extends Item`
-* `Book` and `CD` should get rid of the duplicate attributes, getters and setters : `id`, `version`, `title`, `price`, `description` and `imageURL` ;
-* Add `.addClass(Item.class)` to the Arquillian test `BookEndpointTest`, `CDEndpointTest`, `BookBeanTest` and `CDBeanTest`
-
-## Address and CreditCard should be embeddables
-
-* `Address` and `CreditCard` should be `@Embeddable` instead of an `@Entity` (get rid of `id` and `version`)
-* `Customer` and `PurchaseOrder` should get rid of the duplicate attributes of `Address` : `street1`, `street2`, `city`, `state` ,`zipcode` and `country` 
-* A `Customer` has an `@Embedded` home address that needs to be `@Valid` (`@Embedded @Valid private Address homeAddress = new Address();`)
-* A `PurchaseOrder` has an `@Embedded` delivery address that needs to be `@Valid` (`@Embedded @Valid private Address deliveryAddress = new Address();`)
-* `PurchaseOrder` should get rid of the duplicate attributes of `CreditCard` : `creditCardNumber`, `creditCardType` and `creditCardExpDate` 
-* Refactor getters `public String getStreet1() { return homeAddress.getStreet1(); }`
-* Refactor setters `public void setState(String state) { this.homeAddress.setState(state); }`
-* Refactory `toString` `if (homeAddress.getStreet1() != null && !homeAddress.getStreet1().trim().isEmpty()) result += ", street1: " + homeAddress.getStreet1();`
-* Add `.addClass(Address.class)` to the Arquillian test `CustomerEndpointTest`, `CustomerBeanTest` and `CDBeanTest`
-
-
 ## Build the application
 
 * Use Maven and build the application with `mvn clean install`
