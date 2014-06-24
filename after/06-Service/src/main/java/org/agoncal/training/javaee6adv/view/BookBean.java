@@ -99,7 +99,7 @@ public class BookBean implements Serializable
    public Book findById(Long id)
    {
 
-      return this.service.findById(id);
+      return this.service.findByIdWithRelations(id);
    }
 
    /*

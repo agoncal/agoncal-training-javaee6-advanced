@@ -1,6 +1,5 @@
 package org.agoncal.training.javaee6adv.service;
 
-import org.agoncal.training.javaee6adv.model.Author;
 import org.agoncal.training.javaee6adv.model.MajorLabel;
 import org.agoncal.training.javaee6adv.service.MajorLabelService;
 import javax.inject.Inject;
@@ -16,7 +15,6 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import static org.junit.Assert.*;
 import static org.hamcrest.core.Is.*;
-import static org.junit.Assert.assertEquals;
 
 @RunWith(Arquillian.class)
 public class MajorLabelServiceTest

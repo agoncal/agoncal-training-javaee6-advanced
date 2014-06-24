@@ -1,6 +1,7 @@
 package org.agoncal.training.javaee6adv.rest;
 
 import org.agoncal.training.javaee6adv.model.Musician;
+import org.agoncal.training.javaee6adv.rest.MusicianEndpoint;
 import org.agoncal.training.javaee6adv.service.AbstractService;
 import org.agoncal.training.javaee6adv.service.MusicianService;
 import org.agoncal.training.javaee6adv.util.Resources;
@@ -21,7 +22,8 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import java.net.URI;
 
-import static org.junit.Assert.assertEquals;
+import static org.hamcrest.core.Is.*;
+import static org.junit.Assert.*;
 
 @RunWith(Arquillian.class)
 @RunAsClient

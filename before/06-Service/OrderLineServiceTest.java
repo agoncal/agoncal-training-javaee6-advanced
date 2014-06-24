@@ -1,7 +1,8 @@
 package org.agoncal.training.javaee6adv.service;
 
-import org.agoncal.training.javaee6adv.model.Genre;
-import org.agoncal.training.javaee6adv.service.GenreService;
+import org.agoncal.training.javaee6adv.model.Item;
+import org.agoncal.training.javaee6adv.model.OrderLine;
+import org.agoncal.training.javaee6adv.service.OrderLineService;
 import javax.inject.Inject;
 
 import org.agoncal.training.javaee6adv.util.Resources;
@@ -17,11 +18,11 @@ import static org.junit.Assert.*;
 import static org.hamcrest.core.Is.*;
 
 @RunWith(Arquillian.class)
-public class GenreServiceTest
+public class OrderLineServiceTest
 {
 
    @Inject
-   private GenreService genreservice;
+   private OrderLineService orderlineservice;
 
    @Deployment
    public static JavaArchive createDeployment()
@@ -29,8 +30,9 @@ public class GenreServiceTest
       return ShrinkWrap.create(JavaArchive.class)
             .addClass(Resources.class)
             .addClass(AbstractService.class)
-            .addClass(GenreService.class)
-            .addClass(Genre.class)
+            .addClass(OrderLineService.class)
+            .addClass(OrderLine.class)
+            .addClass(Item.class)
             .addAsManifestResource("META-INF/persistence.xml", "persistence.xml")
             .addAsManifestResource(EmptyAsset.INSTANCE, "beans.xml");
    }
@@ -38,38 +40,38 @@ public class GenreServiceTest
    @Test
    public void should_be_deployed()
    {
-      Assert.assertNotNull(genreservice);
+      Assert.assertNotNull(orderlineservice);
    }
 
    @Test
    public void should_crud()
    {
       // Gets all the objects
-      int initialSize = genreservice.listAll().size();
+      int initialSize = orderlineservice.listAll().size();
 
       // Creates an object
-      Genre genre = new Genre();
-      genre.setName("Dummy value");
+      OrderLine orderLine = new OrderLine();
+      orderLine.setQuantity(99);
 
       // Inserts the object into the database
-      genre = genreservice.persist(genre);
-      assertNotNull(genre.getId());
-      assertEquals(initialSize+1, genreservice.listAll().size());
+      orderLine = orderlineservice.persist(orderLine);
+      assertNotNull(orderLine.getId());
+      assertEquals(initialSize + 1, orderlineservice.listAll().size());
 
       // Finds the object from the database and checks it's the right one
-      genre = genreservice.findById(genre.getId());
-      assertEquals("Dummy value", genre.getName());
+      orderLine = orderlineservice.findById(orderLine.getId());
+      assertEquals(99, orderLine.getQuantity());
 
       // Updates the object
-      genre.setName("A new value");
-      genre = genreservice.merge(genre);
+      orderLine.setQuantity(99);
+      orderLine = orderlineservice.merge(orderLine);
 
       // Finds the object from the database and checks it has been updated
-      genre = genreservice.findById(genre.getId());
-      assertEquals("A new value", genre.getName());
+      orderLine = orderlineservice.findById(orderLine.getId());
+      assertEquals(99, orderLine.getQuantity());
 
       // Deletes the object from the database and checks it's not there anymore
-      genreservice.remove(genre);
-      assertEquals(initialSize, genreservice.listAll().size());
+      orderlineservice.remove(orderLine);
+      assertEquals(initialSize, orderlineservice.listAll().size());
    }
 }

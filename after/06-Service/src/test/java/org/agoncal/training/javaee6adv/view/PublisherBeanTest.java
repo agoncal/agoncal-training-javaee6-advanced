@@ -15,56 +15,55 @@ import org.junit.runner.RunWith;
 import javax.inject.Inject;
 
 import static org.junit.Assert.*;
-import static org.junit.Assert.assertEquals;
 
 @RunWith(Arquillian.class)
 public class PublisherBeanTest {
 
-	@Inject
-	private PublisherBean publisherbean;
+   @Inject
+   private PublisherBean publisherbean;
 
-	@Deployment
-	public static JavaArchive createDeployment() {
-		return ShrinkWrap.create(JavaArchive.class)
-				.addClass(PublisherBean.class)
+   @Deployment
+   public static JavaArchive createDeployment() {
+      return ShrinkWrap.create(JavaArchive.class)
+            .addClass(PublisherBean.class)
             .addClass(Resources.class)
             .addClass(AbstractService.class)
             .addClass(PublisherService.class)
-				.addClass(Publisher.class)
-				.addAsManifestResource("META-INF/persistence.xml", "persistence.xml")
-				.addAsManifestResource(EmptyAsset.INSTANCE, "beans.xml");
-	}
+            .addClass(Publisher.class)
+            .addAsManifestResource("META-INF/persistence.xml", "persistence.xml")
+            .addAsManifestResource(EmptyAsset.INSTANCE, "beans.xml");
+   }
 
-	@Test
-	public void should_be_deployed() {
-		assertNotNull(publisherbean);
-	}
+   @Test
+   public void should_be_deployed() {
+      assertNotNull(publisherbean);
+   }
 
-	@Test
-	public void should_crud()
+   @Test
+   public void should_crud()
    {
-		// Creates an object
-		Publisher publisher = new Publisher();
-		publisher.setName("Dummy value");
+      // Creates an object
+      Publisher publisher = new Publisher();
+      publisher.setName("Dummy value");
 
-		// Inserts the object into the database
-		publisherbean.setPublisher(publisher);
-		publisherbean.create();
-		publisherbean.update();
-		publisher = publisherbean.getPublisher();
-		assertNotNull(publisher.getId());
+      // Inserts the object into the database
+      publisherbean.setPublisher(publisher);
+      publisherbean.create();
+      publisherbean.update();
+      publisher = publisherbean.getPublisher();
+      assertNotNull(publisher.getId());
 
-		// Finds the object from the database and checks it's the right one
-		publisher = publisherbean.findById(publisher.getId());
-		assertEquals("Dummy value", publisher.getName());
+      // Finds the object from the database and checks it's the right one
+      publisher = publisherbean.findById(publisher.getId());
+      assertEquals("Dummy value", publisher.getName());
 
-		// Deletes the object from the database and checks it's not there anymore
-		publisherbean.setId(publisher.getId());
-		publisherbean.create();
-		publisherbean.delete();
-		publisher = publisherbean.findById(publisher.getId());
-		assertNull(publisher);
-	}
+      // Deletes the object from the database and checks it's not there anymore
+      publisherbean.setId(publisher.getId());
+      publisherbean.create();
+      publisherbean.delete();
+      publisher = publisherbean.findById(publisher.getId());
+      assertNull(publisher);
+   }
 
    @Test
    public void should_paginate()

@@ -1,7 +1,8 @@
 package org.agoncal.training.javaee6adv.service;
 
-import org.agoncal.training.javaee6adv.model.Genre;
-import org.agoncal.training.javaee6adv.service.GenreService;
+import org.agoncal.training.javaee6adv.model.Author;
+import org.agoncal.training.javaee6adv.model.Publisher;
+import org.agoncal.training.javaee6adv.service.PublisherService;
 import javax.inject.Inject;
 
 import org.agoncal.training.javaee6adv.util.Resources;
@@ -15,13 +16,14 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import static org.junit.Assert.*;
 import static org.hamcrest.core.Is.*;
+import static org.junit.Assert.assertEquals;
 
 @RunWith(Arquillian.class)
-public class GenreServiceTest
+public class PublisherServiceTest
 {
 
    @Inject
-   private GenreService genreservice;
+   private PublisherService publisherservice;
 
    @Deployment
    public static JavaArchive createDeployment()
@@ -29,8 +31,8 @@ public class GenreServiceTest
       return ShrinkWrap.create(JavaArchive.class)
             .addClass(Resources.class)
             .addClass(AbstractService.class)
-            .addClass(GenreService.class)
-            .addClass(Genre.class)
+            .addClass(PublisherService.class)
+            .addClass(Publisher.class)
             .addAsManifestResource("META-INF/persistence.xml", "persistence.xml")
             .addAsManifestResource(EmptyAsset.INSTANCE, "beans.xml");
    }
@@ -38,38 +40,38 @@ public class GenreServiceTest
    @Test
    public void should_be_deployed()
    {
-      Assert.assertNotNull(genreservice);
+      Assert.assertNotNull(publisherservice);
    }
 
    @Test
    public void should_crud()
    {
       // Gets all the objects
-      int initialSize = genreservice.listAll().size();
+      int initialSize = publisherservice.listAll().size();
 
       // Creates an object
-      Genre genre = new Genre();
-      genre.setName("Dummy value");
+      Publisher publisher = new Publisher();
+      publisher.setName("Dummy value");
 
       // Inserts the object into the database
-      genre = genreservice.persist(genre);
-      assertNotNull(genre.getId());
-      assertEquals(initialSize+1, genreservice.listAll().size());
+      publisher = publisherservice.persist(publisher);
+      assertNotNull(publisher.getId());
+      assertEquals(initialSize+1, publisherservice.listAll().size());
 
       // Finds the object from the database and checks it's the right one
-      genre = genreservice.findById(genre.getId());
-      assertEquals("Dummy value", genre.getName());
+      publisher = publisherservice.findById(publisher.getId());
+      assertEquals("Dummy value", publisher.getName());
 
       // Updates the object
-      genre.setName("A new value");
-      genre = genreservice.merge(genre);
+      publisher.setName("A new value");
+      publisher = publisherservice.merge(publisher);
 
       // Finds the object from the database and checks it has been updated
-      genre = genreservice.findById(genre.getId());
-      assertEquals("A new value", genre.getName());
+      publisher = publisherservice.findById(publisher.getId());
+      assertEquals("A new value", publisher.getName());
 
       // Deletes the object from the database and checks it's not there anymore
-      genreservice.remove(genre);
-      assertEquals(initialSize, genreservice.listAll().size());
+      publisherservice.remove(publisher);
+      assertEquals(initialSize, publisherservice.listAll().size());
    }
 }

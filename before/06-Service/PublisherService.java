@@ -20,16 +20,18 @@ public class PublisherService extends AbstractService<Publisher> implements Seri
         super(Publisher.class);
     }
 
-    protected Predicate[] getSearchPredicates(Root<Publisher> root, Publisher example) {
+   @Override
+   protected Predicate[] getSearchPredicates(Root<Publisher> root, Publisher example)
+   {
+      CriteriaBuilder builder = getEntityManager().getCriteriaBuilder();
+      List<Predicate> predicatesList = new ArrayList<Predicate>();
 
-        CriteriaBuilder builder = getEntityManager().getCriteriaBuilder();
-        List<Predicate> predicatesList = new ArrayList<Predicate>();
+      String name = example.getName();
+      if (name != null && !"".equals(name))
+      {
+         predicatesList.add(builder.like(builder.lower(root.<String> get("name")), '%' + name.toLowerCase() + '%'));
+      }
 
-        String name = example.getName();
-        if (name != null && !"".equals(name)) {
-            predicatesList.add(builder.like(builder.lower(root.<String>get("name")), '%' + name.toLowerCase() + '%'));
-        }
-
-        return predicatesList.toArray(new Predicate[predicatesList.size()]);
-    }
+      return predicatesList.toArray(new Predicate[predicatesList.size()]);
+   }
 }

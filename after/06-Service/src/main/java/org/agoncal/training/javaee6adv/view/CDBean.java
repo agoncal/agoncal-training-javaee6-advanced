@@ -1,12 +1,8 @@
 package org.agoncal.training.javaee6adv.view;
 
 import java.io.Serializable;
-import java.util.ArrayList;
 import java.util.List;
 
-import javax.annotation.Resource;
-import javax.ejb.SessionContext;
-import javax.ejb.Stateful;
 import javax.enterprise.context.Conversation;
 import javax.enterprise.context.ConversationScoped;
 import javax.faces.application.FacesMessage;
@@ -15,15 +11,8 @@ import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
 import javax.inject.Inject;
 import javax.inject.Named;
-import javax.persistence.*;
-import javax.persistence.criteria.CriteriaBuilder;
-import javax.persistence.criteria.CriteriaQuery;
-import javax.persistence.criteria.Predicate;
-import javax.persistence.criteria.Root;
 
 import org.agoncal.training.javaee6adv.model.CD;
-import org.agoncal.training.javaee6adv.model.Genre;
-import org.agoncal.training.javaee6adv.model.MajorLabel;
 import org.agoncal.training.javaee6adv.service.CDService;
 
 /**
@@ -110,7 +99,7 @@ public class CDBean implements Serializable
    public CD findById(Long id)
    {
 
-      return this.service.findById(id);
+      return this.service.findByIdWithRelations(id);
    }
 
    /*

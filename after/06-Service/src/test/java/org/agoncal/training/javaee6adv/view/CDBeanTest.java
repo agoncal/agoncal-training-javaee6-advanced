@@ -2,6 +2,7 @@ package org.agoncal.training.javaee6adv.view;
 
 import org.agoncal.training.javaee6adv.model.CD;
 import org.agoncal.training.javaee6adv.model.Genre;
+import org.agoncal.training.javaee6adv.model.Item;
 import org.agoncal.training.javaee6adv.model.MajorLabel;
 import org.agoncal.training.javaee6adv.model.Musician;
 import org.agoncal.training.javaee6adv.service.AbstractService;
@@ -19,7 +20,6 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import static org.junit.Assert.*;
 import static org.hamcrest.core.Is.*;
-import static org.junit.Assert.assertEquals;
 
 @RunWith(Arquillian.class)
 public class CDBeanTest
@@ -37,6 +37,7 @@ public class CDBeanTest
             .addClass(AbstractService.class)
             .addClass(CDService.class)
             .addClass(CD.class)
+            .addClass(Item.class)
             .addClass(MajorLabel.class)
             .addClass(Genre.class)
             .addClass(Musician.class)

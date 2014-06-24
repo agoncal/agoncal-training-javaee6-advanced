@@ -192,10 +192,10 @@ public class AuthorBean implements Serializable
    {
 
       // Populate this.count
-      this.count = service.count(example);
+      this.count = this.service.count(example);
 
       // Populate this.pageItems
-      this.pageItems = service.page(example, page, getPageSize());
+      this.pageItems = this.service.page(example, page, getPageSize());
    }
 
    public List<Author> getPageItems()
@@ -215,7 +215,7 @@ public class AuthorBean implements Serializable
 
    public List<Author> getAll()
    {
-      return service.listAll();
+      return this.service.listAll();
    }
 
    public Converter getConverter()

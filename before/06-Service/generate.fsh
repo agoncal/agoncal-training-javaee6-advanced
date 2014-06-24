@@ -6,10 +6,14 @@ ejb-new-bean --named AuthorService ;
 ejb-new-bean --named BookService ;
 ejb-new-bean --named CategoryService ;
 ejb-new-bean --named CDService ;
+ejb-new-bean --named CustomerService ;
 ejb-new-bean --named GenreService ;
+ejb-new-bean --named ItemService ;
 ejb-new-bean --named MajorLabelService ;
 ejb-new-bean --named MusicianService ;
+ejb-new-bean --named OrderLineService ;
 ejb-new-bean --named PublisherService ;
+ejb-new-bean --named PurchaseOrderService ;
 
 #  ###############################  #
 #  Adding a CDI Bean for Producers  #
@@ -26,4 +30,7 @@ arquillian-create-test --value cdbookstore/src/main/java/org/agoncal/training/ja
 arquillian-create-test --value cdbookstore/src/main/java/org/agoncal/training/javaee6adv/service/CategoryService.java ;
 arquillian-create-test --value cdbookstore/src/main/java/org/agoncal/training/javaee6adv/service/CDService.java ;
 arquillian-create-test --value cdbookstore/src/main/java/org/agoncal/training/javaee6adv/service/GenreService.java ;
+arquillian-create-test --value cdbookstore/src/main/java/org/agoncal/training/javaee6adv/service/ItemService.java ;
 arquillian-create-test --value cdbookstore/src/main/java/org/agoncal/training/javaee6adv/service/MajorLabelService.java ;
+arquillian-create-test --value cdbookstore/src/main/java/org/agoncal/training/javaee6adv/service/OrderLineService.java ;
+arquillian-create-test --value cdbookstore/src/main/java/org/agoncal/training/javaee6adv/service/PurchaseOrderService.java ;

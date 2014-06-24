@@ -170,12 +170,19 @@ public class Musician implements Serializable
    public String toString()
    {
       String result = getClass().getSimpleName() + " ";
+      if (id != null)
+         result += "id: " + id;
+      result += ", version: " + version;
       if (firstName != null && !firstName.trim().isEmpty())
-         result += "firstName: " + firstName;
+         result += ", firstName: " + firstName;
       if (lastName != null && !lastName.trim().isEmpty())
          result += ", lastName: " + lastName;
       if (bio != null && !bio.trim().isEmpty())
          result += ", bio: " + bio;
+      if (dateOfBirth != null)
+         result += ", dateOfBirth: " + dateOfBirth;
+      if (age != null)
+         result += ", age: " + age;
       if (preferredInstrument != null && !preferredInstrument.trim().isEmpty())
          result += ", preferredInstrument: " + preferredInstrument;
       return result;

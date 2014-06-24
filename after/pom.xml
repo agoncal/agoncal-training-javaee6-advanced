@@ -13,7 +13,7 @@
         <module>03-Domain</module>
         <module>04-RestClient</module>
         <module>05-PersistenceContext</module>
-        <module>05-Service</module>
+        <module>06-Service</module>
         <module>06-WebApplication</module>
     </modules>
 

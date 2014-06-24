@@ -16,12 +16,11 @@ import org.agoncal.training.javaee6adv.service.CDService;
 @Path("/cds")
 public class CDEndpoint
 {
-
    @Inject
    private CDService service;
 
    @POST
-   @Consumes("application/xml")
+   @Consumes({"application/xml","application/json"})
    public Response create(CD entity)
    {
       entity = service.persist(entity);
@@ -33,8 +32,9 @@ public class CDEndpoint
    public Response deleteById(@PathParam("id") Long id)
    {
       CD entity = service.findById(id);
-      if (entity == null) {
-        return Response.status(Status.NOT_FOUND).build();
+      if (entity == null)
+      {
+         return Response.status(Status.NOT_FOUND).build();
       }
       service.remove(entity);
       return Response.noContent().build();
@@ -42,18 +42,19 @@ public class CDEndpoint
 
    @GET
    @Path("/{id:[0-9][0-9]*}")
-   @Produces("application/xml")
+   @Produces({"application/xml","application/json"})
    public Response findById(@PathParam("id") Long id)
    {
       CD entity = service.findByIdWithRelations(id);
-      if (entity == null) {
-        return Response.status(Status.NOT_FOUND).build();
+      if (entity == null)
+      {
+         return Response.status(Status.NOT_FOUND).build();
       }
       return Response.ok(entity).build();
    }
 
    @GET
-   @Produces("application/xml")
+   @Produces({"application/xml","application/json"})
    public List<CD> listAll(@QueryParam("start") Integer startPosition, @QueryParam("max") Integer maxResult)
    {
       return service.listAllWithRelations(startPosition, maxResult);
@@ -61,7 +62,7 @@ public class CDEndpoint
 
    @PUT
    @Path("/{id:[0-9][0-9]*}")
-   @Consumes("application/xml")
+   @Consumes({"application/xml","application/json"})
    public Response update(CD entity)
    {
       entity = service.merge(entity);
