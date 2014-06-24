@@ -1,0 +1,59 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+		"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+								xmlns:h="http://java.sun.com/jsf/html"
+								xmlns:f="http://java.sun.com/jsf/core"
+								xmlns:ui="http://java.sun.com/jsf/facelets"
+								xmlns:p="http://primefaces.org/ui"
+								template="/resources/scaffold/mainTemplate.xhtml">
+
+	<f:metadata>
+		<f:viewParam name="id" value='#{bookBean.categoryId}'/>
+		<f:event type="preRenderView" listener='#{bookBean.findByCategory}'/>
+	</f:metadata>
+
+	<ui:param name="pageTitle" value="Books per category"/>
+
+	<ui:define name="header">
+		Books per category
+	</ui:define>
+
+	<ui:define name="navigation">
+		<ui:include src="navigation.xhtml"/>
+	</ui:define>
+
+	<ui:define name="main">
+		<h:form>
+			<p:dataScroller value="#{bookBean.booksPerCateogry}" var="book" chunkSize="3">
+				<f:facet name="header">
+					Scroll Down to Load More Books
+				</f:facet>
+
+				<h:panelGrid columns="2" style="width:100%" columnClasses="logo,detail">
+					<h:link outcome="view">
+						<f:param name="id" value="#{book.id}"/>
+						<p:graphicImage url="#{book.imageURL}" id="image" />
+					</h:link>
+
+					<p:outputPanel>
+						<h:panelGrid columns="2" cellpadding="5">
+							<h:outputText value="Title:"/>
+							<h:outputText value="#{book.title}" style="font-weight: bold"/>
+
+							<h:outputText value="ISBN:"/>
+							<h:outputText value="#{book.isbn}" style="font-weight: bold"/>
+
+							<h:outputText value="Price:"/>
+							<h:outputText value="#{book.price}" style="font-weight: bold"/>
+
+							<h:outputText value="Description:"/>
+							<h:outputText value="#{book.description}" style="font-weight: bold"/>
+						</h:panelGrid>
+					</p:outputPanel>
+				</h:panelGrid>
+			</p:dataScroller>
+		</h:form>
+	</ui:define>
+
+</ui:composition>

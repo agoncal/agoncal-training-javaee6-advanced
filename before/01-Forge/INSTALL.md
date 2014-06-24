@@ -2,8 +2,6 @@
 
 In this module you will generate the CDBookStore application. It is a full Java EE 6 application with a JSF user interface and a REST interface. Thanks to JBoss Forge, generating the entire application takes only a few seconds. 
 
-# DOJO - Building the application
-
 ## Generate the project with JBoss Forge
 
 * Launch JBoss Forge (enter the `$FORGE_HOME/bin/forge` command)
