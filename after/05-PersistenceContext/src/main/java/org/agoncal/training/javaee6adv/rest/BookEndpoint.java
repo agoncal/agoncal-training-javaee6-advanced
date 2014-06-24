@@ -24,7 +24,7 @@ public class BookEndpoint
    private EntityManager em;
 
    @POST
-   @Consumes("application/xml")
+   @Consumes({"application/xml","application/json"})
    public Response create(Book entity)
    {
       em.persist(entity);
@@ -46,7 +46,7 @@ public class BookEndpoint
 
    @GET
    @Path("/{id:[0-9][0-9]*}")
-   @Produces("application/xml")
+   @Produces({"application/xml","application/json"})
    public Response findById(@PathParam("id") Long id)
    {
       TypedQuery<Book> findByIdQuery = em.createQuery("SELECT DISTINCT b FROM Book b LEFT JOIN FETCH b.category LEFT JOIN FETCH b.author LEFT JOIN FETCH b.publisher WHERE b.id = :entityId ORDER BY b.id", Book.class);
@@ -68,7 +68,7 @@ public class BookEndpoint
    }
 
    @GET
-   @Produces("application/xml")
+   @Produces({"application/xml","application/json"})
    public List<Book> listAll(@QueryParam("start") Integer startPosition, @QueryParam("max") Integer maxResult)
    {
       TypedQuery<Book> findAllQuery = em.createQuery("SELECT DISTINCT b FROM Book b LEFT JOIN FETCH b.category LEFT JOIN FETCH b.author LEFT JOIN FETCH b.publisher ORDER BY b.id", Book.class);
@@ -86,7 +86,7 @@ public class BookEndpoint
 
    @PUT
    @Path("/{id:[0-9][0-9]*}")
-   @Consumes("application/xml")
+   @Consumes({"application/xml","application/json"})
    public Response update(Book entity)
    {
       entity = em.merge(entity);

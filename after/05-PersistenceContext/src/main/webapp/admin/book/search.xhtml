@@ -41,6 +41,12 @@
 							<h:message for="bookBeanExampleDescription" styleClass="error"/>
 						</h:panelGroup>
 						<h:outputText/>
+						<h:outputLabel for="bookBeanExampleImageURL" value="Image URL:"/>
+						<h:panelGroup>
+							<h:inputText id="bookBeanExampleImageURL" value="#{bookBean.example.imageURL}"/>
+							<h:message for="bookBeanExampleImageURL" styleClass="error"/>
+						</h:panelGroup>
+						<h:outputText/>
 						<h:outputLabel for="bookBeanExampleIsbn" value="Isbn:"/>
 						<h:panelGroup>
 							<h:inputText id="bookBeanExampleIsbn" maxLength="15" value="#{bookBean.example.isbn}"/>
@@ -51,23 +57,6 @@
 						<h:panelGroup>
 							<h:inputText id="bookBeanExampleNbOfPages" value="#{bookBean.example.nbOfPages}"/>
 							<h:message for="bookBeanExampleNbOfPages" styleClass="error"/>
-						</h:panelGroup>
-						<h:outputText/>
-						<h:outputLabel for="bookBeanExampleLanguage" value="Language:"/>
-						<h:panelGroup>
-							<h:selectOneMenu id="bookBeanExampleLanguage" value="#{bookBean.example.language}">
-								<f:selectItem/>
-								<f:selectItem itemValue="ENGLISH"/>
-								<f:selectItem itemValue="FRENCH"/>
-								<f:selectItem itemValue="SPANISH"/>
-								<f:selectItem itemValue="PORTUGUESE"/>
-								<f:selectItem itemValue="ITALIAN"/>
-								<f:selectItem itemValue="FINISH"/>
-								<f:selectItem itemValue="GERMAN"/>
-								<f:selectItem itemValue="DEUTSCH"/>
-								<f:selectItem itemValue="RUSSIAN"/>
-							</h:selectOneMenu>
-							<h:message for="bookBeanExampleLanguage" styleClass="error"/>
 						</h:panelGroup>
 						<h:outputText/>
 					</h:panelGrid>

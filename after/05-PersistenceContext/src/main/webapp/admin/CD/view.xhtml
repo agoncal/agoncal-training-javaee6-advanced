@@ -35,11 +35,11 @@
 			<h:outputLabel for="cDBeanCDDescription" value="Description:"/>
 			<h:inputTextarea id="cDBeanCDDescription" value="#{CDBean.CD.description}"/>
 			<h:outputText/>
-			<h:outputLabel for="cDBeanCDTotalDuration" value="Total Duration:"/>
-			<h:outputText id="cDBeanCDTotalDuration" value="#{CDBean.CD.totalDuration}"/>
-			<h:outputText/>
 			<h:outputLabel for="cDBeanCDImageURL" value="Image URL:"/>
 			<h:outputText id="cDBeanCDImageURL" value="#{CDBean.CD.imageURL}"/>
+			<h:outputText/>
+			<h:outputLabel for="cDBeanCDTotalDuration" value="Total Duration:"/>
+			<h:outputText id="cDBeanCDTotalDuration" value="#{CDBean.CD.totalDuration}"/>
 			<h:outputText/>
 			<h:outputLabel for="cDBeanCDLabel" value="Label:"/>
 			<h:link id="cDBeanCDLabel" outcome="/admin/majorLabel/view" rendered="#{!empty CDBean.CD.label}" value="#{CDBean.CD.label}">

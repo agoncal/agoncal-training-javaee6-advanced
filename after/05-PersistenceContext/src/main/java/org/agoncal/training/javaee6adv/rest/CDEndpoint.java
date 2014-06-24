@@ -24,7 +24,7 @@ public class CDEndpoint
    private EntityManager em;
 
    @POST
-   @Consumes("application/xml")
+   @Consumes({"application/xml","application/json"})
    public Response create(CD entity)
    {
       em.persist(entity);
@@ -46,7 +46,7 @@ public class CDEndpoint
 
    @GET
    @Path("/{id:[0-9][0-9]*}")
-   @Produces("application/xml")
+   @Produces({"application/xml","application/json"})
    public Response findById(@PathParam("id") Long id)
    {
       TypedQuery<CD> findByIdQuery = em.createQuery("SELECT DISTINCT c FROM CD c LEFT JOIN FETCH c.label LEFT JOIN FETCH c.genre LEFT JOIN FETCH c.musicians WHERE c.id = :entityId ORDER BY c.id", CD.class);
@@ -68,7 +68,7 @@ public class CDEndpoint
    }
 
    @GET
-   @Produces("application/xml")
+   @Produces({"application/xml","application/json"})
    public List<CD> listAll(@QueryParam("start") Integer startPosition, @QueryParam("max") Integer maxResult)
    {
       TypedQuery<CD> findAllQuery = em.createQuery("SELECT DISTINCT c FROM CD c LEFT JOIN FETCH c.label LEFT JOIN FETCH c.genre LEFT JOIN FETCH c.musicians ORDER BY c.id", CD.class);
@@ -86,7 +86,7 @@ public class CDEndpoint
 
    @PUT
    @Path("/{id:[0-9][0-9]*}")
-   @Consumes("application/xml")
+   @Consumes({"application/xml","application/json"})
    public Response update(CD entity)
    {
       entity = em.merge(entity);

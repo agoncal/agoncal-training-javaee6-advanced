@@ -34,6 +34,9 @@
 			<h:outputLabel for="bookBeanBookDescription" value="Description:"/>
 			<h:inputTextarea id="bookBeanBookDescription" value="#{bookBean.book.description}"/>
 			<h:outputText/>
+			<h:outputLabel for="bookBeanBookImageURL" value="Image URL:"/>
+			<h:outputText id="bookBeanBookImageURL" value="#{bookBean.book.imageURL}"/>
+			<h:outputText/>
 			<h:outputLabel for="bookBeanBookIsbn" value="Isbn:"/>
 			<h:outputText id="bookBeanBookIsbn" value="#{bookBean.book.isbn}"/>
 			<h:outputText/>
@@ -47,9 +50,6 @@
 			<h:outputText/>
 			<h:outputLabel for="bookBeanBookLanguage" value="Language:"/>
 			<h:outputText id="bookBeanBookLanguage" value="#{bookBean.book.language}"/>
-			<h:outputText/>
-			<h:outputLabel for="bookBeanBookImageURL" value="Image URL:"/>
-			<h:outputText id="bookBeanBookImageURL" value="#{bookBean.book.imageURL}"/>
 			<h:outputText/>
 			<h:outputLabel for="bookBeanBookCategory" value="Category:"/>
 			<h:link id="bookBeanBookCategory" outcome="/admin/category/view" rendered="#{!empty bookBean.book.category}" value="#{bookBean.book.category}">

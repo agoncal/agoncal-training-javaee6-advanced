@@ -22,35 +22,11 @@ import javax.xml.bind.annotation.XmlRootElement;
 
 @Entity
 @XmlRootElement
-public class CD implements Serializable
+public class CD extends Item implements Serializable
 {
-
-   @Id
-   @GeneratedValue(strategy = GenerationType.AUTO)
-   @Column(name = "id", updatable = false, nullable = false)
-   private Long id;
-   @Version
-   @Column(name = "version")
-   private int version;
-
-   @Column(length = 50)
-   @NotNull
-   @Size(min = 1, max = 50)
-   private String title;
-
-   @Column
-   @Min(1)
-   private Float price;
-
-   @Column(length = 3000)
-   @Size(min = 1, max = 3000)
-   private String description;
 
    @Column(name = "total_duration")
    private Float totalDuration;
-
-   @Column(name = "image_url")
-   private String imageURL;
 
    @ManyToOne
    private MajorLabel label;
@@ -60,26 +36,6 @@ public class CD implements Serializable
 
    @ManyToMany
    private Set<Musician> musicians = new HashSet<Musician>();
-
-   public Long getId()
-   {
-      return this.id;
-   }
-
-   public void setId(final Long id)
-   {
-      this.id = id;
-   }
-
-   public int getVersion()
-   {
-      return this.version;
-   }
-
-   public void setVersion(final int version)
-   {
-      this.version = version;
-   }
 
    @Override
    public boolean equals(Object obj)
@@ -112,36 +68,6 @@ public class CD implements Serializable
       return result;
    }
 
-   public String getTitle()
-   {
-      return title;
-   }
-
-   public void setTitle(String title)
-   {
-      this.title = title;
-   }
-
-   public Float getPrice()
-   {
-      return price;
-   }
-
-   public void setPrice(Float price)
-   {
-      this.price = price;
-   }
-
-   public String getDescription()
-   {
-      return description;
-   }
-
-   public void setDescription(String description)
-   {
-      this.description = description;
-   }
-
    public Float getTotalDuration()
    {
       return totalDuration;
@@ -150,16 +76,6 @@ public class CD implements Serializable
    public void setTotalDuration(Float totalDuration)
    {
       this.totalDuration = totalDuration;
-   }
-
-   public String getImageURL()
-   {
-      return imageURL;
-   }
-
-   public void setImageURL(String imageURL)
-   {
-      this.imageURL = imageURL;
    }
 
    @Override
@@ -175,10 +91,10 @@ public class CD implements Serializable
          result += ", price: " + price;
       if (description != null && !description.trim().isEmpty())
          result += ", description: " + description;
-      if (totalDuration != null)
-         result += ", totalDuration: " + totalDuration;
       if (imageURL != null && !imageURL.trim().isEmpty())
          result += ", imageURL: " + imageURL;
+      if (totalDuration != null)
+         result += ", totalDuration: " + totalDuration;
       return result;
    }
 

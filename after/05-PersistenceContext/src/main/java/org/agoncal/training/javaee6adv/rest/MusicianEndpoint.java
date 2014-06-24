@@ -24,7 +24,7 @@ public class MusicianEndpoint
    private EntityManager em;
 
    @POST
-   @Consumes("application/xml")
+   @Consumes({"application/xml","application/json"})
    public Response create(Musician entity)
    {
       em.persist(entity);
@@ -46,7 +46,7 @@ public class MusicianEndpoint
 
    @GET
    @Path("/{id:[0-9][0-9]*}")
-   @Produces("application/xml")
+   @Produces({"application/xml","application/json"})
    public Response findById(@PathParam("id") Long id)
    {
       TypedQuery<Musician> findByIdQuery = em.createQuery("SELECT DISTINCT m FROM Musician m WHERE m.id = :entityId ORDER BY m.id", Musician.class);
@@ -68,7 +68,7 @@ public class MusicianEndpoint
    }
 
    @GET
-   @Produces("application/xml")
+   @Produces({"application/xml","application/json"})
    public List<Musician> listAll(@QueryParam("start") Integer startPosition, @QueryParam("max") Integer maxResult)
    {
       TypedQuery<Musician> findAllQuery = em.createQuery("SELECT DISTINCT m FROM Musician m ORDER BY m.id", Musician.class);
@@ -86,7 +86,7 @@ public class MusicianEndpoint
 
    @PUT
    @Path("/{id:[0-9][0-9]*}")
-   @Consumes("application/xml")
+   @Consumes({"application/xml","application/json"})
    public Response update(Musician entity)
    {
       entity = em.merge(entity);
