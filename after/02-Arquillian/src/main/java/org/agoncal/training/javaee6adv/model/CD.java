@@ -46,11 +46,11 @@ public class CD implements Serializable
    @Size(min = 1, max = 3000)
    private String description;
 
-   @Column(name = "total_duration")
-   private Float totalDuration;
-
    @Column(name = "image_url")
    private String imageURL;
+
+   @Column(name = "total_duration")
+   private Float totalDuration;
 
    @ManyToOne
    private MajorLabel label;
@@ -142,16 +142,6 @@ public class CD implements Serializable
       this.description = description;
    }
 
-   public Float getTotalDuration()
-   {
-      return totalDuration;
-   }
-
-   public void setTotalDuration(Float totalDuration)
-   {
-      this.totalDuration = totalDuration;
-   }
-
    public String getImageURL()
    {
       return imageURL;
@@ -160,6 +150,16 @@ public class CD implements Serializable
    public void setImageURL(String imageURL)
    {
       this.imageURL = imageURL;
+   }
+
+   public Float getTotalDuration()
+   {
+      return totalDuration;
+   }
+
+   public void setTotalDuration(Float totalDuration)
+   {
+      this.totalDuration = totalDuration;
    }
 
    @Override
@@ -175,10 +175,10 @@ public class CD implements Serializable
          result += ", price: " + price;
       if (description != null && !description.trim().isEmpty())
          result += ", description: " + description;
-      if (totalDuration != null)
-         result += ", totalDuration: " + totalDuration;
       if (imageURL != null && !imageURL.trim().isEmpty())
          result += ", imageURL: " + imageURL;
+      if (totalDuration != null)
+         result += ", totalDuration: " + totalDuration;
       return result;
    }
 

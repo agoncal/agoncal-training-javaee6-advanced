@@ -24,7 +24,10 @@ arquillian-create-test --value cdbookstore/src/main/java/org/agoncal/training/ja
 arquillian-create-test --value cdbookstore/src/main/java/org/agoncal/training/javaee6adv/view/CategoryBean.java
 arquillian-create-test --value cdbookstore/src/main/java/org/agoncal/training/javaee6adv/view/CDBean.java
 arquillian-create-test --value cdbookstore/src/main/java/org/agoncal/training/javaee6adv/view/GenreBean.java
+arquillian-create-test --value cdbookstore/src/main/java/org/agoncal/training/javaee6adv/view/ItemBean.java
 arquillian-create-test --value cdbookstore/src/main/java/org/agoncal/training/javaee6adv/view/MajorLabelBean.java
+arquillian-create-test --value cdbookstore/src/main/java/org/agoncal/training/javaee6adv/view/OrderLineBean.java
+arquillian-create-test --value cdbookstore/src/main/java/org/agoncal/training/javaee6adv/view/PurchaseOrderBean.java
 
 # REST Endpoints
 # ##############

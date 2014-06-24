@@ -1,8 +1,6 @@
 # Java EE 6 Advanced Training - Arquillian
 
-In this module you will write Arquillian tests for the JSF backing beans and REST endpoints. Then you will refactor the domain model to follow JPA best practices 
-
-# DOJO - Writing the Arquillian tests
+In this module you will write Arquillian tests for the JSF backing beans and REST endpoints. 
 
 ## Install the Arquillian Addon on Forge
 
@@ -15,6 +13,8 @@ In this module you will write Arquillian tests for the JSF backing beans and RES
 * Make sure the `jbossHome` variable in `before/02-Arquillian/generate.fsh` is pointing to `$WILDFLY_HOME`
 * Execute the `generate.fsh` script with the command `run ../before/02-Arquillian/generate.fsh` 
 
+# DOJO - Write the JSF backing bean tests
+
 ## Write the JSF backing bean tests
 
 * Copy the files `CustomerBeanTest.java`, `PublisherBeanTest.java` and `MusicianBeanTest.java` to the `view` package
@@ -24,11 +24,13 @@ In this module you will write Arquillian tests for the JSF backing beans and RES
 * Code the other tests following the same logic until all the tests pass
 * Add the methods `should_crud` and `should_paginate` to every test
 
+# DOJO - Write the REST endpoints tests
+
 ## Write the REST endpoints tests
 
 * Copy the files `CustomerEndpointTest.java` and `MusicianEndpointTest.java` to the `rest` package
-* `cp ../before/02-Arquillian/CustomerEndpointTest.java cdbookstore/src/test/java/org/agoncal/training/javaee6adv/rest`
-* `cp ../before/02-Arquillian/MusicianEndpointTest.java cdbookstore/src/test/java/org/agoncal/training/javaee6adv/rest`
+* `cp ../before/02-Arquillian/CustomerEndpointTest.java src/test/java/org/agoncal/training/javaee6adv/rest`
+* `cp ../before/02-Arquillian/MusicianEndpointTest.java src/test/java/org/agoncal/training/javaee6adv/rest`
 * Code the other tests following the same logic until all the tests pass
 * Notice that the Arquillian tests are `@RunAsClient` and that they package a `WebArchive` (instead of a `JarArchive`) in `@Deployment(testable = false)`
 * Package the `persistence.xml` as a resource and the `beans.xml` as WEB-INF resource

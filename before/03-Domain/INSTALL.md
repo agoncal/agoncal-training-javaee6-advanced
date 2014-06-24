@@ -1,5 +1,7 @@
 # Java EE 6 Advanced Training - REST Client
 
+Then you will refactor the domain model to follow JPA best practices
+
 ## Add JSON support in CDBook-Store
 
 * In the REST endpoints :

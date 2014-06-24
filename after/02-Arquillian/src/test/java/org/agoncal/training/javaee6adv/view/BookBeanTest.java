@@ -1,6 +1,10 @@
 package org.agoncal.training.javaee6adv.view;
 
-import org.agoncal.training.javaee6adv.model.*;
+import org.agoncal.training.javaee6adv.model.Author;
+import org.agoncal.training.javaee6adv.model.Book;
+import org.agoncal.training.javaee6adv.model.Category;
+import org.agoncal.training.javaee6adv.model.Language;
+import org.agoncal.training.javaee6adv.model.Publisher;
 import org.agoncal.training.javaee6adv.view.BookBean;
 import javax.inject.Inject;
 import org.jboss.arquillian.container.test.api.Deployment;
