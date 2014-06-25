@@ -1,38 +1,58 @@
 # Java EE 6 Advanced Training - Web Application
 
+In this module you will beautify the CDBook-Store web application and add nice pages and primefaces components to browse CDs and Books.
+
 ## Generating a few artifacts
 
 * Launch JBoss Forge (enter the `$FORGE_HOME/bin/forge` command)
 * Go to the `cdbookstore` directory
-* Execute the `generate.fsh` script with the command `run before/06-WebApplication/generate.fsh` 
+* Execute the `generate.fsh` script with the command `run ../before/07-WebApplication/generate.fsh` 
 
-## Setup a new UI
+# DOJO - Setup a new UI
 
-### Add webjars to get rid of boostrap
+## Add webjars to get rid of boostrap
 
 * Delete Bootstrap because it's used with Webjars now `rm src/main/webapp/resources/bootstrap.css`
 
 ###  Copy the templates, css and logos
  
-* `cp ../before/06-WebApplication/mainTemplate.xhtml src/main/webapp/resources/scaffold/`
-* `cp ../before/06-WebApplication/pageTemplate.xhtml src/main/webapp/resources/scaffold/`
-* `cp ../before/06-WebApplication/banner.png src/main/webapp/resources/`
-* `cp ../before/06-WebApplication/forge-logo.png src/main/webapp/resources/`
-* `cp ../before/06-WebApplication/forge-style.css src/main/webapp/resources/`
-* `cp ../before/06-WebApplication/index.html src/main/webapp/`
+* `cp ../before/07-WebApplication/mainTemplate.xhtml src/main/webapp/resources/scaffold/`
+* `cp ../before/07-WebApplication/pageTemplate.xhtml src/main/webapp/resources/scaffold/`
+* `cp ../before/07-WebApplication/banner.png src/main/webapp/resources/`
+* `cp ../before/07-WebApplication/forge-logo.png src/main/webapp/resources/`
+* `cp ../before/07-WebApplication/forge-style.css src/main/webapp/resources/`
+* `cp ../before/07-WebApplication/index.html src/main/webapp/`
 
-###  Copy the book pages
+## Build, Deploy and check the web application
+                 
+* With a browser go to [http://localhost:8080/cdbookstore]()
+* The top links are disabled except `Adminstration`
+* [http://localhost:8080/cdbookstore/faces/admin/index.xhtml]() give you access to the admin pages
 
-* `cp ../before/06-WebApplication/book src/main/webapp/`
+# DOJO - Web pages to browse Books
+
+##  Copy the book pages
+
+* `cp ../before/07-WebApplication/book src/main/webapp/
+* The `index.xhtml` page needs a `bookService.findAllImages()` method
+* The `navigation.xhtml` page needs a `categoryService.listAll()` method
+* The `viewPerCategory.xhtml` needs a `bookBean.findByCategory` method
+
+## Copy the Arquillian tests
+
+* `cp ../before/07-WebApplication/BookBeanTest.java src/test/java/org/agoncal/training/javaee6adv/view`
+* It adds a `should_check_books_by_category()` test case
+* `cp ../before/07-WebApplication/BookServiceTest.java src/test/java/org/agoncal/training/javaee6adv/service`
+* It adds a `should_check_images` and a `should_check_books_by_category` method
 
 ## Copy the Arquillian tests
 
 * Copy the files `BookServiceTest.java` and `CDServiceTest.java` to the `service` package so they can test the services
-* `cp ../before/06-WebApplication/BookServiceTest.java cdbookstore/src/test/java/org/agoncal/training/javaee6adv/service`
-* `cp ../before/06-WebApplication/CDServiceTest.java cdbookstore/src/test/java/org/agoncal/training/javaee6adv/service`
+* `cp ../before/07-WebApplication/BookServiceTest.java cdbookstore/src/test/java/org/agoncal/training/javaee6adv/service`
+* `cp ../before/07-WebApplication/CDServiceTest.java cdbookstore/src/test/java/org/agoncal/training/javaee6adv/service`
 * Copy the files `BookBeanTest.java` and `CDBeanTest.java` to the `view` package so they can test the backing beans
-* `cp ../before/06-WebApplication/BookBeanTest.java cdbookstore/src/test/java/org/agoncal/training/javaee6adv/view`
-* `cp ../before/06-WebApplication/CDBeanTest.java cdbookstore/src/test/java/org/agoncal/training/javaee6adv/view`
+* `cp ../before/07-WebApplication/BookBeanTest.java cdbookstore/src/test/java/org/agoncal/training/javaee6adv/view`
+* `cp ../before/07-WebApplication/CDBeanTest.java cdbookstore/src/test/java/org/agoncal/training/javaee6adv/view`
 
 ## Code the services and JSF backing beans until the test execute
 
@@ -60,17 +80,6 @@
 * `view.xhtml` shows the details of a CD
 * `viewPerGenre.xhtml` shows all the CDs for a particular genre
 * Get inspiration from `src/main/webapp/book`
-
-## Build the application
-
-* In Forge enter the command `build` 
-
-## Deploy the application on WildFly application server
-
-* Start WildFly (`$WILDFLY_HOME/bin/standalone.sh`)
-* Make sure WildFly has enough memory `-Xms64m -Xmx1024m -XX:MaxPermSize=512m -Djava.net.preferIPv4Stack=true`
-* Go to the [admin console](http://localhost:9990/)
-* Deploy the `cdbookstore/target/cdbookstore.war` file in _Runtime -> Manage Deployments -> Add -> Enable_
 
 ## Check the web application
 
