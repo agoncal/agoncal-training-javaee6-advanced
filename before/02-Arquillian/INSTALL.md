@@ -24,6 +24,15 @@ In this module you will write Arquillian tests for the JSF backing beans and RES
 * Code the other tests following the same logic until all the tests pass
 * Add the methods `should_crud` and `should_paginate` to every test
 
+## Execute the tests in a remote environment
+
+* Start WildFly (`$WILDFLY_HOME/bin/standalone.sh`)
+* Make sure WildFly has enough memory `-Xms64m -Xmx1024m -XX:MaxPermSize=512m -Djava.net.preferIPv4Stack=true`
+* `mvn -Parquillian-wildfly-remote test` will execute the tests with WildFly up and running and with the application deployed
+* If you have the following error, it's because you are not using the Arquillian Maven profile `DeploymentScenario contains a target (_DEFAULT_) not matching any defined Container in the registry`
+* `NoClassDefFoundError` means that your ShrinkWrap packaging misses some classes (check the `createDeployment` method) 
+* `ConstraintViolationException` is thrown when the entity is not valid
+
 # DOJO - Write the REST endpoints tests
 
 ## Write the REST endpoints tests
