@@ -1,0 +1,28 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui"
+                template="/resources/scaffold/mainTemplate.xhtml">
+
+    <ui:param name="pageTitle" value="CDs"/>
+
+    <ui:define name="header">
+        CDs
+    </ui:define>
+
+    <ui:define name="navigation">
+        <ui:include src="navigation.xhtml"/>
+    </ui:define>
+
+    <ui:define name="main">
+        <p:commandButton type="button" onclick="PF('switcher').next();" rendered="false"/>
+        <p:imageSwitch effect="fade">
+            <ui:repeat value="#{CDService.findAllImages()}" var="image">
+                <p:graphicImage url="#{image}" id="image"/>
+            </ui:repeat>
+        </p:imageSwitch>
+    </ui:define>
+
+</ui:composition>

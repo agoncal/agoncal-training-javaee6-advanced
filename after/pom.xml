@@ -14,7 +14,7 @@
         <module>04-RestClient</module>
         <module>05-PersistenceContext</module>
         <module>06-Service</module>
-        <module>06-WebApplication</module>
+        <module>07-WebApplication</module>
     </modules>
 
 </project>

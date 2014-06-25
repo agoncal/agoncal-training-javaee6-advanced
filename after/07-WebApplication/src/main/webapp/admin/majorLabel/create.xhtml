@@ -1,0 +1,64 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:c="http://java.sun.com/jsp/jstl/core"
+	template="/resources/scaffold/pageTemplate.xhtml">
+
+	<f:metadata>
+		<f:viewParam name="id" value='#{majorLabelBean.id}'/>
+		<f:event type="preRenderView" listener='#{majorLabelBean.retrieve}'/>
+	</f:metadata>
+
+	<ui:param name="pageTitle" value="Create Major Label"/>
+
+	<ui:define name="header">
+		Major Label
+	</ui:define>
+
+	<ui:define name="subheader">
+		<c:choose>
+			<c:when test='#{!empty majorLabelBean.id}'>
+				Edit existing Major Label
+			</c:when>
+			<c:otherwise>
+				Create a new Major Label
+			</c:otherwise>
+		</c:choose>
+	</ui:define>
+
+	<ui:define name="footer"/>
+
+	<ui:define name="main">
+		<h:form id="create">
+			<h:messages globalOnly="true" styleClass="error"/>
+
+			<h:panelGrid columnClasses="label,component,required" columns="3">
+				<h:outputLabel for="majorLabelBeanMajorLabelName" value="Name:"/>
+				<h:panelGroup>
+					<h:inputText id="majorLabelBeanMajorLabelName" maxLength="30" required="true" value="#{majorLabelBean.majorLabel.name}"/>
+					<h:message for="majorLabelBeanMajorLabelName" styleClass="error"/>
+				</h:panelGroup>
+				<h:outputText value="*"/>
+			</h:panelGrid>
+
+			<div class="buttons">
+				<h:commandLink value="Save" action='#{majorLabelBean.update}' styleClass="btn btn-primary"/>
+				<c:choose>
+					<c:when test='#{!empty majorLabelBean.id}'>
+						<h:link value="Cancel" outcome="view" styleClass="btn btn-primary">
+							<f:param name="id" value='#{majorLabelBean.id}'/>
+						</h:link>
+						<h:commandLink value="Delete" action='#{majorLabelBean.delete}' styleClass="btn btn-primary"/>
+					</c:when>
+					<c:otherwise>
+						<h:link value="Cancel" outcome="search" styleClass="btn btn-primary"/>
+					</c:otherwise>
+				</c:choose>
+			</div>
+		</h:form>
+	</ui:define>
+
+</ui:composition>
