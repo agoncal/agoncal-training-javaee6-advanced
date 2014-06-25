@@ -1,6 +1,11 @@
 package org.agoncal.training.javaee6adv.view;
 
-import org.agoncal.training.javaee6adv.model.*;
+import org.agoncal.training.javaee6adv.model.Author;
+import org.agoncal.training.javaee6adv.model.Book;
+import org.agoncal.training.javaee6adv.model.Category;
+import org.agoncal.training.javaee6adv.model.Item;
+import org.agoncal.training.javaee6adv.model.Language;
+import org.agoncal.training.javaee6adv.model.Publisher;
 import org.agoncal.training.javaee6adv.service.AbstractService;
 import org.agoncal.training.javaee6adv.service.BookService;
 import org.agoncal.training.javaee6adv.util.Resources;
@@ -33,6 +38,7 @@ public class BookBeanTest
             .addClass(AbstractService.class)
             .addClass(BookService.class)
             .addClass(Book.class)
+            .addClass(Item.class)
             .addClass(Language.class)
             .addClass(Category.class)
             .addClass(Author.class)
