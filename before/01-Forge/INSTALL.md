@@ -48,16 +48,16 @@ In this module you will generate the CDBookStore application. It is a full Java 
 * [http://localhost:8080/cdbookstore/rest/purchaseorders]()
 * Use [PostMan REST client](https://chrome.google.com/webstore/detail/postman-rest-client/fdmmgilgnpjigdojojpjoooidkmcomcm) to create/update/remove entities
 
-## Check the code of the application
+# Restitution
 
-### Entity Layer
+## Entity Layer
 
 * Implement `Serializable` 
 * Use the `@XmlRootElement` JAXB annotation
 * Use of Bean Validation constraint
 * Optimistic locking with `@Version` 
 
-### JSF Backing Beans
+## JSF Backing Beans
 
 * Represented as `@Stateful` EJBs
 * Uses the `@ConversationScoped` and `Conversation` API of CDI
@@ -66,12 +66,12 @@ In this module you will generate the CDBookStore application. It is a full Java 
 * Uses the JPA Criteria API on `paginate`, `getSearchPredicates` and `getAll` methods
 * Uses a `Converter` to display a bean on a JSF page
 
-### REST Interfaces
+## REST Interfaces
 
 * Use the JPA `Predicate` and `CriteriaBuilder` APIs
 * Configuration done with `RestApplication`
 * Methods return the `Response` API
 
-## Backup your code
+# Backup your code
 
 * Save a backup of your code at `../after/01-Forge/`

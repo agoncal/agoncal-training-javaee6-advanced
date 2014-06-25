@@ -65,6 +65,11 @@ JBoss Forge doesn't know how to generate inheritance or Embeddable. In this modu
 * [http://localhost:8080/cdbookstore/rest/purchaseorders]()
 * Use [PostMan REST client](https://chrome.google.com/webstore/detail/postman-rest-client/fdmmgilgnpjigdojojpjoooidkmcomcm) to create/update/remove entities
 
-## Backup your code
+# Restitution
+
+* `@Inheritance` 
+* `@Embeddable` and `@Embedded`
+
+# Backup your code
 
 * Save a backup of your code at `../after/03-Domain/`

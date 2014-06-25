@@ -87,3 +87,8 @@ In this module you will use the JAX-RS 2.0 Client API to invoke programmatically
 
 * While CDBook-Store is up and running, run `mvn install` and make sure the `Main` class is executed
 
+# Restitution
+
+* JAX-RS 2.0 Client API : `ClientBuilder`, `Client`, `WebTarget`, `Response`
+* JSON-P : `Json` Façade, `JSonObject`
+* Using the Client API in Arquillian (using JAX-RS 2.0 in a Java EE 6 application)

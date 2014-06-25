@@ -70,6 +70,13 @@ In this module you will write Arquillian tests for the JSF backing beans and RES
 
 * With a browser go to [http://localhost:8080/cdbookstore]()
 
-## Backup your code
+# Restitution
+
+* Tests can use container services such as Injection
+* `@RunAsAclient`
+* Configuration in arquillian.xml
+* Profile in pom.xml
+
+# Backup your code
 
 * Save a backup of your code at `../after/02-Arquillian/`

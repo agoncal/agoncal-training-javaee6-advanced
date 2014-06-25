@@ -119,6 +119,13 @@ service.findByIdWithRelations(id)
 * Go to `cdbookclient` directory
 * Run `mvn install` which executes the `Main` class
 
-## Backup your code
+# Restitution
+
+* EJBs have as many methods as needed depending on the relations (LEFT JOINs)
+* JSF backing beans & REST endpoints do not have to be transactional
+* EJBs are transactional by default
+* Flush in REST endpoints is not needed
+
+# Backup your code
 
 * Save a backup of your code at `../after/06-Service/`

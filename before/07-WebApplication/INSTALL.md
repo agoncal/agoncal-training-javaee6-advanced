@@ -94,6 +94,13 @@ In this module you will beautify the CDBook-Store web application and add nice p
 * Go to `cdbookclient` directory
 * Run `mvn install` which executes the `Main` class
 
-## Backup your code
+# Restitution
+
+* Bootstrap as a JSF resource (jar in a classpath)
+* JSF staging (`projectStage`)
+* In Arquillian we can add an `import.sql` as a resource
+* EJB stateless can be `@Named`
+
+# Backup your code
 
 * Save a backup of your code at `../after/06-WebApplication/`

@@ -61,6 +61,10 @@ Extended persistence context allow entities to be managed longer than a transact
 * Go to `cdbookclient` directory
 * Run `mvn install` which executes the `Main` class
 
-## Backup your code
+# Restitution
+
+* `LEFT JOIN FETCH`
+
+# Backup your code
 
 * Save a backup of your code at `../after/05-PersistenceContext/`
