@@ -35,12 +35,13 @@ Extended persistence context allow entities to be managed longer than a transact
 * [http://localhost:8080/cdbookstore/faces/admin/CD/view.xhtml?id=-1]()
 * Displaying and creating CDs from the UI should fail with `failed to lazily initialize a collection of role: org.agoncal.training.javaee6adv.model.CD.musicians`
 
-# DOJO - Get rid of lazy initialization exception by finding by id with relations
+# DOJO - Get rid of lazy initialization exception by finding by id with relations using LEFT JOIN
 
 ## Get rid of lazy initialization exception by finding by id with relations
 
 * Book and CD have relations with other entities
 * Both `BookBean.findById` and `CDBean.findById` should use LEFT joins to get relations
+* (check the REST endpoints, that's what they do)
 * Use a `TypedQuery` (`TypedQuery<CD> findByIdQuery = this.entityManager.createQuery`)
 * Remember to set the entity id as a parameter `findByIdQuery.setParameter("entityId", id);`
 
