@@ -13,7 +13,7 @@ Both JSF Backing Beans and REST Endpoints use the `EntityManager`. In this modul
 * Start WildFly (`$WILDFLY_HOME/bin/standalone.sh`)
 * `mvn -Parquillian-wildfly-remote test` will execute the tests with WildFly up and running and with the application deployed
 
-# DOJO - Produce the Entity Manager
+# DOJO - Produce the Entity Manager and @Inject it
 
 ## Add a CDI producer to the Resources class
 
