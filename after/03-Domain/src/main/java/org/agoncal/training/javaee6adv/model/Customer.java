@@ -60,6 +60,14 @@ public class Customer implements Serializable
    @Valid
    private Address homeAddress = new Address();
 
+   public Address getHomeAddress() {
+      return homeAddress;
+   }
+
+   public void setHomeAddress(Address homeAddress) {
+      this.homeAddress = homeAddress;
+   }
+
    public Long getId()
    {
       return this.id;

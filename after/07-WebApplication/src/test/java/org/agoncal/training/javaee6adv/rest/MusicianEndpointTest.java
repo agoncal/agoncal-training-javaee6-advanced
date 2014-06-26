@@ -54,4 +54,12 @@ public class MusicianEndpointTest
       WebTarget target = client.target(baseURL).path("rest").path("musicians");
       assertEquals(Response.Status.OK.getStatusCode(), target.request(MediaType.APPLICATION_XML).get().getStatus());
    }
+
+   @Test
+   public void should_produce_json()
+   {
+      Client client = ClientBuilder.newClient();
+      WebTarget target = client.target(baseURL).path("rest").path("musicians");
+      assertEquals(Response.Status.OK.getStatusCode(), target.request(MediaType.APPLICATION_JSON).get().getStatus());
+   }
 }

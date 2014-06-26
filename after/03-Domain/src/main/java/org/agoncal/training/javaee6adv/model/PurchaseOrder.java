@@ -57,6 +57,22 @@ public class PurchaseOrder implements Serializable
    @Valid
    private CreditCard creditCard = new CreditCard();
 
+   public Address getDeliveryAddress() {
+      return deliveryAddress;
+   }
+
+   public void setDeliveryAddress(Address deliveryAddress) {
+      this.deliveryAddress = deliveryAddress;
+   }
+
+   public CreditCard getCreditCard() {
+      return creditCard;
+   }
+
+   public void setCreditCard(CreditCard creditCard) {
+      this.creditCard = creditCard;
+   }
+
    public Long getId()
    {
       return this.id;

@@ -3,7 +3,17 @@
 In this module you will use the JAX-RS 2.0 Client API to invoke programmatically the CDBook-Store REST endpoints. For that you will create the new project CDBook-Client
 
 # DOJO - Add JSON support in CDBook-Store Endpoints
- 
+
+## The test REST Endpoints add a new method to test JSON support
+
+* Each new test has a method `should_produce_json` that checks the GET method produces JSon
+* Copy the REST endpoint tests
+* `cp ../before/04-RestClient/AuthorEndpointTest src/test/java/org/agoncal/training/javaee6adv/rest`
+* `cp ../before/04-RestClient/BookEndpointTest src/test/java/org/agoncal/training/javaee6adv/rest`
+* `cp ../before/04-RestClient/CDEndpointTest src/test/java/org/agoncal/training/javaee6adv/rest`
+* `cp ../before/04-RestClient/CustomerEndpointTest src/test/java/org/agoncal/training/javaee6adv/rest`
+* `cp ../before/04-RestClient/MusicianEndpointTest src/test/java/org/agoncal/training/javaee6adv/rest`
+
 ## Add JSON support in CDBook-Store Endpoints
 
 * In the REST endpoints :
@@ -27,7 +37,7 @@ In this module you will use the JAX-RS 2.0 Client API to invoke programmatically
 ## Generate the new project CDBook-Client with JBoss Forge
 
 * Launch JBoss Forge (enter the `$FORGE_HOME/bin/forge` command)
-* Execute the `generate.fsh` script with the command `run ../before/01-Forge/generate.fsh` 
+* Execute the `generate.fsh` script with the command `run ../before/04-RestClient/generate.fsh` 
 * Go to the `cdbookclient` directory
 
 ## Add a Maven exec plugin
@@ -58,6 +68,8 @@ In this module you will use the JAX-RS 2.0 Client API to invoke programmatically
     
 ## Invoke the CD-Book Store REST Services with the Main class
 
+* Remember that our REST endpoints tests use the Client API (get inspiration from them)
+
 ### Get all the books
     
 * In the `Main` create a method that returns all the Books in JSON
@@ -72,7 +84,7 @@ In this module you will use the JAX-RS 2.0 Client API to invoke programmatically
 * `Response response = target.request(MediaType.APPLICATION_JSON).post(Entity.json(json.toString()));`
 * Display the location `System.out.println(response.getLocation());`
 
-## Find a book given an id
+### Find a book given an id
 
 * In the `Main` create a method that returns a book in JSON given an id
 * Method `private static void findBookById(String id)`
