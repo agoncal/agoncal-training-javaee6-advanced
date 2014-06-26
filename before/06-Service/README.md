@@ -19,6 +19,16 @@ Both JSF Backing Beans and REST Endpoints use the `EntityManager`. In this modul
 
 * The class `org.agoncal.training.javaee6adv.util.Resources` should produce an `EntityManager` for `cdbookstorePU`
 
+## Inject the EntityManager with @Inject
+
+* In all REST endpoint change `@PersistenceContext(unitName = "cdbookstorePU")` with `@Inject`
+* In all JSF Backing bean change `@PersistenceContext(unitName = "cdbookstorePU")` with `@Inject`
+
+## Execute the tests in a remote environment
+
+* Start WildFly (`$WILDFLY_HOME/bin/standalone.sh`)
+* `mvn -Parquillian-wildfly-remote test` will execute the tests with WildFly up and running and with the application deployed
+
 # DOJO - Write the service layer
 
 ## Write the services
