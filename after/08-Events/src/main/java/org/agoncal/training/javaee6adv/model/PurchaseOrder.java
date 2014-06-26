@@ -1,8 +1,10 @@
 package org.agoncal.training.javaee6adv.model;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Embedded;
 import javax.persistence.Entity;
 import java.io.Serializable;
+import javax.persistence.FetchType;
 import javax.persistence.Id;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -46,7 +48,7 @@ public class PurchaseOrder implements Serializable
    @ManyToOne
    private Customer customer;
 
-   @OneToMany
+   @OneToMany(cascade = CascadeType.PERSIST, fetch = FetchType.EAGER)
    private Set<OrderLine> orderLines = new HashSet<OrderLine>();
 
    @Embedded
