@@ -1,0 +1,28 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+		"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+								xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:h="http://java.sun.com/jsf/html"
+								xmlns:p="http://primefaces.org/ui"
+								template="/resources/scaffold/mainTemplate.xhtml">
+
+	<ui:param name="pageTitle" value="Monitoring"/>
+
+	<ui:define name="header">
+		Monitoring
+	</ui:define>
+
+	<ui:define name="main">
+
+		<h:form>
+			<h:panelGroup styleClass="buttons">
+				<h:commandLink value="Start Robot" action='#{robotService.start}' styleClass="btn btn-primary"/>
+				<h:commandLink value="Stop Robot" action='#{robotService.stop}' styleClass="btn btn-primary"/>
+			</h:panelGroup>
+
+			<h:outputText id="txt_count" value="#{monitoringService.log}"/>
+			<p:poll interval="3" update="txt_count"/>
+		</h:form>
+	</ui:define>
+
+</ui:composition>

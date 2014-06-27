@@ -8,7 +8,7 @@ In this module you will add the capability of buying a book or a CD. The idea is
  
 * The Book web page has a _Buy_ button and it displays an information message that the book has been successfully bought
 * Replace the `view.xhtml` page of the Book
-* `cp ../before/08-Events/view.xhtml src/main/webapp/book/view.xhtml`
+* `cp ../before/08-Events/view.xhtml src/main/webapp/book`
 
 ## Add a buy method on BookBean 
 
