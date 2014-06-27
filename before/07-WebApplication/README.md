@@ -13,6 +13,7 @@ In this module you will beautify the CDBook-Store web application and add nice p
 ## Add webjars to get rid of boostrap
 
 * Delete Bootstrap because it's used with Webjars now `rm src/main/webapp/resources/bootstrap.css`
+* The `org.webjars.bootstrap` jar brings the needed style sheet
 
 ###  Copy the templates, css and logos
  
@@ -22,6 +23,7 @@ In this module you will beautify the CDBook-Store web application and add nice p
 * `cp ../before/07-WebApplication/forge-logo.png src/main/webapp/resources/`
 * `cp ../before/07-WebApplication/forge-style.css src/main/webapp/resources/`
 * `cp ../before/07-WebApplication/index.html src/main/webapp/`
+* `cp ../before/07-WebApplication/index.xhtml src/main/webapp/`
 
 ## Build, Deploy and check the web application
                  
@@ -33,10 +35,11 @@ In this module you will beautify the CDBook-Store web application and add nice p
 
 ##  Copy the book pages
 
-* `cp ../before/07-WebApplication/book src/main/webapp/
+* `cp ../before/07-WebApplication/book src/main/webapp/`
 * The `index.xhtml` page needs a `bookService.findAllImages()` method
 * The `navigation.xhtml` page needs a `categoryService.listAll()` method
 * The `viewPerCategory.xhtml` needs a `bookBean.findByCategory` method
+* The pages use a few Prime Faces components : `imageSwitch` and `dataScroller` 
 
 ## Copy the Arquillian tests
 

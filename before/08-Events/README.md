@@ -14,7 +14,7 @@ In this module you will add the capability of buying a book or a CD. The idea is
 
 * The `BookBean` should have a new `public String buy()` method that returns null
 * The method finds the book that we just bought
-* It a JSF message (use the JSF `context` to send a message, you get the context with `FacesContext context = FacesContext.getCurrentInstance()`)
+* It displays a JSF message (use the JSF `context` to send a message, you get the context with `FacesContext context = FacesContext.getCurrentInstance()`)
 * It then fires an event
 
 ## Build, Deploy and check the web application
@@ -31,7 +31,7 @@ In this module you will add the capability of buying a book or a CD. The idea is
 
 * Copy the `RandomService` class, it will randomly generate data
 * `cp ../before/08-Events/RandomService.java src/main/java/org/agoncal/training/javaee6adv/service`
-* Add a `public void itemHasBeenBought(Item itemBought)` method in `PurchaseOrderService`
+* In `PurchaseOrderService` add a `public void itemHasBeenBought(Item itemBought)` method
 * It should create a `purchaseOrder` (with a random credit card, a random address, a random customer) and the detached `itemBought`
 * Use `getEntityManager().persist(purchaseOrder)` to persist the `purchaseOrder`
 * You might have to change the cascade and fetch on the `orderLines` attributes (`@OneToMany(cascade = CascadeType.PERSIST, fetch = FetchType.EAGER)`)

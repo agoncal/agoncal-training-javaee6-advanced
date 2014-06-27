@@ -19,7 +19,8 @@ We want to monitor the activity of the robot (display a message each time a book
 
 ## Add a monitoring service 
 
-* Change the `log` attribute from `private List log`` to `private List<String> logs = new ArrayList<>();`
+* In `MonitoringService`
+* Change the `logs` attribute from `private List logs` to `private List<String> logs = new ArrayList<>();`
 * Add a `public void newMessage(String robotMessage)` that adds the `robotMessage` to the `logs`
 * Make sure you can access the `MonitoringService` from the `monitoring.xhtml` page
  
