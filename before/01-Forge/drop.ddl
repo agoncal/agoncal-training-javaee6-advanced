@@ -1,15 +1,14 @@
-drop table Author;
-drop table Book;
-drop table CD;
-drop table CD_Musician;
-drop table Category;
-drop table Genre;
-drop table MajorLabel;
-drop table Musician;
-drop table Publisher;
-drop table Customer;
-drop table Orderline;
-drop table Purchaseorder;
-drop table Purchaseorder_orderline;
-drop table Item;
-drop table Item_musician;
+drop table Author if exists
+drop table Book if exists
+drop table CD if exists
+drop table CD_Musician if exists
+drop table Category if exists
+drop table Customer if exists
+drop table Genre if exists
+drop table Item if exists
+drop table MajorLabel if exists
+drop table Musician if exists
+drop table OrderLine if exists
+drop table Publisher if exists
+drop table PurchaseOrder if exists
+drop table PurchaseOrder_OrderLine if exists

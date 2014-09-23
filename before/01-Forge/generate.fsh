@@ -1,7 +1,7 @@
 #  #####################  #
 #  Creates a new project  #
 #  #####################  #
-project-new --named cdbookstore --topLevelPackage org.agoncal.training.javaee6adv --type war --finalName cdbookstore ;
+project-new --named cdbookstore --topLevelPackage org.agoncal.training.javaee6adv --type war --finalName cdbookstore --version 1.0.0 ;
 
 
 # Setup the persistence unit in persistence.xml
@@ -15,7 +15,7 @@ jpa-setup --persistenceUnitName cdbookstorePU ;
 
 # ISBN constraint
 # ############
-# TODO constraint-new-annotation --named ISBN ;
+# TODO constraint-new-annotation --named ISBN ;  because  Adding ISBN constraint on property doesn't work [FORGE-1801]
 
 
 # Genre entity
@@ -139,7 +139,7 @@ constraint-add --onProperty title --constraint Size --min 1 --max 50 ;
 constraint-add --onProperty description --constraint Size --min 1 --max 3000 ;
 constraint-add --onProperty price --constraint Min --value 1 ;
 constraint-add --onProperty isbn --constraint NotNull ;
-# TODO Adding ISBN constraints constraint-add --onProperty isbn --constraint ISBN ;
+# TODO Adding ISBN constraints constraint-add --onProperty isbn --constraint ISBN ;  [FORGE-1801]
 constraint-add --onProperty nbOfPages --constraint Min --value 1 ;
 constraint-add --onProperty publicationDate --constraint Past ;
 
@@ -165,7 +165,7 @@ constraint-add --onProperty price --constraint Min --value 1 ;
 
 # Address entity
 # ############
-jpa-new-entity --named Address ;
+jpa-new-embeddable --named Address ;
 jpa-new-field --named street1 ;
 jpa-new-field --named street2 ;
 jpa-new-field --named city ;
@@ -193,7 +193,7 @@ java-new-enum-const AMERICAN_EXPRESS ;
 
 # CreditCard entity
 # ############
-jpa-new-entity --named CreditCard ;
+jpa-new-embeddable --named CreditCard ;
 jpa-new-field --named creditCardNumber --columnName credit_card_number ;
 jpa-new-field --named creditCardType --type org.agoncal.training.javaee6adv.model.CreditCardType --columnName credit_card_type ;
 jpa-new-field --named creditCardExpDate --columnName credit_card_expiry_date  ;
@@ -207,7 +207,7 @@ constraint-add --onProperty creditCardExpDate --constraint NotNull ;
 
 # Email constraint
 # ############
-# TODO constraint-new-annotation --named Email ;
+# TODO constraint-new-annotation --named Email ;  [FORGE-1801]
 
 
 # Customer entity
@@ -220,6 +220,7 @@ jpa-new-field --named email ;
 jpa-new-field --named dateOfBirth --type java.util.Date --columnName date_of_birth ;
 jpa-new-field --named age --type int --transient
 # Embeddable Address
+# TODO jpa-new-field --named homeAddress --type org.agoncal.training.javaee6adv.model.Address --relationshipType Embedded ; [1108]
 jpa-new-field --named street1 ;
 jpa-new-field --named street2 ;
 jpa-new-field --named city ;
@@ -262,6 +263,7 @@ jpa-new-field --named orderDate --type java.util.Date --columnName order_date ;
 jpa-new-field --named customer --type org.agoncal.training.javaee6adv.model.Customer --relationshipType Many-to-One ;
 jpa-new-field --named orderLines --type org.agoncal.training.javaee6adv.model.OrderLine --relationshipType One-to-Many --columnName order_lines ;
 # Embeddable Address
+# TODO jpa-new-field --named deliveryAddress --type org.agoncal.training.javaee6adv.model.Address --relationshipType Embedded ; [1108]
 jpa-new-field --named street1 ;
 jpa-new-field --named street2 ;
 jpa-new-field --named city ;
@@ -269,6 +271,7 @@ jpa-new-field --named state ;
 jpa-new-field --named zipcode --columnName zip_code ;
 jpa-new-field --named country ;
 # Embeddable Credit Card
+# TODO jpa-new-field --named creditCard --type org.agoncal.training.javaee6adv.model.CreditCard --relationshipType Embedded ; [1108]
 jpa-new-field --named creditCardNumber --columnName credit_card_number ;
 jpa-new-field --named creditCardType --type org.agoncal.training.javaee6adv.model.CreditCardType --columnName credit_card_type ;
 jpa-new-field --named creditCardExpDate --columnName credit_card_expiry_date  ;
@@ -293,29 +296,30 @@ constraint-add --onProperty creditCardExpDate --constraint NotNull ;
 #  #############################  #
 #  Generates JSF beans and pages  #
 #  #############################  #
-scaffold-generate --webRoot /admin --targets org.agoncal.training.javaee6adv.model.Genre
-scaffold-generate --webRoot /admin --targets org.agoncal.training.javaee6adv.model.Category
-scaffold-generate --webRoot /admin --targets org.agoncal.training.javaee6adv.model.Publisher
-scaffold-generate --webRoot /admin --targets org.agoncal.training.javaee6adv.model.MajorLabel
-scaffold-generate --webRoot /admin --targets org.agoncal.training.javaee6adv.model.Author
-scaffold-generate --webRoot /admin --targets org.agoncal.training.javaee6adv.model.Musician
-scaffold-generate --webRoot /admin --targets org.agoncal.training.javaee6adv.model.Item
-scaffold-generate --webRoot /admin --targets org.agoncal.training.javaee6adv.model.Book
-scaffold-generate --webRoot /admin --targets org.agoncal.training.javaee6adv.model.CD
-scaffold-generate --webRoot /admin --targets org.agoncal.training.javaee6adv.model.Customer
-scaffold-generate --webRoot /admin --targets org.agoncal.training.javaee6adv.model.PurchaseOrder
-scaffold-generate --webRoot /admin --targets org.agoncal.training.javaee6adv.model.OrderLine
+scaffold-generate --webRoot /admin --targets org.agoncal.training.javaee6adv.model.Genre ;
+scaffold-generate --webRoot /admin --targets org.agoncal.training.javaee6adv.model.Category ;
+scaffold-generate --webRoot /admin --targets org.agoncal.training.javaee6adv.model.Publisher ;
+scaffold-generate --webRoot /admin --targets org.agoncal.training.javaee6adv.model.MajorLabel ;
+scaffold-generate --webRoot /admin --targets org.agoncal.training.javaee6adv.model.Author ;
+scaffold-generate --webRoot /admin --targets org.agoncal.training.javaee6adv.model.Musician ;
+scaffold-generate --webRoot /admin --targets org.agoncal.training.javaee6adv.model.Item ;
+scaffold-generate --webRoot /admin --targets org.agoncal.training.javaee6adv.model.Book ;
+scaffold-generate --webRoot /admin --targets org.agoncal.training.javaee6adv.model.CD ;
+scaffold-generate --webRoot /admin --targets org.agoncal.training.javaee6adv.model.Customer ;
+scaffold-generate --webRoot /admin --targets org.agoncal.training.javaee6adv.model.PurchaseOrder ;
+scaffold-generate --webRoot /admin --targets org.agoncal.training.javaee6adv.model.OrderLine ;
 
 
 #  ########################  #
 #  Generates REST endpoints  #
 #  ########################  #
-rest-generate-endpoints-from-entities --targets org.agoncal.training.javaee6adv.model.Author ;
-rest-generate-endpoints-from-entities --targets org.agoncal.training.javaee6adv.model.Book ;
-rest-generate-endpoints-from-entities --targets org.agoncal.training.javaee6adv.model.CD ;
-rest-generate-endpoints-from-entities --targets org.agoncal.training.javaee6adv.model.Musician ;
-rest-generate-endpoints-from-entities --targets org.agoncal.training.javaee6adv.model.Customer ;
-rest-generate-endpoints-from-entities --targets org.agoncal.training.javaee6adv.model.PurchaseOrder ;
+# TODO adding several content types --contentType application/xml application/json [FORGE-2027]
+rest-generate-endpoints-from-entities --targets org.agoncal.training.javaee6adv.model.Author --contentType application/xml application/json ;
+rest-generate-endpoints-from-entities --targets org.agoncal.training.javaee6adv.model.Book --contentType application/xml application/json ;
+rest-generate-endpoints-from-entities --targets org.agoncal.training.javaee6adv.model.CD --contentType application/xml application/json ;
+rest-generate-endpoints-from-entities --targets org.agoncal.training.javaee6adv.model.Musician --contentType application/xml application/json ;
+rest-generate-endpoints-from-entities --targets org.agoncal.training.javaee6adv.model.Customer --contentType application/xml application/json ;
+rest-generate-endpoints-from-entities --targets org.agoncal.training.javaee6adv.model.PurchaseOrder --contentType application/xml application/json ;
 
 
 #  ##################  #
@@ -335,4 +339,13 @@ project-remove-managed-dependencies org.jboss.spec.javax.faces:jboss-jsf-api_2.0
 project-remove-managed-dependencies org.jboss.spec:jboss-javaee-6.0:pom::3.0.2.Final ;
 
 project-add-dependencies org.jboss.spec:jboss-javaee-6.0:3.0.2.Final:provided:pom ;
-project-add-dependencies org.jboss.resteasy:resteasy-client:3.0.8.Final:test:jar ;
+
+
+#  ################  #
+#  Copies resources  #
+#  ################  #
+cd ~~ ;
+cp ../before/01-Forge/index.html src/main/webapp/ ;
+cp ../before/01-Forge/index.xhtml src/main/webapp/ ;
+
+

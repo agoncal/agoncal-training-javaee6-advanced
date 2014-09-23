@@ -1,6 +1,6 @@
 # Java EE 6 Advanced Training - Forge
 
-In this module you will generate the CDBookStore application. It is a full Java EE 6 application with a JSF user interface and a REST interface. Thanks to JBoss Forge, generating the entire application takes only a few seconds. 
+In this module you will generate the CDBookStore application. It is a full Java EE 6 application with a JSF user interface and a REST interface. Data is stored into a H2 in-memory database. Thanks to JBoss Forge, generating the entire application takes only a few seconds. 
 
 # DOJO - Generate the project with JBoss Forge
 
@@ -10,17 +10,6 @@ In this module you will generate the CDBookStore application. It is a full Java 
 * Execute the `generate.fsh` script with the command `run before/01-Forge/generate.fsh` 
 * Go to the `cdbookstore` directory
 
-## Add data to the database
- 
-* Copy the file `import.sql` to `src/main/resources`
-* `cp ../before/01-Forge/import.sql src/main/resources`
-
-## Add a welcome page
-
-* Copy both `index` pages to the web application root
-* `cp ../before/01-Forge/index.html src/main/webapp/`
-* `cp ../before/01-Forge/index.xhtml src/main/webapp/`
- 
 ## Build the application
 
 * Use Maven and build the application with `mvn clean install`
@@ -29,13 +18,18 @@ In this module you will generate the CDBookStore application. It is a full Java 
 
 * Start WildFly (`$WILDFLY_HOME/bin/standalone.sh`)
 * Make sure WildFly has enough memory `-Xms64m -Xmx1024m -XX:MaxPermSize=512m -Djava.net.preferIPv4Stack=true`
-* Go to the [admin console](http://localhost:9990/)
-* Deploy the `cdbookstore/target/cdbookstore.war` file in _Runtime -> Manage Deployments -> Add -> Enable_
+* JBoss Console
+	* Go to the [admin console](http://localhost:9990/)
+	* Deploy the `cdbookstore/target/cdbookstore.war` file in _Runtime -> Manage Deployments -> Add -> Enable_
+* or JBoss CLI
+	* Execute JBoss CLI : `$WILDFLY_HOME/bin/jboss-cli.sh`
+	* Connect to the server by entering : `connect` 
+	* Diploy the war : `deploy cdbookstore/target/cdbookstore.war --force`  
 
 ## Check the web application
 
 * With a browser go to [http://localhost:8080/cdbookstore]()
-* See that there is no items
+* Browse pages to create/update/remove entities
 
 ## Check the REST interfaces
 
