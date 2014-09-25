@@ -10,7 +10,7 @@ In this module you will generate the CDBookStore application. It is a full Java 
 * Execute the `generate.fsh` script with the command `run before/01-Forge/generate.fsh` 
 * Go to the `cdbookstore` directory
 
-## Build the application
+# Build and run the application
 
 * Use Maven and build the application with `mvn clean install`
 
@@ -24,7 +24,7 @@ In this module you will generate the CDBookStore application. It is a full Java 
 * or JBoss CLI
 	* Execute JBoss CLI : `$WILDFLY_HOME/bin/jboss-cli.sh`
 	* Connect to the server by entering : `connect` 
-	* Diploy the war : `deploy cdbookstore/target/cdbookstore.war --force`  
+	* Deploy the war : `deploy cdbookstore/target/cdbookstore.war --force`  
 
 ## Check the web application
 
