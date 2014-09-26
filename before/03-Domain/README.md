@@ -1,15 +1,19 @@
 # Java EE 6 Advanced Training - Domain
 
-JBoss Forge doesn't know how to generate inheritance or Embeddable. In this module you will refactor the domain model to follow JPA best practices introducing inheritance and embeddables.
+JBoss Forge doesn't know how to generate inheritance or embed embeddable. In this module you will refactor the domain model to follow JPA best practices introducing inheritance and embeddeds.
 
 # DOJO - Refactor Book and CD to inherit from Item
 
 ## Refactor Book and CD to inherit from Item
 
-* `Item` should define the inheritance `@Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)`
-* `Item` attributes should be `protected` instead of `private`
+* `Item` should define the inheritance `@Inheritance(strategy = InheritanceType.SINGLE_TABLE)`
+* `Item` should override the default discriminator column `dtype` : `@DiscriminatorColumn(name = "discriminator", discriminatorType = DiscriminatorType.CHAR)`
+* `Item` discriminator column is `@DiscriminatorValue("I")`
+* `Item` attributes should be `protected` instead of `private` (so they can be used easily in inherted classes `Book` and `CD`)
 * `Book` and `CD` should `extends Item`
 * `Book` and `CD` should get rid of the duplicate attributes, getters and setters : `id`, `version`, `title`, `price`, `description` and `imageURL` ;
+* `Book` discriminator column is `@DiscriminatorValue("B")`
+* `CD` discriminator column is `@DiscriminatorValue("C")`
 
 ## Refactor and execute the tests in a remote environment
 
@@ -17,16 +21,20 @@ JBoss Forge doesn't know how to generate inheritance or Embeddable. In this modu
 * Start WildFly (`$WILDFLY_HOME/bin/standalone.sh`)
 * `mvn -Parquillian-wildfly-remote test` will execute the tests with WildFly up and running and with the application deployed
 
-# DOJO - Address and CreditCard should be embeddables
+# KATA - Refactor Book and CD to inherit from Item and pass tests
 
-## Address and CreditCard should be embeddables
+# DOJO - Address and CreditCard should be embedded
 
-* `Address` and `CreditCard` should be `@Embeddable` instead of an `@Entity` (get rid of `id` and `version`, its getters and `hashcode`)
+## Address and CreditCard should be embedded
+
+* `Address` and `CreditCard` are `@Embeddable` not `@Entity`
 * A `Customer` has an `@Embedded` home address that needs to be `@Valid` (`@Embedded @Valid private Address homeAddress = new Address();`)
 * A `PurchaseOrder` has an `@Embedded` delivery address that needs to be `@Valid` (`@Embedded @Valid private Address deliveryAddress = new Address();`)
 * A `PurchaseOrder` has an `@Embedded` credit card that needs to be `@Valid` (`@Embedded @Valid private CreditCard creditCard = new CreditCard();`)
 * `Customer` and `PurchaseOrder` should get rid of the duplicate attributes of `Address` : `street1`, `street2`, `city`, `state` ,`zipcode` and `country` 
+* `Customer` and `PurchaseOrder` should get rid of the duplicate getter/setter of `Address` : `getStreet1`, `setStreet1`... 
 * `PurchaseOrder` should get rid of the duplicate attributes of `CreditCard` : `creditCardNumber`, `creditCardType` and `creditCardExpDate` 
+* `PurchaseOrder` should get rid of the duplicate getter/setter of `CreditCard` : `getCreditCardNumber`, `setCreditCardNumber`... 
 * Refactor getters `public String getStreet1() { return homeAddress.getStreet1(); }`
 * Refactor setters `public void setState(String state) { this.homeAddress.setState(state); }`
 * Refactory `toString` `if (homeAddress.getStreet1() != null && !homeAddress.getStreet1().trim().isEmpty()) result += ", street1: " + homeAddress.getStreet1();`
@@ -38,7 +46,14 @@ JBoss Forge doesn't know how to generate inheritance or Embeddable. In this modu
 * Start WildFly (`$WILDFLY_HOME/bin/standalone.sh`)
 * `mvn -Parquillian-wildfly-remote test` will execute the tests with WildFly up and running and with the application deployed
 
-## Build the application
+# KATA - Address and CreditCard should be embedded and pass tests
+
+## Then add data to the database
+ 
+* Copy the file `import.sql` to `src/main/resources`
+* `cp ../before/03-Domain/import.sql src/main/resources`
+
+# Build and run the application
 
 * Use Maven and build the application with `mvn clean install`
 
@@ -46,12 +61,18 @@ JBoss Forge doesn't know how to generate inheritance or Embeddable. In this modu
 
 * Start WildFly (`$WILDFLY_HOME/bin/standalone.sh`)
 * Make sure WildFly has enough memory `-Xms64m -Xmx1024m -XX:MaxPermSize=512m -Djava.net.preferIPv4Stack=true`
-* Go to the [admin console](http://localhost:9990/)
-* Deploy the `cdbookstore/target/cdbookstore.war` file in _Runtime -> Manage Deployments -> Add -> Enable_
+* JBoss Console
+	* Go to the [admin console](http://localhost:9990/)
+	* Deploy the `cdbookstore/target/cdbookstore.war` file in _Runtime -> Manage Deployments -> Add -> Enable_
+* or JBoss CLI
+	* Execute JBoss CLI : `$WILDFLY_HOME/bin/jboss-cli.sh`
+	* Connect to the server by entering : `connect` 
+	* Deploy the war : `deploy cdbookstore/target/cdbookstore.war --force`  
 
 ## Check the web application
 
 * With a browser go to [http://localhost:8080/cdbookstore]()
+* Browse pages to create/update/remove entities (thanks to `import.sql` you should have data)
 * Thanks to inheritance, now the Item page shows both Books and CDs
 
 ## Check the REST interfaces
