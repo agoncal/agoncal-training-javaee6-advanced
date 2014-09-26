@@ -2,36 +2,52 @@
 
 In this module you will use the JAX-RS 2.0 Client API to invoke programmatically the CDBook-Store REST endpoints. For that you will create the new project CDBook-Client
 
-# DOJO - Add JSON support in CDBook-Store Endpoints
+# DOJO - Test the JSon support of REST Endpoints
 
-## The test REST Endpoints add a new method to test JSON support
+## Add a JSON test to the Author Endpoint
 
-* Each new test has a method `should_produce_json` that checks the GET method produces JSon
-* Copy the REST endpoint tests
-* `cp ../before/04-RestClient/AuthorEndpointTest src/test/java/org/agoncal/training/javaee6adv/rest`
-* `cp ../before/04-RestClient/BookEndpointTest src/test/java/org/agoncal/training/javaee6adv/rest`
-* `cp ../before/04-RestClient/CDEndpointTest src/test/java/org/agoncal/training/javaee6adv/rest`
-* `cp ../before/04-RestClient/CustomerEndpointTest src/test/java/org/agoncal/training/javaee6adv/rest`
-* `cp ../before/04-RestClient/MusicianEndpointTest src/test/java/org/agoncal/training/javaee6adv/rest`
+* Arquillian tests only test XML
+* Add a new test `should_produce_json` method in `AuthorEndpointTest` that checks the GET method produces JSon
 
-## Add JSON support in CDBook-Store Endpoints
+   @Test
+   public void should_produce_json()
+   {
+      Client client = ClientBuilder.newClient();
+      WebTarget target = client.target(baseURL).path("rest").path("authors");
+      assertEquals(Response.Status.OK.getStatusCode(), target.request(MediaType.APPLICATION_JSON).get().getStatus());
+   }
 
-* In the REST endpoints :
-* Replace all the `@Consumes("application/xml")` with `@Consumes({"application/xml","application/json"})`
-* Replace all the `@Produces("application/xml")` with `@Produces({"application/xml","application/json"})`
+## Execute the AuthorEndpointTest in a remote environment
 
-## Deploy the CDBook-Store application on WildFly
+* Start WildFly (`$WILDFLY_HOME/bin/standalone.sh`)
+* `mvn -Parquillian-wildfly-remote test` will execute the tests with WildFly up and running and with the application deployed
+
+## Deploy the application on WildFly application server
 
 * Start WildFly (`$WILDFLY_HOME/bin/standalone.sh`)
 * Make sure WildFly has enough memory `-Xms64m -Xmx1024m -XX:MaxPermSize=512m -Djava.net.preferIPv4Stack=true`
-* Go to the [admin console](http://localhost:9990/)
-* Deploy the `cdbookstore/target/cdbookstore.war` file in _Runtime -> Manage Deployments -> Add -> Enable_
+* JBoss Console
+	* Go to the [admin console](http://localhost:9990/)
+	* Deploy the `cdbookstore/target/cdbookstore.war` file in _Runtime -> Manage Deployments -> Add -> Enable_
+* or JBoss CLI
+	* Execute JBoss CLI : `$WILDFLY_HOME/bin/jboss-cli.sh`
+	* Connect to the server by entering : `connect` 
+	* Deploy the war : `deploy cdbookstore/target/cdbookstore.war --force`  
 
-## Check the REST interfaces with PostMan
+## Check the REST interfaces with JSon
 
-* Install Postman REST Client from the Chrome store 
-* Do CRUD operations on the REST interfaces using Postman REST Client
- 
+* [http://localhost:8080/cdbookstore/rest/authors]()
+* Use [PostMan REST client](https://chrome.google.com/webstore/detail/postman-rest-client/fdmmgilgnpjigdojojpjoooidkmcomcm) to create/update/remove entities
+
+# KATA - Test the JSon support of all REST Endpoints
+
+* Add a new test `should_produce_json` method in `BookEndpointTest`, `CDEndpointTest`, `CustomerEndpointTest` and `MusicianEndpointTest` that checks the GET method produces JSon
+
+## Execute the all REST Endpoint test in a remote environment
+
+* Start WildFly (`$WILDFLY_HOME/bin/standalone.sh`)
+* `mvn -Parquillian-wildfly-remote test` will execute the tests with WildFly up and running and with the application deployed
+
 # DOJO - The CDBook-Client application consumes the REST endpoints
 
 ## Generate the new project CDBook-Client with JBoss Forge
@@ -75,6 +91,8 @@ In this module you will use the JAX-RS 2.0 Client API to invoke programmatically
 * In the `Main` create a method that returns all the Books in JSON
 * Method `private static void findAllBooks()`
 * `Response response = target.request(MediaType.APPLICATION_JSON).get();`
+
+# KATA - Add extra methods to the CDBook-Client
 
 ### Create a book
 

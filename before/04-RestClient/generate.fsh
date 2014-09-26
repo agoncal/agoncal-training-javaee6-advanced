@@ -1,7 +1,7 @@
 #  #####################  #
 #  Creates a new project  #
 #  #####################  #
-project-new --named cdbookclient --topLevelPackage org.agoncal.training.javaee6adv.client --type jar --finalName cdbookclient  --createMain ;
+project-new --named cdbookclient --topLevelPackage org.agoncal.training.javaee6adv.client --type jar --finalName cdbookclient --version 1.0.0 --createMain ;
 
 #  ##################  #
 #  Cleans the pom.xml  #
