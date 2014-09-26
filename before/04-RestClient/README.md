@@ -58,13 +58,13 @@ In this module you will use the JAX-RS 2.0 Client API to invoke programmatically
 
 ## Add a Maven exec plugin
 
-* In order to execute the generated `Main` class with Maven, add the following to the `pom.xml`
+* In order to execute the generated `Main` class with Maven, add the following to the `pom.xml` inside the `<build>` element
 
     <plugins>
       <plugin>
         <groupId>org.codehaus.mojo</groupId>
         <artifactId>exec-maven-plugin</artifactId>
-        <version>1.3.1</version>
+        <version>1.3.2</version>
         <executions>
           <execution>
             <id>rest-client</id>
@@ -80,7 +80,7 @@ In this module you will use the JAX-RS 2.0 Client API to invoke programmatically
       </plugin>
     </plugins>
     
-* Run `mvn install` and make sure the `Main` class is executed
+* Run `mvn install` and make sure the `Main` class is executed and the `Hi there!` message is displayed
     
 ## Invoke the CD-Book Store REST Services with the Main class
 
