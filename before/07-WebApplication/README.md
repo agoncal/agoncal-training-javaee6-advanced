@@ -2,7 +2,7 @@
 
 In this module you will beautify the CDBook-Store web application and add nice pages and primefaces components to browse CDs and Books.
 
-## Generating a few artifacts
+## Generating a few artifacts and copying web resources
 
 * Launch JBoss Forge (enter the `$FORGE_HOME/bin/forge` command)
 * Go to the `cdbookstore` directory
@@ -10,20 +10,10 @@ In this module you will beautify the CDBook-Store web application and add nice p
 
 # DOJO - Setup a new UI
 
-## Add webjars to get rid of boostrap
+## Webjars gets rid of bootstrap
 
 * Delete Bootstrap because it's used with Webjars now `rm src/main/webapp/resources/bootstrap.css`
 * The `org.webjars.bootstrap` jar brings the needed style sheet
-
-###  Copy the templates, css and logos
- 
-* `cp ../before/07-WebApplication/mainTemplate.xhtml src/main/webapp/resources/scaffold/`
-* `cp ../before/07-WebApplication/pageTemplate.xhtml src/main/webapp/resources/scaffold/`
-* `cp ../before/07-WebApplication/banner.png src/main/webapp/resources/`
-* `cp ../before/07-WebApplication/forge-logo.png src/main/webapp/resources/`
-* `cp ../before/07-WebApplication/forge-style.css src/main/webapp/resources/`
-* `cp ../before/07-WebApplication/index.html src/main/webapp/`
-* `cp ../before/07-WebApplication/index.xhtml src/main/webapp/`
 
 ## Build, Deploy and check the web application
                  
@@ -33,20 +23,17 @@ In this module you will beautify the CDBook-Store web application and add nice p
 
 # DOJO - Web pages to browse Books
 
-##  Copy the book pages
+##  Check the copied book pages
 
-* `cp ../before/07-WebApplication/book src/main/webapp/`
 * The `index.xhtml` page needs a `bookService.findAllImages()` method
 * The `navigation.xhtml` page needs a `categoryService.listAll()` method
 * The `viewPerCategory.xhtml` needs a `bookBean.findByCategory` method
 * The pages use a few Prime Faces components : `imageSwitch` and `dataScroller` 
 
-## Copy the Arquillian tests
+## Check the copied the Arquillian tests
 
-* `cp ../before/07-WebApplication/BookServiceTest.java src/test/java/org/agoncal/training/javaee6adv/service`
-* It adds a `should_check_images` and a `should_check_books_by_category` method
-* `cp ../before/07-WebApplication/BookBeanTest.java src/test/java/org/agoncal/training/javaee6adv/view`
-* It adds a `should_check_books_by_category()` test case
+* `BookServiceTest` adds a `should_check_images` and a `should_check_books_by_category` method
+* `BookBeanTest` adds a `should_check_books_by_category()` test case
 
 ## Refactor the JSF backing bean and EJB
 
@@ -67,7 +54,7 @@ In this module you will beautify the CDBook-Store web application and add nice p
 * The top link `Book` should be enabled 
 * [http://localhost:8080/cdbookstore/faces/book/index.xhtml]() give you access to the book pages
 
-# DOJO - Web pages to browse CDs
+# KATA - Web pages to browse Books and CDs
 
 ## Create the JSF pages
 
@@ -78,12 +65,10 @@ In this module you will beautify the CDBook-Store web application and add nice p
 * The `viewPerGenre.xhtml` page displays the list of CDs per genre and needs a `cdBean.findByGenre` method
 * Get inspiration from `src/main/webapp/book`
 
-## Copy the Arquillian tests
+## Check the copied the Arquillian tests
 
-* `cp ../before/07-WebApplication/CDServiceTest.java src/test/java/org/agoncal/training/javaee6adv/service`
-* It adds a `should_check_images` and a `should_check_books_by_genre` method
-* `cp ../before/07-WebApplication/CDBeanTest.java src/test/java/org/agoncal/training/javaee6adv/view`
-* It adds a `should_check_books_by_genre()` test case
+* `BookServiceTest` and `CDServiceTest` add a `should_check_images` and a `should_check_books_by_category` method
+* `BookBeanTest` and `CDBeanTest` add a `should_check_books_by_category()` test case
 
 ## Refactor the JSF backing bean and EJB
 
