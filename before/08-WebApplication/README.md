@@ -6,7 +6,7 @@ In this module you will beautify the CDBook-Store web application and add nice p
 
 * Launch JBoss Forge (enter the `$FORGE_HOME/bin/forge` command)
 * Go to the `cdbookstore` directory
-* Execute the `generate.fsh` script with the command `run ../before/07-WebApplication/generate.fsh` 
+* Execute the `generate.fsh` script with the command `run ../before/08-WebApplication/generate.fsh` 
 
 # DOJO - Setup a new UI
 
@@ -107,4 +107,4 @@ In this module you will beautify the CDBook-Store web application and add nice p
 
 # Backup your code
 
-* Save a backup of your code at `../after/07-WebApplication/`
+* Save a backup of your code at `../after/08-WebApplication/`

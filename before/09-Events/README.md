@@ -8,7 +8,7 @@ In this module you will add the capability of buying a book or a CD. The idea is
  
 * The Book web page has a _Buy_ button and it displays an information message that the book has been successfully bought
 * Replace the `view.xhtml` page of the Book
-* `cp ../before/08-Events/view.xhtml src/main/webapp/book`
+* `cp ../before/09-Events/view.xhtml src/main/webapp/book`
 
 ## Add a buy method on BookBean 
 
@@ -30,7 +30,7 @@ In this module you will add the capability of buying a book or a CD. The idea is
 ## The purchase order service creates a purchase order
 
 * Copy the `RandomService` class, it will randomly generate data
-* `cp ../before/08-Events/RandomService.java src/main/java/org/agoncal/training/javaee6adv/service`
+* `cp ../before/09-Events/RandomService.java src/main/java/org/agoncal/training/javaee6adv/service`
 * In `PurchaseOrderService` add a `public void itemHasBeenBought(Item itemBought)` method
 * It should create a `purchaseOrder` (with a random credit card, a random address, a random customer) and the detached `itemBought`
 * Use `getEntityManager().persist(purchaseOrder)` to persist the `purchaseOrder`
@@ -55,4 +55,4 @@ In this module you will add the capability of buying a book or a CD. The idea is
 
 # Backup your code
 
-* Save a backup of your code at `../after/08-Events/`
+* Save a backup of your code at `../after/09-Events/`

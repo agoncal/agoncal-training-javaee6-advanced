@@ -15,8 +15,8 @@
         <module>05-PersistenceContext</module>
         <module>06-Service</module>
         <module>07-Producers</module>
-        <module>07-WebApplication</module>
-        <module>08-Events</module>
+        <module>08-WebApplication</module>
+        <module>09-Events</module>
     </modules>
 
 </project>
