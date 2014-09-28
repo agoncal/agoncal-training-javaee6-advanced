@@ -12,7 +12,10 @@ import org.junit.runner.RunWith;
 
 import javax.inject.Inject;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertNull;
+import static org.junit.Assert.assertTrue;
 
 @RunWith(Arquillian.class)
 public class MusicianBeanTest
@@ -73,6 +76,6 @@ public class MusicianBeanTest
       // Paginates through the example
       musicianbean.setExample(example);
       musicianbean.paginate();
-      assertTrue((musicianbean.getPageItems().size()==musicianbean.getPageSize()) || (musicianbean.getPageItems().size()==musicianbean.getCount()));
+      assertTrue((musicianbean.getPageItems().size() == musicianbean.getPageSize()) || (musicianbean.getPageItems().size() == musicianbean.getCount()));
    }
 }

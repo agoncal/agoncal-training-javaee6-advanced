@@ -1,16 +1,14 @@
 package org.agoncal.training.javaee6adv.model;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
-import java.io.Serializable;
-import javax.persistence.Id;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
-import javax.persistence.Column;
-import javax.persistence.Version;
-import java.lang.Override;
-import org.agoncal.training.javaee6adv.model.Item;
+import javax.persistence.Id;
 import javax.persistence.ManyToOne;
+import javax.persistence.Version;
 import javax.validation.constraints.Min;
+import java.io.Serializable;
 
 @Entity
 public class OrderLine implements Serializable
@@ -96,10 +94,7 @@ public class OrderLine implements Serializable
    public String toString()
    {
       String result = getClass().getSimpleName() + " ";
-      if (id != null)
-         result += "id: " + id;
-      result += ", version: " + version;
-      result += ", quantity: " + quantity;
+      result += "quantity: " + quantity;
       return result;
    }
 

@@ -1,8 +1,6 @@
 package org.agoncal.training.javaee6adv.view;
 
-import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.List;
+import org.agoncal.training.javaee6adv.model.Genre;
 
 import javax.annotation.Resource;
 import javax.ejb.SessionContext;
@@ -23,12 +21,13 @@ import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
-
-import org.agoncal.training.javaee6adv.model.Genre;
+import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Backing bean for Genre entities.
- * <p>
+ * <p/>
  * This class provides CRUD functionality for all Genre entities. It focuses
  * purely on Java EE 6 standards (e.g. <tt>&#64;ConversationScoped</tt> for
  * state management, <tt>PersistenceContext</tt> for persistence,
@@ -82,6 +81,7 @@ public class GenreBean implements Serializable
    {
 
       this.conversation.begin();
+      this.conversation.setTimeout(1800000L);
       return "create?faces-redirect=true";
    }
 
@@ -96,6 +96,7 @@ public class GenreBean implements Serializable
       if (this.conversation.isTransient())
       {
          this.conversation.begin();
+         this.conversation.setTimeout(1800000L);
       }
 
       if (this.id == null)
@@ -196,9 +197,10 @@ public class GenreBean implements Serializable
       this.example = example;
    }
 
-   public void search()
+   public String search()
    {
       this.page = 0;
+      return null;
    }
 
    public void paginate()
@@ -235,7 +237,7 @@ public class GenreBean implements Serializable
       String name = this.example.getName();
       if (name != null && !"".equals(name))
       {
-         predicatesList.add(builder.like(builder.lower(root.<String> get("name")), '%' + name.toLowerCase() + '%'));
+         predicatesList.add(builder.like(builder.lower(root.<String>get("name")), '%' + name.toLowerCase() + '%'));
       }
 
       return predicatesList.toArray(new Predicate[predicatesList.size()]);
@@ -278,7 +280,7 @@ public class GenreBean implements Serializable
 
          @Override
          public Object getAsObject(FacesContext context,
-               UIComponent component, String value)
+                                   UIComponent component, String value)
          {
 
             return ejbProxy.findById(Long.valueOf(value));
@@ -286,7 +288,7 @@ public class GenreBean implements Serializable
 
          @Override
          public String getAsString(FacesContext context,
-               UIComponent component, Object value)
+                                   UIComponent component, Object value)
          {
 
             if (value == null)

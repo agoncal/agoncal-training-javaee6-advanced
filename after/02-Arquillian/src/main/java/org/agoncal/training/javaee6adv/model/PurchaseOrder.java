@@ -1,27 +1,23 @@
 package org.agoncal.training.javaee6adv.model;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
-import java.io.Serializable;
-import javax.persistence.Id;
+import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
-import javax.persistence.Column;
-import javax.persistence.Version;
-import java.lang.Override;
-import java.util.Date;
+import javax.persistence.Id;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
-import org.agoncal.training.javaee6adv.model.Customer;
-import javax.persistence.ManyToOne;
-import org.agoncal.training.javaee6adv.model.OrderLine;
-import java.util.Set;
-import java.util.HashSet;
-import javax.persistence.OneToMany;
-import javax.persistence.Enumerated;
-import org.agoncal.training.javaee6adv.model.CreditCardType;
-import javax.validation.constraints.Size;
+import javax.persistence.Version;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
+import java.io.Serializable;
+import java.util.Date;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
 @XmlRootElement
@@ -275,16 +271,7 @@ public class PurchaseOrder implements Serializable
    public String toString()
    {
       String result = getClass().getSimpleName() + " ";
-      if (id != null)
-         result += "id: " + id;
-      result += ", version: " + version;
-      result += ", quantity: " + quantity;
-      if (orderDate != null)
-         result += ", orderDate: " + orderDate;
-      if (customer != null)
-         result += ", customer: " + customer;
-      if (orderLines != null)
-         result += ", orderLines: " + orderLines;
+      result += "quantity: " + quantity;
       if (street1 != null && !street1.trim().isEmpty())
          result += ", street1: " + street1;
       if (street2 != null && !street2.trim().isEmpty())
@@ -299,8 +286,6 @@ public class PurchaseOrder implements Serializable
          result += ", country: " + country;
       if (creditCardNumber != null && !creditCardNumber.trim().isEmpty())
          result += ", creditCardNumber: " + creditCardNumber;
-      if (creditCardType != null)
-         result += ", creditCardType: " + creditCardType;
       if (creditCardExpDate != null && !creditCardExpDate.trim().isEmpty())
          result += ", creditCardExpDate: " + creditCardExpDate;
       return result;
