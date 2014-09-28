@@ -9,3 +9,4 @@
 # ####################
 
 /subsystem=datasources/data-source=PostgresDS:add(driver-name=postgres, user-name=postgres, password=postgres, connection-url="jdbc:postgresql://localhost:5432/postgres", jndi-name=java:/global/datasources/PostgresDS, enabled=true)
+/subsystem=datasources/data-source=H2ServerDS:add(driver-name=h2, user-name=sa, connection-url="jdbc:h2:tcp://localhost/~/cdbookstoreDB", jndi-name=java:jboss/datasources/H2ServerDS, enabled=true)

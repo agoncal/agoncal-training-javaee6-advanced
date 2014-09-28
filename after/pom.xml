@@ -5,7 +5,7 @@
     <artifactId>after</artifactId>
     <version>1.0.0</version>
     <packaging>pom</packaging>
-    <name>00 - Parent of Java EE 6 Training Advanced After</name>
+    <name>00-Parent of Java EE 6 Training Advanced After</name>
 
     <modules>
         <module>01-Forge</module>
