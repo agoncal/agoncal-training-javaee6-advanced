@@ -53,7 +53,7 @@ In this module you will use the JAX-RS 2.0 Client API to invoke programmatically
 ## Generate the new project CDBook-Client with JBoss Forge
 
 * Launch JBoss Forge (enter the `$FORGE_HOME/bin/forge` command)
-* Execute the `generate.fsh` script with the command `run ../before/04-RestClient/generate.fsh` 
+* Execute the `generate.fsh` script with the command `run before/04-RestClient/generate.fsh` 
 * Go to the `cdbookclient` directory
 
 ## Add a Maven exec plugin

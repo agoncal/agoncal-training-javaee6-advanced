@@ -9,18 +9,21 @@ import javax.ws.rs.client.WebTarget;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
-public class Main {
+public class Main
+{
 
    private static final String baseURL = "http://localhost:8080/cdbookstore";
 
-   public static void main(String[] args) {
+   public static void main(String[] args)
+   {
       findAllBooks();
       createBook();
       findBookById("1");
       removeBookById("1");
    }
 
-   private static void findAllBooks() {
+   private static void findAllBooks()
+   {
       System.out.println("\n#### findAllBooks");
 
       Client client = ClientBuilder.newClient();
@@ -32,7 +35,8 @@ public class Main {
       System.out.println(response.readEntity(String.class));
    }
 
-   private static void createBook() {
+   private static void createBook()
+   {
       System.out.println("\n#### createBook");
 
       Client client = ClientBuilder.newClient();
@@ -53,7 +57,8 @@ public class Main {
       System.out.println(response.getLocation());
    }
 
-   private static void findBookById(String id) {
+   private static void findBookById(String id)
+   {
       System.out.println("\n#### findBookById");
 
       Client client = ClientBuilder.newClient();
@@ -65,7 +70,8 @@ public class Main {
       System.out.println(response.readEntity(String.class));
    }
 
-   private static void removeBookById(String id) {
+   private static void removeBookById(String id)
+   {
       System.out.println("\n#### findBookById");
 
       Client client = ClientBuilder.newClient();
