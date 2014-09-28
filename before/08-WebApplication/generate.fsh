@@ -1,9 +1,9 @@
-
 #  ########################  #
 #  Setting up project Stage  #
 #  ########################  #
 
 faces-set-project-stage --stage Development ;
+
 
 #  ############################  #
 #  Adding Web Jars dependencies  #

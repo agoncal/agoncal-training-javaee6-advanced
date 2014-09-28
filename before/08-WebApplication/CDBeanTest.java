@@ -7,19 +7,22 @@ import org.agoncal.training.javaee6adv.model.MajorLabel;
 import org.agoncal.training.javaee6adv.model.Musician;
 import org.agoncal.training.javaee6adv.service.AbstractService;
 import org.agoncal.training.javaee6adv.service.CDService;
-import org.agoncal.training.javaee6adv.util.Resources;
-import org.agoncal.training.javaee6adv.view.CDBean;
-import javax.inject.Inject;
+import org.agoncal.training.javaee6adv.util.ResourceProducer;
 import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.junit.Arquillian;
 import org.jboss.shrinkwrap.api.ShrinkWrap;
-import org.jboss.shrinkwrap.api.spec.JavaArchive;
 import org.jboss.shrinkwrap.api.asset.EmptyAsset;
+import org.jboss.shrinkwrap.api.spec.JavaArchive;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import static org.junit.Assert.*;
-import static org.hamcrest.core.Is.*;
+
+import javax.inject.Inject;
+
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertNull;
+import static org.junit.Assert.assertTrue;
 
 @RunWith(Arquillian.class)
 public class CDBeanTest
@@ -33,8 +36,8 @@ public class CDBeanTest
    {
       return ShrinkWrap.create(JavaArchive.class)
             .addClass(CDBean.class)
-            .addClass(Resources.class)
             .addClass(AbstractService.class)
+            .addClass(ResourceProducer.class)
             .addClass(CDService.class)
             .addClass(CD.class)
             .addClass(Item.class)
@@ -87,7 +90,7 @@ public class CDBeanTest
       // Paginates through the example
       cdbean.setExample(example);
       cdbean.paginate();
-      assertTrue((cdbean.getPageItems().size()==cdbean.getPageSize()) || (cdbean.getPageItems().size()==cdbean.getCount()));
+      assertTrue((cdbean.getPageItems().size() == cdbean.getPageSize()) || (cdbean.getPageItems().size() == cdbean.getCount()));
    }
 
    @Test
