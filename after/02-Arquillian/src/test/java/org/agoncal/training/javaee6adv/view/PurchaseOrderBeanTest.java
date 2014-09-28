@@ -1,6 +1,5 @@
 package org.agoncal.training.javaee6adv.view;
 
-import org.agoncal.training.javaee6adv.model.Address;
 import org.agoncal.training.javaee6adv.model.CreditCardType;
 import org.agoncal.training.javaee6adv.model.Customer;
 import org.agoncal.training.javaee6adv.model.Item;
@@ -38,7 +37,6 @@ public class PurchaseOrderBeanTest
             .addClass(Customer.class)
             .addClass(CreditCardType.class)
             .addClass(OrderLine.class)
-            .addClass(Address.class)
             .addClass(Item.class)
             .addAsManifestResource("META-INF/persistence.xml", "persistence.xml")
             .addAsManifestResource(EmptyAsset.INSTANCE, "beans.xml");

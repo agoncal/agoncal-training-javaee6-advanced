@@ -3,18 +3,21 @@ package org.agoncal.training.javaee6adv.view;
 import org.agoncal.training.javaee6adv.model.Author;
 import org.agoncal.training.javaee6adv.model.Category;
 import org.agoncal.training.javaee6adv.model.Language;
-import org.agoncal.training.javaee6adv.view.CategoryBean;
-import javax.inject.Inject;
 import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.junit.Arquillian;
 import org.jboss.shrinkwrap.api.ShrinkWrap;
-import org.jboss.shrinkwrap.api.spec.JavaArchive;
 import org.jboss.shrinkwrap.api.asset.EmptyAsset;
+import org.jboss.shrinkwrap.api.spec.JavaArchive;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import static org.junit.Assert.*;
-import static org.hamcrest.core.Is.*;
+
+import javax.inject.Inject;
+
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertNull;
+import static org.junit.Assert.assertTrue;
 
 @RunWith(Arquillian.class)
 public class CategoryBeanTest
@@ -76,6 +79,6 @@ public class CategoryBeanTest
       // Paginates through the example
       categorybean.setExample(example);
       categorybean.paginate();
-      assertTrue((categorybean.getPageItems().size()==categorybean.getPageSize()) || (categorybean.getPageItems().size()==categorybean.getCount()));
+      assertTrue((categorybean.getPageItems().size() == categorybean.getPageSize()) || (categorybean.getPageItems().size() == categorybean.getCount()));
    }
 }

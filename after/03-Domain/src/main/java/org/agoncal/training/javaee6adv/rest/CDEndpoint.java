@@ -1,20 +1,29 @@
 package org.agoncal.training.javaee6adv.rest;
 
-import java.util.List;
+import org.agoncal.training.javaee6adv.model.CD;
 
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.NoResultException;
+import javax.persistence.OptimisticLockException;
 import javax.persistence.PersistenceContext;
 import javax.persistence.TypedQuery;
-import javax.ws.rs.*;
+import javax.ws.rs.Consumes;
+import javax.ws.rs.DELETE;
+import javax.ws.rs.GET;
+import javax.ws.rs.POST;
+import javax.ws.rs.PUT;
+import javax.ws.rs.Path;
+import javax.ws.rs.PathParam;
+import javax.ws.rs.Produces;
+import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.Response.Status;
 import javax.ws.rs.core.UriBuilder;
-import org.agoncal.training.javaee6adv.model.CD;
+import java.util.List;
 
 /**
- * 
+ *
  */
 @Stateless
 @Path("/cds")
@@ -24,7 +33,7 @@ public class CDEndpoint
    private EntityManager em;
 
    @POST
-   @Consumes("application/xml")
+   @Consumes({"application/xml", "application/json"})
    public Response create(CD entity)
    {
       em.persist(entity);
@@ -46,7 +55,7 @@ public class CDEndpoint
 
    @GET
    @Path("/{id:[0-9][0-9]*}")
-   @Produces("application/xml")
+   @Produces({"application/xml", "application/json"})
    public Response findById(@PathParam("id") Long id)
    {
       TypedQuery<CD> findByIdQuery = em.createQuery("SELECT DISTINCT c FROM CD c LEFT JOIN FETCH c.label LEFT JOIN FETCH c.genre LEFT JOIN FETCH c.musicians WHERE c.id = :entityId ORDER BY c.id", CD.class);
@@ -68,7 +77,7 @@ public class CDEndpoint
    }
 
    @GET
-   @Produces("application/xml")
+   @Produces({"application/xml", "application/json"})
    public List<CD> listAll(@QueryParam("start") Integer startPosition, @QueryParam("max") Integer maxResult)
    {
       TypedQuery<CD> findAllQuery = em.createQuery("SELECT DISTINCT c FROM CD c LEFT JOIN FETCH c.label LEFT JOIN FETCH c.genre LEFT JOIN FETCH c.musicians ORDER BY c.id", CD.class);
@@ -86,10 +95,18 @@ public class CDEndpoint
 
    @PUT
    @Path("/{id:[0-9][0-9]*}")
-   @Consumes("application/xml")
+   @Consumes({"application/xml", "application/json"})
    public Response update(CD entity)
    {
-      entity = em.merge(entity);
+      try
+      {
+         entity = em.merge(entity);
+      }
+      catch (OptimisticLockException e)
+      {
+         return Response.status(Response.Status.CONFLICT).entity(e.getEntity()).build();
+      }
+
       return Response.noContent().build();
    }
 }

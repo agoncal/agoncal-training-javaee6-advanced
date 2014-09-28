@@ -1,20 +1,29 @@
 package org.agoncal.training.javaee6adv.rest;
 
-import java.util.List;
+import org.agoncal.training.javaee6adv.model.PurchaseOrder;
 
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.NoResultException;
+import javax.persistence.OptimisticLockException;
 import javax.persistence.PersistenceContext;
 import javax.persistence.TypedQuery;
-import javax.ws.rs.*;
+import javax.ws.rs.Consumes;
+import javax.ws.rs.DELETE;
+import javax.ws.rs.GET;
+import javax.ws.rs.POST;
+import javax.ws.rs.PUT;
+import javax.ws.rs.Path;
+import javax.ws.rs.PathParam;
+import javax.ws.rs.Produces;
+import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.Response.Status;
 import javax.ws.rs.core.UriBuilder;
-import org.agoncal.training.javaee6adv.model.PurchaseOrder;
+import java.util.List;
 
 /**
- * 
+ *
  */
 @Stateless
 @Path("/purchaseorders")
@@ -24,7 +33,7 @@ public class PurchaseOrderEndpoint
    private EntityManager em;
 
    @POST
-   @Consumes("application/xml")
+   @Consumes({"application/xml", "application/json"})
    public Response create(PurchaseOrder entity)
    {
       em.persist(entity);
@@ -46,7 +55,7 @@ public class PurchaseOrderEndpoint
 
    @GET
    @Path("/{id:[0-9][0-9]*}")
-   @Produces("application/xml")
+   @Produces({"application/xml", "application/json"})
    public Response findById(@PathParam("id") Long id)
    {
       TypedQuery<PurchaseOrder> findByIdQuery = em.createQuery("SELECT DISTINCT p FROM PurchaseOrder p LEFT JOIN FETCH p.customer LEFT JOIN FETCH p.orderLines WHERE p.id = :entityId ORDER BY p.id", PurchaseOrder.class);
@@ -68,7 +77,7 @@ public class PurchaseOrderEndpoint
    }
 
    @GET
-   @Produces("application/xml")
+   @Produces({"application/xml", "application/json"})
    public List<PurchaseOrder> listAll(@QueryParam("start") Integer startPosition, @QueryParam("max") Integer maxResult)
    {
       TypedQuery<PurchaseOrder> findAllQuery = em.createQuery("SELECT DISTINCT p FROM PurchaseOrder p LEFT JOIN FETCH p.customer LEFT JOIN FETCH p.orderLines ORDER BY p.id", PurchaseOrder.class);
@@ -86,10 +95,18 @@ public class PurchaseOrderEndpoint
 
    @PUT
    @Path("/{id:[0-9][0-9]*}")
-   @Consumes("application/xml")
+   @Consumes({"application/xml", "application/json"})
    public Response update(PurchaseOrder entity)
    {
-      entity = em.merge(entity);
+      try
+      {
+         entity = em.merge(entity);
+      }
+      catch (OptimisticLockException e)
+      {
+         return Response.status(Response.Status.CONFLICT).entity(e.getEntity()).build();
+      }
+
       return Response.noContent().build();
    }
 }

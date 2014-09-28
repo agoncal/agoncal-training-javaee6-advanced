@@ -1,13 +1,11 @@
 package org.agoncal.training.javaee6adv.model;
 
-import javax.persistence.Embeddable;
-import java.io.Serializable;
 import javax.persistence.Column;
-import java.lang.Override;
+import javax.persistence.Embeddable;
 import javax.persistence.Enumerated;
-import org.agoncal.training.javaee6adv.model.CreditCardType;
-import javax.validation.constraints.Size;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
+import java.io.Serializable;
 
 @Embeddable
 public class CreditCard implements Serializable
@@ -27,21 +25,6 @@ public class CreditCard implements Serializable
    @Size(min = 1, max = 5)
    @NotNull
    private String creditCardExpDate;
-
-   @Override
-   public boolean equals(Object obj)
-   {
-      if (this == obj)
-      {
-         return true;
-      }
-      if (!(obj instanceof CreditCard))
-      {
-         return false;
-      }
-      CreditCard other = (CreditCard) obj;
-      return true;
-   }
 
    public String getCreditCardNumber()
    {
@@ -78,9 +61,7 @@ public class CreditCard implements Serializable
    {
       String result = getClass().getSimpleName() + " ";
       if (creditCardNumber != null && !creditCardNumber.trim().isEmpty())
-         result += ", creditCardNumber: " + creditCardNumber;
-      if (creditCardType != null)
-         result += ", creditCardType: " + creditCardType;
+         result += "creditCardNumber: " + creditCardNumber;
       if (creditCardExpDate != null && !creditCardExpDate.trim().isEmpty())
          result += ", creditCardExpDate: " + creditCardExpDate;
       return result;

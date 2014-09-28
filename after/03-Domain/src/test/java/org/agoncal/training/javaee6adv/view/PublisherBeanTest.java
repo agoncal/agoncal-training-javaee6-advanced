@@ -11,16 +11,21 @@ import org.junit.runner.RunWith;
 
 import javax.inject.Inject;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertNull;
+import static org.junit.Assert.assertTrue;
 
 @RunWith(Arquillian.class)
-public class PublisherBeanTest {
+public class PublisherBeanTest
+{
 
    @Inject
    private PublisherBean publisherbean;
 
    @Deployment
-   public static JavaArchive createDeployment() {
+   public static JavaArchive createDeployment()
+   {
       return ShrinkWrap.create(JavaArchive.class)
             .addClass(PublisherBean.class)
             .addClass(Publisher.class)
@@ -29,7 +34,8 @@ public class PublisherBeanTest {
    }
 
    @Test
-   public void should_be_deployed() {
+   public void should_be_deployed()
+   {
       assertNotNull(publisherbean);
    }
 
@@ -68,6 +74,6 @@ public class PublisherBeanTest {
       // Paginates through the example
       publisherbean.setExample(example);
       publisherbean.paginate();
-      assertTrue((publisherbean.getPageItems().size()==publisherbean.getPageSize()) || (publisherbean.getPageItems().size()==publisherbean.getCount()));
+      assertTrue((publisherbean.getPageItems().size() == publisherbean.getPageSize()) || (publisherbean.getPageItems().size() == publisherbean.getCount()));
    }
 }
