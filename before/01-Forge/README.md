@@ -8,11 +8,12 @@ In this module you will generate the CDBookStore application. It is a full Java 
 
 * Launch JBoss Forge (enter the `$FORGE_HOME/bin/forge` command)
 * Execute the `generate.fsh` script with the command `run before/01-Forge/generate.fsh` 
-* Go to the `cdbookstore` directory
 
 # Build and run the application
 
-* Use Maven and build the application with `mvn clean install`
+* Exit JBoss Forge (`exit` command)
+* Go to the `cdbookstore` directory
+* Use Maven to build the application with `mvn clean install`
 
 ## Deploy the application on WildFly application server
 
@@ -41,6 +42,8 @@ In this module you will generate the CDBookStore application. It is a full Java 
 * [http://localhost:8080/cdbookstore/rest/musicians]()
 * [http://localhost:8080/cdbookstore/rest/purchaseorders]()
 * Use [PostMan REST client](https://chrome.google.com/webstore/detail/postman-rest-client/fdmmgilgnpjigdojojpjoooidkmcomcm) to create/update/remove entities
+
+# KATA - Generate the project with JBoss Forge
 
 # Restitution
 

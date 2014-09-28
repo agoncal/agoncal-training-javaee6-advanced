@@ -1,27 +1,14 @@
 package org.agoncal.training.javaee6adv.model;
 
-import javax.persistence.Entity;
-import java.io.Serializable;
-import javax.persistence.Id;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Column;
-import javax.persistence.Version;
-import java.lang.Override;
-import javax.validation.constraints.Size;
+import javax.persistence.Embeddable;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
+import java.io.Serializable;
 
-@Entity
+@Embeddable
 public class Address implements Serializable
 {
-
-   @Id
-   @GeneratedValue(strategy = GenerationType.AUTO)
-   @Column(name = "id", updatable = false, nullable = false)
-   private Long id;
-   @Version
-   @Column(name = "version")
-   private int version;
 
    @Column
    @Size(min = 5, max = 50)
@@ -48,57 +35,6 @@ public class Address implements Serializable
    @Size(min = 2, max = 50)
    @NotNull
    private String country;
-
-   public Long getId()
-   {
-      return this.id;
-   }
-
-   public void setId(final Long id)
-   {
-      this.id = id;
-   }
-
-   public int getVersion()
-   {
-      return this.version;
-   }
-
-   public void setVersion(final int version)
-   {
-      this.version = version;
-   }
-
-   @Override
-   public boolean equals(Object obj)
-   {
-      if (this == obj)
-      {
-         return true;
-      }
-      if (!(obj instanceof Address))
-      {
-         return false;
-      }
-      Address other = (Address) obj;
-      if (id != null)
-      {
-         if (!id.equals(other.id))
-         {
-            return false;
-         }
-      }
-      return true;
-   }
-
-   @Override
-   public int hashCode()
-   {
-      final int prime = 31;
-      int result = 1;
-      result = prime * result + ((id == null) ? 0 : id.hashCode());
-      return result;
-   }
 
    public String getStreet1()
    {
@@ -164,11 +100,8 @@ public class Address implements Serializable
    public String toString()
    {
       String result = getClass().getSimpleName() + " ";
-      if (id != null)
-         result += "id: " + id;
-      result += ", version: " + version;
       if (street1 != null && !street1.trim().isEmpty())
-         result += ", street1: " + street1;
+         result += "street1: " + street1;
       if (street2 != null && !street2.trim().isEmpty())
          result += ", street2: " + street2;
       if (city != null && !city.trim().isEmpty())

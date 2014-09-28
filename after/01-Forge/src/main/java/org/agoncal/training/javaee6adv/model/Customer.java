@@ -1,21 +1,20 @@
 package org.agoncal.training.javaee6adv.model;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
-import java.io.Serializable;
-import javax.persistence.Id;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
-import javax.persistence.Column;
-import javax.persistence.Version;
-import java.lang.Override;
-import java.util.Date;
+import javax.persistence.Id;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.persistence.Transient;
-import javax.validation.constraints.Size;
+import javax.persistence.Version;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Past;
+import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
+import java.io.Serializable;
+import java.util.Date;
 
 @Entity
 @XmlRootElement
@@ -255,20 +254,14 @@ public class Customer implements Serializable
    public String toString()
    {
       String result = getClass().getSimpleName() + " ";
-      if (id != null)
-         result += "id: " + id;
-      result += ", version: " + version;
       if (firstname != null && !firstname.trim().isEmpty())
-         result += ", firstname: " + firstname;
+         result += "firstname: " + firstname;
       if (lastname != null && !lastname.trim().isEmpty())
          result += ", lastname: " + lastname;
       if (telephone != null && !telephone.trim().isEmpty())
          result += ", telephone: " + telephone;
       if (email != null && !email.trim().isEmpty())
          result += ", email: " + email;
-      if (dateOfBirth != null)
-         result += ", dateOfBirth: " + dateOfBirth;
-      result += ", age: " + age;
       if (street1 != null && !street1.trim().isEmpty())
          result += ", street1: " + street1;
       if (street2 != null && !street2.trim().isEmpty())

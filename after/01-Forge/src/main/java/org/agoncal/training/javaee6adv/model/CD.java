@@ -1,24 +1,20 @@
 package org.agoncal.training.javaee6adv.model;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
-import java.io.Serializable;
-import javax.persistence.Id;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
-import javax.persistence.Column;
-import javax.persistence.Version;
-import java.lang.Override;
-import org.agoncal.training.javaee6adv.model.MajorLabel;
-import javax.persistence.ManyToOne;
-import org.agoncal.training.javaee6adv.model.Genre;
-import org.agoncal.training.javaee6adv.model.Musician;
-import java.util.Set;
-import java.util.HashSet;
+import javax.persistence.Id;
 import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
+import javax.persistence.Version;
+import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
-import javax.validation.constraints.Min;
 import javax.xml.bind.annotation.XmlRootElement;
+import java.io.Serializable;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
 @XmlRootElement
@@ -166,11 +162,8 @@ public class CD implements Serializable
    public String toString()
    {
       String result = getClass().getSimpleName() + " ";
-      if (id != null)
-         result += "id: " + id;
-      result += ", version: " + version;
       if (title != null && !title.trim().isEmpty())
-         result += ", title: " + title;
+         result += "title: " + title;
       if (price != null)
          result += ", price: " + price;
       if (description != null && !description.trim().isEmpty())

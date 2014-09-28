@@ -1,16 +1,15 @@
 package org.agoncal.training.javaee6adv.model;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
-import java.io.Serializable;
-import javax.persistence.Id;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
-import javax.persistence.Column;
+import javax.persistence.Id;
 import javax.persistence.Version;
-import java.lang.Override;
+import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
-import javax.validation.constraints.Min;
+import java.io.Serializable;
 
 @Entity
 public class Item implements Serializable
@@ -135,11 +134,8 @@ public class Item implements Serializable
    public String toString()
    {
       String result = getClass().getSimpleName() + " ";
-      if (id != null)
-         result += "id: " + id;
-      result += ", version: " + version;
       if (title != null && !title.trim().isEmpty())
-         result += ", title: " + title;
+         result += "title: " + title;
       if (price != null)
          result += ", price: " + price;
       if (description != null && !description.trim().isEmpty())
