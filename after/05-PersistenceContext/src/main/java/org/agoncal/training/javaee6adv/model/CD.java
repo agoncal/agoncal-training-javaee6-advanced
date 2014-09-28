@@ -1,20 +1,18 @@
 package org.agoncal.training.javaee6adv.model;
 
-import javax.persistence.Entity;
-import java.io.Serializable;
 import javax.persistence.Column;
-import java.lang.Override;
-import org.agoncal.training.javaee6adv.model.MajorLabel;
-import javax.persistence.ManyToOne;
-import org.agoncal.training.javaee6adv.model.Genre;
-import org.agoncal.training.javaee6adv.model.Musician;
-import java.util.Set;
-import java.util.HashSet;
+import javax.persistence.DiscriminatorValue;
+import javax.persistence.Entity;
 import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
 import javax.xml.bind.annotation.XmlRootElement;
+import java.io.Serializable;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
 @XmlRootElement
+@DiscriminatorValue("C")
 public class CD extends Item implements Serializable
 {
 
@@ -75,11 +73,8 @@ public class CD extends Item implements Serializable
    public String toString()
    {
       String result = getClass().getSimpleName() + " ";
-      if (id != null)
-         result += "id: " + id;
-      result += ", version: " + version;
       if (title != null && !title.trim().isEmpty())
-         result += ", title: " + title;
+         result += "title: " + title;
       if (price != null)
          result += ", price: " + price;
       if (description != null && !description.trim().isEmpty())

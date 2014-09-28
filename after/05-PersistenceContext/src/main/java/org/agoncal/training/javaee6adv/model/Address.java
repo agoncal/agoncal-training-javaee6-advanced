@@ -1,11 +1,10 @@
 package org.agoncal.training.javaee6adv.model;
 
-import javax.persistence.Embeddable;
-import java.io.Serializable;
 import javax.persistence.Column;
-import java.lang.Override;
-import javax.validation.constraints.Size;
+import javax.persistence.Embeddable;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
+import java.io.Serializable;
 
 @Embeddable
 public class Address implements Serializable
@@ -36,21 +35,6 @@ public class Address implements Serializable
    @Size(min = 2, max = 50)
    @NotNull
    private String country;
-
-   @Override
-   public boolean equals(Object obj)
-   {
-      if (this == obj)
-      {
-         return true;
-      }
-      if (!(obj instanceof Address))
-      {
-         return false;
-      }
-      Address other = (Address) obj;
-      return true;
-   }
 
    public String getStreet1()
    {
@@ -117,7 +101,7 @@ public class Address implements Serializable
    {
       String result = getClass().getSimpleName() + " ";
       if (street1 != null && !street1.trim().isEmpty())
-         result += ", street1: " + street1;
+         result += "street1: " + street1;
       if (street2 != null && !street2.trim().isEmpty())
          result += ", street2: " + street2;
       if (city != null && !city.trim().isEmpty())

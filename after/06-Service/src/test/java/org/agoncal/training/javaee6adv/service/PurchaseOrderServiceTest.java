@@ -7,20 +7,19 @@ import org.agoncal.training.javaee6adv.model.Customer;
 import org.agoncal.training.javaee6adv.model.Item;
 import org.agoncal.training.javaee6adv.model.OrderLine;
 import org.agoncal.training.javaee6adv.model.PurchaseOrder;
-import org.agoncal.training.javaee6adv.service.PurchaseOrderService;
-import javax.inject.Inject;
-
-import org.agoncal.training.javaee6adv.util.Resources;
 import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.junit.Arquillian;
 import org.jboss.shrinkwrap.api.ShrinkWrap;
-import org.jboss.shrinkwrap.api.spec.JavaArchive;
 import org.jboss.shrinkwrap.api.asset.EmptyAsset;
+import org.jboss.shrinkwrap.api.spec.JavaArchive;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import static org.junit.Assert.*;
-import static org.hamcrest.core.Is.*;
+
+import javax.inject.Inject;
+
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
 
 @RunWith(Arquillian.class)
 public class PurchaseOrderServiceTest
@@ -33,16 +32,15 @@ public class PurchaseOrderServiceTest
    public static JavaArchive createDeployment()
    {
       return ShrinkWrap.create(JavaArchive.class)
-            .addClass(Resources.class)
             .addClass(AbstractService.class)
             .addClass(PurchaseOrderService.class)
             .addClass(PurchaseOrder.class)
-            .addClass(OrderLine.class)
-            .addClass(Item.class)
-            .addClass(Address.class)
+            .addClass(Customer.class)
             .addClass(CreditCard.class)
             .addClass(CreditCardType.class)
-            .addClass(Customer.class)
+            .addClass(OrderLine.class)
+            .addClass(Address.class)
+            .addClass(Item.class)
             .addAsManifestResource("META-INF/persistence.xml", "persistence.xml")
             .addAsManifestResource(EmptyAsset.INSTANCE, "beans.xml");
    }

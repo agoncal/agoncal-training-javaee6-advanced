@@ -1,20 +1,19 @@
 package org.agoncal.training.javaee6adv.service;
 
 import org.agoncal.training.javaee6adv.model.Genre;
-import org.agoncal.training.javaee6adv.service.GenreService;
-import javax.inject.Inject;
-
-import org.agoncal.training.javaee6adv.util.Resources;
 import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.junit.Arquillian;
 import org.jboss.shrinkwrap.api.ShrinkWrap;
-import org.jboss.shrinkwrap.api.spec.JavaArchive;
 import org.jboss.shrinkwrap.api.asset.EmptyAsset;
+import org.jboss.shrinkwrap.api.spec.JavaArchive;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import static org.junit.Assert.*;
-import static org.hamcrest.core.Is.*;
+
+import javax.inject.Inject;
+
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
 
 @RunWith(Arquillian.class)
 public class GenreServiceTest
@@ -27,7 +26,6 @@ public class GenreServiceTest
    public static JavaArchive createDeployment()
    {
       return ShrinkWrap.create(JavaArchive.class)
-            .addClass(Resources.class)
             .addClass(AbstractService.class)
             .addClass(GenreService.class)
             .addClass(Genre.class)
@@ -54,7 +52,7 @@ public class GenreServiceTest
       // Inserts the object into the database
       genre = genreservice.persist(genre);
       assertNotNull(genre.getId());
-      assertEquals(initialSize+1, genreservice.listAll().size());
+      assertEquals(initialSize + 1, genreservice.listAll().size());
 
       // Finds the object from the database and checks it's the right one
       genre = genreservice.findById(genre.getId());

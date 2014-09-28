@@ -14,11 +14,13 @@ import java.util.List;
 
 @Stateless
 @LocalBean
-public class PublisherService extends AbstractService<Publisher> implements Serializable {
+public class PublisherService extends AbstractService<Publisher> implements Serializable
+{
 
-    public PublisherService() {
-        super(Publisher.class);
-    }
+   public PublisherService()
+   {
+      super(Publisher.class);
+   }
 
    @Override
    protected Predicate[] getSearchPredicates(Root<Publisher> root, Publisher example)
@@ -29,7 +31,7 @@ public class PublisherService extends AbstractService<Publisher> implements Seri
       String name = example.getName();
       if (name != null && !"".equals(name))
       {
-         predicatesList.add(builder.like(builder.lower(root.<String> get("name")), '%' + name.toLowerCase() + '%'));
+         predicatesList.add(builder.like(builder.lower(root.<String>get("name")), '%' + name.toLowerCase() + '%'));
       }
 
       return predicatesList.toArray(new Predicate[predicatesList.size()]);

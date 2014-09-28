@@ -1,8 +1,7 @@
 package org.agoncal.training.javaee6adv.view;
 
-import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.List;
+import org.agoncal.training.javaee6adv.model.Item;
+import org.agoncal.training.javaee6adv.model.OrderLine;
 
 import javax.annotation.Resource;
 import javax.ejb.SessionContext;
@@ -23,13 +22,13 @@ import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
-
-import org.agoncal.training.javaee6adv.model.OrderLine;
-import org.agoncal.training.javaee6adv.model.Item;
+import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Backing bean for OrderLine entities.
- * <p>
+ * <p/>
  * This class provides CRUD functionality for all OrderLine entities. It focuses
  * purely on Java EE 6 standards (e.g. <tt>&#64;ConversationScoped</tt> for
  * state management, <tt>PersistenceContext</tt> for persistence,
@@ -76,13 +75,14 @@ public class OrderLineBean implements Serializable
    @Inject
    private Conversation conversation;
 
-   @PersistenceContext(unitName = "cdbookstorePU")
+   @PersistenceContext(unitName = "cdbookstorePU", type = PersistenceContextType.TRANSACTION)
    private EntityManager entityManager;
 
    public String create()
    {
 
       this.conversation.begin();
+      this.conversation.setTimeout(1800000L);
       return "create?faces-redirect=true";
    }
 
@@ -97,6 +97,7 @@ public class OrderLineBean implements Serializable
       if (this.conversation.isTransient())
       {
          this.conversation.begin();
+         this.conversation.setTimeout(1800000L);
       }
 
       if (this.id == null)
@@ -197,9 +198,10 @@ public class OrderLineBean implements Serializable
       this.example = example;
    }
 
-   public void search()
+   public String search()
    {
       this.page = 0;
+      return null;
    }
 
    public void paginate()
@@ -284,7 +286,7 @@ public class OrderLineBean implements Serializable
 
          @Override
          public Object getAsObject(FacesContext context,
-               UIComponent component, String value)
+                                   UIComponent component, String value)
          {
 
             return ejbProxy.findById(Long.valueOf(value));
@@ -292,7 +294,7 @@ public class OrderLineBean implements Serializable
 
          @Override
          public String getAsString(FacesContext context,
-               UIComponent component, Object value)
+                                   UIComponent component, Object value)
          {
 
             if (value == null)

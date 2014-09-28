@@ -5,20 +5,19 @@ import org.agoncal.training.javaee6adv.model.Genre;
 import org.agoncal.training.javaee6adv.model.Item;
 import org.agoncal.training.javaee6adv.model.MajorLabel;
 import org.agoncal.training.javaee6adv.model.Musician;
-import org.agoncal.training.javaee6adv.service.CDService;
-import javax.inject.Inject;
-
-import org.agoncal.training.javaee6adv.util.Resources;
 import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.junit.Arquillian;
 import org.jboss.shrinkwrap.api.ShrinkWrap;
-import org.jboss.shrinkwrap.api.spec.JavaArchive;
 import org.jboss.shrinkwrap.api.asset.EmptyAsset;
+import org.jboss.shrinkwrap.api.spec.JavaArchive;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import static org.junit.Assert.*;
-import static org.hamcrest.core.Is.*;
+
+import javax.inject.Inject;
+
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
 
 @RunWith(Arquillian.class)
 public class CDServiceTest
@@ -31,7 +30,6 @@ public class CDServiceTest
    public static JavaArchive createDeployment()
    {
       return ShrinkWrap.create(JavaArchive.class)
-            .addClass(Resources.class)
             .addClass(AbstractService.class)
             .addClass(CDService.class)
             .addClass(CD.class)
@@ -62,7 +60,7 @@ public class CDServiceTest
       // Inserts the object into the database
       cd = cdservice.persist(cd);
       assertNotNull(cd.getId());
-      assertEquals(initialSize+1, cdservice.listAll().size());
+      assertEquals(initialSize + 1, cdservice.listAll().size());
 
       // Finds the object from the database and checks it's the right one
       cd = cdservice.findById(cd.getId());

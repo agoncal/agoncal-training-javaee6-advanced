@@ -1,21 +1,20 @@
 package org.agoncal.training.javaee6adv.model;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
-import java.io.Serializable;
-import javax.persistence.Id;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
-import javax.persistence.Column;
-import javax.persistence.Version;
-import java.lang.Override;
-import java.util.Date;
+import javax.persistence.Id;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.persistence.Transient;
+import javax.persistence.Version;
 import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Size;
 import javax.validation.constraints.Past;
+import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
+import java.io.Serializable;
+import java.util.Date;
 
 @Entity
 @XmlRootElement
@@ -170,19 +169,12 @@ public class Musician implements Serializable
    public String toString()
    {
       String result = getClass().getSimpleName() + " ";
-      if (id != null)
-         result += "id: " + id;
-      result += ", version: " + version;
       if (firstName != null && !firstName.trim().isEmpty())
-         result += ", firstName: " + firstName;
+         result += "firstName: " + firstName;
       if (lastName != null && !lastName.trim().isEmpty())
          result += ", lastName: " + lastName;
       if (bio != null && !bio.trim().isEmpty())
          result += ", bio: " + bio;
-      if (dateOfBirth != null)
-         result += ", dateOfBirth: " + dateOfBirth;
-      if (age != null)
-         result += ", age: " + age;
       if (preferredInstrument != null && !preferredInstrument.trim().isEmpty())
          result += ", preferredInstrument: " + preferredInstrument;
       return result;

@@ -3,19 +3,21 @@ package org.agoncal.training.javaee6adv.view;
 import org.agoncal.training.javaee6adv.model.Genre;
 import org.agoncal.training.javaee6adv.service.AbstractService;
 import org.agoncal.training.javaee6adv.service.GenreService;
-import org.agoncal.training.javaee6adv.util.Resources;
-import org.agoncal.training.javaee6adv.view.GenreBean;
-import javax.inject.Inject;
 import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.junit.Arquillian;
 import org.jboss.shrinkwrap.api.ShrinkWrap;
-import org.jboss.shrinkwrap.api.spec.JavaArchive;
 import org.jboss.shrinkwrap.api.asset.EmptyAsset;
+import org.jboss.shrinkwrap.api.spec.JavaArchive;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import static org.junit.Assert.*;
-import static org.hamcrest.core.Is.*;
+
+import javax.inject.Inject;
+
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertNull;
+import static org.junit.Assert.assertTrue;
 
 @RunWith(Arquillian.class)
 public class GenreBeanTest
@@ -29,7 +31,6 @@ public class GenreBeanTest
    {
       return ShrinkWrap.create(JavaArchive.class)
             .addClass(GenreBean.class)
-            .addClass(Resources.class)
             .addClass(AbstractService.class)
             .addClass(GenreService.class)
             .addClass(Genre.class)
@@ -78,6 +79,6 @@ public class GenreBeanTest
       // Paginates through the example
       genrebean.setExample(example);
       genrebean.paginate();
-      assertTrue((genrebean.getPageItems().size()==genrebean.getPageSize()) || (genrebean.getPageItems().size()==genrebean.getCount()));
+      assertTrue((genrebean.getPageItems().size() == genrebean.getPageSize()) || (genrebean.getPageItems().size() == genrebean.getCount()));
    }
 }

@@ -1,8 +1,8 @@
 package org.agoncal.training.javaee6adv.view;
 
-import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.List;
+import org.agoncal.training.javaee6adv.model.CD;
+import org.agoncal.training.javaee6adv.model.Genre;
+import org.agoncal.training.javaee6adv.model.MajorLabel;
 
 import javax.annotation.Resource;
 import javax.ejb.SessionContext;
@@ -24,14 +24,13 @@ import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
-
-import org.agoncal.training.javaee6adv.model.CD;
-import org.agoncal.training.javaee6adv.model.Genre;
-import org.agoncal.training.javaee6adv.model.MajorLabel;
+import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Backing bean for CD entities.
- * <p>
+ * <p/>
  * This class provides CRUD functionality for all CD entities. It focuses
  * purely on Java EE 6 standards (e.g. <tt>&#64;ConversationScoped</tt> for
  * state management, <tt>PersistenceContext</tt> for persistence,
@@ -78,13 +77,14 @@ public class CDBean implements Serializable
    @Inject
    private Conversation conversation;
 
-   @PersistenceContext(unitName = "cdbookstorePU")
+   @PersistenceContext(unitName = "cdbookstorePU", type = PersistenceContextType.TRANSACTION)
    private EntityManager entityManager;
 
    public String create()
    {
 
       this.conversation.begin();
+      this.conversation.setTimeout(1800000L);
       return "create?faces-redirect=true";
    }
 
@@ -99,6 +99,7 @@ public class CDBean implements Serializable
       if (this.conversation.isTransient())
       {
          this.conversation.begin();
+         this.conversation.setTimeout(1800000L);
       }
 
       if (this.id == null)
@@ -117,9 +118,12 @@ public class CDBean implements Serializable
       TypedQuery<CD> findByIdQuery = this.entityManager.createQuery("SELECT DISTINCT c FROM CD c LEFT JOIN FETCH c.label LEFT JOIN FETCH c.genre LEFT JOIN FETCH c.musicians WHERE c.id = :entityId ORDER BY c.id", CD.class);
       findByIdQuery.setParameter("entityId", id);
       CD entity;
-      try {
+      try
+      {
          entity = findByIdQuery.getSingleResult();
-      } catch (NoResultException nre) {
+      }
+      catch (NoResultException nre)
+      {
          entity = null;
       }
       return entity;
@@ -207,9 +211,10 @@ public class CDBean implements Serializable
       this.example = example;
    }
 
-   public void search()
+   public String search()
    {
       this.page = 0;
+      return null;
    }
 
    public void paginate()
@@ -246,17 +251,17 @@ public class CDBean implements Serializable
       String title = this.example.getTitle();
       if (title != null && !"".equals(title))
       {
-         predicatesList.add(builder.like(builder.lower(root.<String> get("title")), '%' + title.toLowerCase() + '%'));
+         predicatesList.add(builder.like(builder.lower(root.<String>get("title")), '%' + title.toLowerCase() + '%'));
       }
       String description = this.example.getDescription();
       if (description != null && !"".equals(description))
       {
-         predicatesList.add(builder.like(builder.lower(root.<String> get("description")), '%' + description.toLowerCase() + '%'));
+         predicatesList.add(builder.like(builder.lower(root.<String>get("description")), '%' + description.toLowerCase() + '%'));
       }
       String imageURL = this.example.getImageURL();
       if (imageURL != null && !"".equals(imageURL))
       {
-         predicatesList.add(builder.like(builder.lower(root.<String> get("imageURL")), '%' + imageURL.toLowerCase() + '%'));
+         predicatesList.add(builder.like(builder.lower(root.<String>get("imageURL")), '%' + imageURL.toLowerCase() + '%'));
       }
       MajorLabel label = this.example.getLabel();
       if (label != null)
@@ -309,7 +314,7 @@ public class CDBean implements Serializable
 
          @Override
          public Object getAsObject(FacesContext context,
-               UIComponent component, String value)
+                                   UIComponent component, String value)
          {
 
             return ejbProxy.findById(Long.valueOf(value));
@@ -317,7 +322,7 @@ public class CDBean implements Serializable
 
          @Override
          public String getAsString(FacesContext context,
-               UIComponent component, Object value)
+                                   UIComponent component, Object value)
          {
 
             if (value == null)

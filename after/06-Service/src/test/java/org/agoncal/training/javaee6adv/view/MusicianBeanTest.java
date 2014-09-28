@@ -3,7 +3,6 @@ package org.agoncal.training.javaee6adv.view;
 import org.agoncal.training.javaee6adv.model.Musician;
 import org.agoncal.training.javaee6adv.service.AbstractService;
 import org.agoncal.training.javaee6adv.service.MusicianService;
-import org.agoncal.training.javaee6adv.util.Resources;
 import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.junit.Arquillian;
 import org.jboss.shrinkwrap.api.ShrinkWrap;
@@ -15,7 +14,10 @@ import org.junit.runner.RunWith;
 
 import javax.inject.Inject;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertNull;
+import static org.junit.Assert.assertTrue;
 
 @RunWith(Arquillian.class)
 public class MusicianBeanTest
@@ -29,7 +31,6 @@ public class MusicianBeanTest
    {
       return ShrinkWrap.create(JavaArchive.class)
             .addClass(MusicianBean.class)
-            .addClass(Resources.class)
             .addClass(AbstractService.class)
             .addClass(MusicianService.class)
             .addClass(Musician.class)
@@ -79,6 +80,6 @@ public class MusicianBeanTest
       // Paginates through the example
       musicianbean.setExample(example);
       musicianbean.paginate();
-      assertTrue((musicianbean.getPageItems().size()==musicianbean.getPageSize()) || (musicianbean.getPageItems().size()==musicianbean.getCount()));
+      assertTrue((musicianbean.getPageItems().size() == musicianbean.getPageSize()) || (musicianbean.getPageItems().size() == musicianbean.getCount()));
    }
 }

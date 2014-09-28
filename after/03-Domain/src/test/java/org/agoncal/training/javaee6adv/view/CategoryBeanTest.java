@@ -1,8 +1,6 @@
 package org.agoncal.training.javaee6adv.view;
 
-import org.agoncal.training.javaee6adv.model.Author;
 import org.agoncal.training.javaee6adv.model.Category;
-import org.agoncal.training.javaee6adv.model.Language;
 import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.junit.Arquillian;
 import org.jboss.shrinkwrap.api.ShrinkWrap;
@@ -32,8 +30,6 @@ public class CategoryBeanTest
       return ShrinkWrap.create(JavaArchive.class)
             .addClass(CategoryBean.class)
             .addClass(Category.class)
-            .addClass(Author.class)
-            .addClass(Language.class)
             .addAsManifestResource("META-INF/persistence.xml", "persistence.xml")
             .addAsManifestResource(EmptyAsset.INSTANCE, "beans.xml");
    }

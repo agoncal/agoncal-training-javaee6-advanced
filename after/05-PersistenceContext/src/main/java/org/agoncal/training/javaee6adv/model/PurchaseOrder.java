@@ -1,27 +1,22 @@
 package org.agoncal.training.javaee6adv.model;
 
+import javax.persistence.Column;
 import javax.persistence.Embedded;
 import javax.persistence.Entity;
-import java.io.Serializable;
-import javax.persistence.Id;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
-import javax.persistence.Column;
-import javax.persistence.Version;
-import java.lang.Override;
-import java.util.Date;
+import javax.persistence.Id;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
-import org.agoncal.training.javaee6adv.model.Customer;
-import javax.persistence.ManyToOne;
-import org.agoncal.training.javaee6adv.model.OrderLine;
-import java.util.Set;
-import java.util.HashSet;
-import javax.persistence.OneToMany;
-import org.agoncal.training.javaee6adv.model.CreditCardType;
-
+import javax.persistence.Version;
 import javax.validation.Valid;
 import javax.xml.bind.annotation.XmlRootElement;
+import java.io.Serializable;
+import java.util.Date;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
 @XmlRootElement
@@ -56,6 +51,26 @@ public class PurchaseOrder implements Serializable
    @Embedded
    @Valid
    private CreditCard creditCard = new CreditCard();
+
+   public Address getDeliveryAddress()
+   {
+      return deliveryAddress;
+   }
+
+   public void setDeliveryAddress(Address deliveryAddress)
+   {
+      this.deliveryAddress = deliveryAddress;
+   }
+
+   public CreditCard getCreditCard()
+   {
+      return creditCard;
+   }
+
+   public void setCreditCard(CreditCard creditCard)
+   {
+      this.creditCard = creditCard;
+   }
 
    public Long getId()
    {
@@ -242,16 +257,7 @@ public class PurchaseOrder implements Serializable
    public String toString()
    {
       String result = getClass().getSimpleName() + " ";
-      if (id != null)
-         result += "id: " + id;
-      result += ", version: " + version;
-      result += ", quantity: " + quantity;
-      if (orderDate != null)
-         result += ", orderDate: " + orderDate;
-      if (customer != null)
-         result += ", customer: " + customer;
-      if (orderLines != null)
-         result += ", orderLines: " + orderLines;
+      result += "quantity: " + quantity;
       if (deliveryAddress.getStreet1() != null && !deliveryAddress.getStreet1().trim().isEmpty())
          result += ", street1: " + deliveryAddress.getStreet1();
       if (deliveryAddress.getStreet2() != null && !deliveryAddress.getStreet2().trim().isEmpty())

@@ -1,6 +1,11 @@
 package org.agoncal.training.javaee6adv.rest;
 
-import org.agoncal.training.javaee6adv.model.*;
+import org.agoncal.training.javaee6adv.model.Author;
+import org.agoncal.training.javaee6adv.model.Book;
+import org.agoncal.training.javaee6adv.model.Category;
+import org.agoncal.training.javaee6adv.model.Item;
+import org.agoncal.training.javaee6adv.model.Language;
+import org.agoncal.training.javaee6adv.model.Publisher;
 import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.container.test.api.RunAsClient;
 import org.jboss.arquillian.junit.Arquillian;

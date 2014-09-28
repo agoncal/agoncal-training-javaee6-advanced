@@ -9,19 +9,21 @@ import org.agoncal.training.javaee6adv.model.OrderLine;
 import org.agoncal.training.javaee6adv.model.PurchaseOrder;
 import org.agoncal.training.javaee6adv.service.AbstractService;
 import org.agoncal.training.javaee6adv.service.PurchaseOrderService;
-import org.agoncal.training.javaee6adv.util.Resources;
-import org.agoncal.training.javaee6adv.view.PurchaseOrderBean;
-import javax.inject.Inject;
 import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.junit.Arquillian;
 import org.jboss.shrinkwrap.api.ShrinkWrap;
-import org.jboss.shrinkwrap.api.spec.JavaArchive;
 import org.jboss.shrinkwrap.api.asset.EmptyAsset;
+import org.jboss.shrinkwrap.api.spec.JavaArchive;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import static org.junit.Assert.*;
-import static org.hamcrest.core.Is.*;
+
+import javax.inject.Inject;
+
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertNull;
+import static org.junit.Assert.assertTrue;
 
 @RunWith(Arquillian.class)
 public class PurchaseOrderBeanTest
@@ -35,7 +37,6 @@ public class PurchaseOrderBeanTest
    {
       return ShrinkWrap.create(JavaArchive.class)
             .addClass(PurchaseOrderBean.class)
-            .addClass(Resources.class)
             .addClass(AbstractService.class)
             .addClass(PurchaseOrderService.class)
             .addClass(PurchaseOrder.class)
@@ -96,6 +97,6 @@ public class PurchaseOrderBeanTest
       // Paginates through the example
       purchaseorderbean.setExample(example);
       purchaseorderbean.paginate();
-      assertTrue((purchaseorderbean.getPageItems().size()==purchaseorderbean.getPageSize()) || (purchaseorderbean.getPageItems().size()==purchaseorderbean.getCount()));
+      assertTrue((purchaseorderbean.getPageItems().size() == purchaseorderbean.getPageSize()) || (purchaseorderbean.getPageItems().size() == purchaseorderbean.getCount()));
    }
 }

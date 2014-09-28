@@ -2,17 +2,13 @@
 
 Both JSF Backing Beans and REST Endpoints use the `EntityManager`. In this module, you will add a extra service layer and make sure JSF and REST use it.
 
-# DOJO - Generate the service tier with JBoss Forge, produce the EntityManager and test the service layer
+# DOJO - Generate and test service tier with JBoss Forge
 
 ## Generate the service tier with JBoss Forge
 
 * Launch JBoss Forge (enter the `$FORGE_HOME/bin/forge` command)
 * Go to the `cdbookstore` directory
 * Execute the `generate.fsh` script with the command `run ../before/06-Service/generate.fsh` 
-
-## Add a CDI producer to the Resources class
-
-* The class `org.agoncal.training.javaee6adv.util.Resources` should produce an `EntityManager` for `cdbookstorePU`
 
 ## Execute the tests in a remote environment to check the new tests are running
 
@@ -23,7 +19,7 @@ Both JSF Backing Beans and REST Endpoints use the `EntityManager`. In this modul
 
 * Check the classes `AbstractService.java`, `MusicianService.java` and `PublisherService.java`
 * Code the `AuthorService` following the same logic
-* Services should extend `AbstractService` (which uses the produced `EntityManager`) 
+* Services should extend `AbstractService` (which uses the `EntityManager`) 
 * Services constructor should call super passing the type (eg. `public AuthorService() { super(Author.class); }`) 
 * Each service overrides the `getSearchPredicates` method that has the signature `protected Predicate[] getSearchPredicates(Root<Author> root, Author example)`. Copy the content from the JSF Backing bean
 
@@ -31,7 +27,7 @@ Both JSF Backing Beans and REST Endpoints use the `EntityManager`. In this modul
 
 * Check the classes `MusicianServiceTest.java` and `PublisherServiceTest.java`
 * Code the `AuthorServiceTest` following the same logic until the tests passes
-* Packaging should add `.addClass(Resources.class)` and `.addClass(AbstractService.class)`
+* Packaging should add `.addClass(AbstractService.class)`
 * Each test case should implement a `should_crud` method
 
 ## Execute the tests in a remote environment
@@ -58,7 +54,7 @@ Both JSF Backing Beans and REST Endpoints use the `EntityManager`. In this modul
 
 * Check the classes `MusicianServiceTest.java` and `PublisherServiceTest.java`
 * Code the `AuthorServiceTest`, `BookServiceTest`, `CategoryServiceTest`, `CDServiceTest`, `CustomerServiceTest`, `GenreServiceTest`, `ItemServiceTest`, `MajorLabelServiceTest` and `OrderLineServiceTest` following the same logic until the tests passes
-* Packaging should add `.addClass(Resources.class)` and `.addClass(AbstractService.class)`
+* Packaging should add `.addClass(AbstractService.class)`
 * Each test case should implement a `should_crud` method
 
 # DOJO - Refactor the AuthorBean and AuthorBeanTest
@@ -77,7 +73,7 @@ Both JSF Backing Beans and REST Endpoints use the `EntityManager`. In this modul
 
 ## Refactor the AuthorBeanTest
 
-* The `AuthorBeanTest` needs to add service dependencies in the packaging (eg. `Resources`, `AbstractService`, `AuthorService`)
+* The `AuthorBeanTest` needs to add service dependencies in the packaging (eg. `AbstractService`, `AuthorService`)
 
 ## Execute the tests in a remote environment
 
@@ -101,7 +97,7 @@ Both JSF Backing Beans and REST Endpoints use the `EntityManager`. In this modul
 
 ## Refactor the JSF backing bean tests
 
-* JSF backing beans test need now to add service dependencies in the packaging (eg. `Resources`, `AbstractService`, `AuthorService`)
+* JSF backing beans test need now to add service dependencies in the packaging (eg. `AbstractService`, `AuthorService`)
 
 ## Execute the tests in a remote environment
 
@@ -119,7 +115,7 @@ Both JSF Backing Beans and REST Endpoints use the `EntityManager`. In this modul
 
 ## Refactor the existing tests
 
-* `AuthorEndpointTest` needs now to add service dependencies in the packaging (eg. `Resources`, `AbstractService`, `AuthorService`)
+* `AuthorEndpointTest` needs now to add service dependencies in the packaging (eg. `AbstractService`, `AuthorService`)
 
 ## Execute the tests in a remote environment
 
@@ -139,7 +135,7 @@ Both JSF Backing Beans and REST Endpoints use the `EntityManager`. In this modul
 
 ## Refactor the existing tests
 
-* REST endpoint tests need now to add service dependencies in the packaging (eg. `Resources`, `AbstractService`, `AuthorService`)
+* REST endpoint tests need now to add service dependencies in the packaging (eg. `AbstractService`, `AuthorService`)
 
 ## Execute the tests in a remote environment
 

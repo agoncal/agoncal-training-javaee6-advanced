@@ -1,7 +1,7 @@
 package org.agoncal.training.javaee6adv.service;
 
-import javax.inject.Inject;
 import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
 import javax.persistence.TypedQuery;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
@@ -9,63 +9,77 @@ import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
 import java.util.List;
 
-public abstract class AbstractService<T> {
+public abstract class AbstractService<T>
+{
 
-   @Inject
+   @PersistenceContext(unitName = "cdbookstorePU")
    private EntityManager em;
 
    private Class<T> entityClass;
 
-   public AbstractService() {
+   public AbstractService()
+   {
    }
 
-   public AbstractService(Class<T> entityClass) {
+   public AbstractService(Class<T> entityClass)
+   {
       this.entityClass = entityClass;
    }
 
-   public EntityManager getEntityManager() {
+   public EntityManager getEntityManager()
+   {
       return em;
    }
 
-   public T persist(T entity) {
+   public T persist(T entity)
+   {
       em.persist(entity);
       return entity;
    }
 
-   public T findById(Long id) {
+   public T findById(Long id)
+   {
       return em.find(entityClass, id);
    }
 
-   public void remove(T entity) {
+   public void remove(T entity)
+   {
       em.remove(em.merge(entity));
    }
 
-   public T merge(T entity) {
+   public T merge(T entity)
+   {
       return em.merge(entity);
    }
 
-   public List<T> listAll(Integer startPosition, Integer maxResult) {
+   public List<T> listAll(Integer startPosition, Integer maxResult)
+   {
       TypedQuery<T> findAllQuery = getListAllQuery();
-      if (startPosition != null) {
+      if (startPosition != null)
+      {
          findAllQuery.setFirstResult(startPosition);
       }
-      if (maxResult != null) {
+      if (maxResult != null)
+      {
          findAllQuery.setMaxResults(maxResult);
       }
       final List<T> results = findAllQuery.getResultList();
       return results;
    }
 
-   public List<T> listAll() {
+   public List<T> listAll()
+   {
       return getListAllQuery().getResultList();
    }
 
-   public TypedQuery<T> getListAllQuery() {
+   public TypedQuery<T> getListAllQuery()
+   {
       CriteriaQuery<T> criteria = getEntityManager().getCriteriaBuilder().createQuery(entityClass);
       return getEntityManager().createQuery(criteria.select(criteria.from(entityClass)));
    }
 
-   public long count(T example) {
+   public long count(T example)
+   {
 
       CriteriaBuilder builder = getEntityManager().getCriteriaBuilder();
 
@@ -78,7 +92,8 @@ public abstract class AbstractService<T> {
       return count;
    }
 
-   public List<T> page(T example, int page, int pageSize) {
+   public List<T> page(T example, int page, int pageSize)
+   {
 
       CriteriaBuilder builder = getEntityManager().getCriteriaBuilder();
 
