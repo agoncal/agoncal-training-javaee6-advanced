@@ -17,6 +17,7 @@
         <module>07-Producers</module>
         <module>08-WebApplication</module>
         <module>09-Events</module>
+        <module>10-Schedule</module>
     </modules>
 
 </project>

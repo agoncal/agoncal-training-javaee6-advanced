@@ -1,0 +1,55 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+								xmlns:h="http://java.sun.com/jsf/html"
+								xmlns:f="http://java.sun.com/jsf/core"
+								xmlns:ui="http://java.sun.com/jsf/facelets"
+								xmlns:p="http://primefaces.org/ui"
+								template="/resources/scaffold/mainTemplate.xhtml">
+
+	<f:metadata>
+		<f:viewParam name="id" value='#{CDBean.genreId}'/>
+		<f:event type="preRenderView" listener='#{CDBean.findByGenre}'/>
+	</f:metadata>
+
+	<ui:param name="pageTitle" value="CDs per genre"/>
+
+	<ui:define name="header">
+		CDs per genre
+	</ui:define>
+
+	<ui:define name="navigation">
+		<ui:include src="navigation.xhtml"/>
+	</ui:define>
+
+	<ui:define name="main">
+		<h:form>
+			<p:dataScroller value="#{CDBean.cdsPerGenre}" var="cd" chunkSize="3">
+				<f:facet name="header">
+					Scroll Down to Load More CDs
+				</f:facet>
+
+				<h:panelGrid columns="2" style="width:100%" columnClasses="logo,detail">
+					<h:link outcome="view">
+						<f:param name="id" value="#{cd.id}"/>
+						<p:graphicImage url="#{cd.imageURL}" id="image"/>
+					</h:link>
+
+					<p:outputPanel>
+						<h:panelGrid columns="2" cellpadding="5">
+							<h:outputText value="Title:"/>
+							<h:outputText value="#{cd.title}" style="font-weight: bold"/>
+
+							<h:outputText value="Price:"/>
+							<h:outputText value="#{cd.price}" style="font-weight: bold"/>
+
+							<h:outputText value="Description:"/>
+							<h:outputText value="#{cd.description}" style="font-weight: bold"/>
+						</h:panelGrid>
+					</p:outputPanel>
+				</h:panelGrid>
+			</p:dataScroller>
+		</h:form>
+	</ui:define>
+
+</ui:composition>
