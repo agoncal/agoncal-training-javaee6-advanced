@@ -1,46 +1,52 @@
 # Java EE 6 Advanced Training - Web Application
 
-In this module you will beautify the CDBook-Store web application and add nice pages and primefaces components to browse CDs and Books.
+In this module you will beautify the CDBook-Store web application and add nice pages and primefaces components to browse CDs and Books (which needs extra service's methods).
 
-## Generating a few artifacts and copying web resources
+# DOJO - Create and test the new service's methods
+
+## Generate a few artifacts and copy web resources with JBoss Forge
 
 * Launch JBoss Forge (enter the `$FORGE_HOME/bin/forge` command)
 * Go to the `cdbookstore` directory
 * Execute the `generate.fsh` script with the command `run ../before/08-WebApplication/generate.fsh` 
 
-# DOJO - Setup a new UI
-
-## Webjars gets rid of bootstrap
-
-* Delete Bootstrap because it's used with Webjars now `rm src/main/webapp/resources/bootstrap.css`
-* The `org.webjars.bootstrap` jar brings the needed style sheet
-
-## Build, Deploy and check the web application
-                 
-* With a browser go to [http://localhost:8080/cdbookstore]()
-* The top links are disabled except `Adminstration`
-* [http://localhost:8080/cdbookstore/faces/admin/index.xhtml]() give you access to the admin pages
-
-# DOJO - Web pages to browse Books
-
-##  Check the copied book pages
-
-* The `index.xhtml` page needs a `bookService.findAllImages()` method
-* The `navigation.xhtml` page needs a `categoryService.listAll()` method
-* The `viewPerCategory.xhtml` needs a `bookBean.findByCategory` method
-* The pages use a few Prime Faces components : `imageSwitch` and `dataScroller` 
-
 ## Check the copied the Arquillian tests
 
 * `BookServiceTest` adds a `should_check_images` and a `should_check_books_by_category` method
 * `BookBeanTest` adds a `should_check_books_by_category()` test case
+* `BookServiceTest` and `CDServiceTest` add a `should_check_images` and a `should_check_books_by_category` method
+* `BookBeanTest` and `CDBeanTest` add a `should_check_books_by_category()` test case
+* They all `.addAsResource("import.sql", "import.sql")`
 
-## Refactor the JSF backing bean and EJB
+## Create new methods to the service tier
 
-* `BookService` has a `public List<String> findAllImages()` method that returns all non null images URL (uses a `TypedQuery<String>`) 
-* `BookService` has a `public List<Book> findByCategory(Long categoryId)` method that returns all the books for a given category
-* `BookBean` should have a `private Long categoryId` and a `private List<Book> booksPerCateogry` with getters/setters 
-* `BookBean` has a `public void findByCategory()` method that calls the EJB
+* `BookService` needs a `public List<String> findAllImages()` method that returns all non null images URL (uses a `TypedQuery<String>`) 
+* `BookService` needs a `public List<Book> findByCategory(Long categoryId)` method that returns all the books for a given category
+* `CDService` needs a `public List<String> findAllImages()` method that returns all non null images URL (uses a `TypedQuery<String>`) 
+* `CDService` needs a `public List<CD> findByGenre(Long genreId)` method that returns all the CDs for a given genre
+
+## Execute the tests in a remote environment
+
+* Start WildFly (`$WILDFLY_HOME/bin/standalone.sh`)
+* `mvn -Parquillian-wildfly-remote test` will execute the tests with WildFly up and running and with the application deployed
+
+# KATA - Create and test the new service's methods
+
+
+# DOJO - Setup a new UI
+
+## Webjars is a new way to add Bootstrap
+
+* Delete Bootstrap because it's used with Webjars now `rm src/main/webapp/resources/bootstrap.css`
+* The `org.webjars.bootstrap` jar brings the needed style sheet
+
+##  Check the copied book pages
+
+* The `index.xhtml` page uses the `bookService.findAllImages()` method
+* The `navigation.xhtml` page uses the `categoryService.listAll()` method
+* The `viewPerCategory.xhtml` needs a `bookBean.findByCategory` method
+* The pages use a few Prime Faces components : `imageSwitch` and `dataScroller` 
+
 * Remember that the `@Named` annotation allows a service to be used within a JSF page
 
 ## Execute the tests in a remote environment
@@ -65,18 +71,6 @@ In this module you will beautify the CDBook-Store web application and add nice p
 * The `viewPerGenre.xhtml` page displays the list of CDs per genre and needs a `cdBean.findByGenre` method
 * Get inspiration from `src/main/webapp/book`
 
-## Check the copied the Arquillian tests
-
-* `BookServiceTest` and `CDServiceTest` add a `should_check_images` and a `should_check_books_by_category` method
-* `BookBeanTest` and `CDBeanTest` add a `should_check_books_by_category()` test case
-
-## Refactor the JSF backing bean and EJB
-
-* `CDService` has a `public List<String> findAllImages()` method that returns all non null images URL (uses a `TypedQuery<String>`) 
-* `CDService` has a `public List<CD> findByGenre(Long genreId)` method that returns all the CDs for a given genre
-* `CDBean` should have a `private Long genreId` and a `private List<CD> cdsPerGenre` with getters/setters 
-* `CDBean` has a `public void findByGenre()` method that calls the EJB
-* Remember that the `@Named` annotation allows a service to be used within a JSF page
 
 ## Execute the tests in a remote environment
 
