@@ -1,7 +1,7 @@
 package org.agoncal.training.javaee6adv.view;
 
-import java.io.Serializable;
-import java.util.List;
+import org.agoncal.training.javaee6adv.model.PurchaseOrder;
+import org.agoncal.training.javaee6adv.service.PurchaseOrderService;
 
 import javax.enterprise.context.Conversation;
 import javax.enterprise.context.ConversationScoped;
@@ -11,19 +11,12 @@ import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
 import javax.inject.Inject;
 import javax.inject.Named;
-import javax.persistence.TypedQuery;
-import javax.persistence.criteria.CriteriaBuilder;
-import javax.persistence.criteria.CriteriaQuery;
-import javax.persistence.criteria.Predicate;
-import javax.persistence.criteria.Root;
-
-import org.agoncal.training.javaee6adv.model.PurchaseOrder;
-import org.agoncal.training.javaee6adv.model.Customer;
-import org.agoncal.training.javaee6adv.service.PurchaseOrderService;
+import java.io.Serializable;
+import java.util.List;
 
 /**
  * Backing bean for PurchaseOrder entities.
- * <p>
+ * <p/>
  * This class provides CRUD functionality for all PurchaseOrder entities. It focuses
  * purely on Java EE 6 standards (e.g. <tt>&#64;ConversationScoped</tt> for
  * state management, <tt>PersistenceContext</tt> for persistence,
@@ -72,17 +65,21 @@ public class PurchaseOrderBean implements Serializable
    @Inject
    private PurchaseOrderService service;
 
+   @Inject
+   private FacesContext facesContext;
+
    public String create()
    {
 
       this.conversation.begin();
+      this.conversation.setTimeout(1800000L);
       return "create?faces-redirect=true";
    }
 
    public void retrieve()
    {
 
-      if (FacesContext.getCurrentInstance().isPostback())
+      if (facesContext.isPostback())
       {
          return;
       }
@@ -90,6 +87,7 @@ public class PurchaseOrderBean implements Serializable
       if (this.conversation.isTransient())
       {
          this.conversation.begin();
+         this.conversation.setTimeout(1800000L);
       }
 
       if (this.id == null)
@@ -131,7 +129,7 @@ public class PurchaseOrderBean implements Serializable
       }
       catch (Exception e)
       {
-         FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(e.getMessage()));
+         facesContext.addMessage(null, new FacesMessage(e.getMessage()));
          return null;
       }
    }
@@ -149,7 +147,7 @@ public class PurchaseOrderBean implements Serializable
       }
       catch (Exception e)
       {
-         FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(e.getMessage()));
+         facesContext.addMessage(null, new FacesMessage(e.getMessage()));
          return null;
       }
    }
@@ -189,9 +187,10 @@ public class PurchaseOrderBean implements Serializable
       this.example = example;
    }
 
-   public void search()
+   public String search()
    {
       this.page = 0;
+      return null;
    }
 
    public void paginate()
@@ -232,7 +231,7 @@ public class PurchaseOrderBean implements Serializable
 
          @Override
          public Object getAsObject(FacesContext context,
-               UIComponent component, String value)
+                                   UIComponent component, String value)
          {
 
             return service.findById(Long.valueOf(value));
@@ -240,7 +239,7 @@ public class PurchaseOrderBean implements Serializable
 
          @Override
          public String getAsString(FacesContext context,
-               UIComponent component, Object value)
+                                   UIComponent component, Object value)
          {
 
             if (value == null)

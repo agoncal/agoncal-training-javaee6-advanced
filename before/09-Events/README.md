@@ -9,13 +9,14 @@ In this module you will add the capability of buying a book or a CD. The idea is
 * The Book web page has a _Buy_ button and it displays an information message that the book has been successfully bought
 * Replace the `view.xhtml` page of the Book
 * `cp ../before/09-Events/view.xhtml src/main/webapp/book`
+* See that the new `view.xhtml` needs a `buy` method
 
-## Add a buy method on BookBean 
+## Create a buy method on BookBean 
 
 * The `BookBean` should have a new `public String buy()` method that returns null
-* The method finds the book that we just bought
-* It displays a JSF message (use the JSF `context` to send a message, you get the context with `FacesContext context = FacesContext.getCurrentInstance()`)
-* It then fires an event
+* The method finds the book that we just bought (`service.findById(id)`)
+* It displays a JSF message (use the injected JSF `facesContext` to display a message)
+* It then fires a CDI event (`Event<Book> boughtBook`)
 
 ## Build, Deploy and check the web application
                  
@@ -23,7 +24,7 @@ In this module you will add the capability of buying a book or a CD. The idea is
 * View a Book (for example [http://localhost:8080/cdbookstore/faces/book/view.xhtml?id=-12]())
 * Click on the _Buy_ button, the message should be displayed
 
-# KATA - Add buying capabilities to CDs
+# KATA - Add buying capabilities to Books and CDs
 
 # DOJO - Add a listener that creates a purchase order
 
@@ -31,11 +32,12 @@ In this module you will add the capability of buying a book or a CD. The idea is
 
 * Copy the `RandomService` class, it will randomly generate data
 * `cp ../before/09-Events/RandomService.java src/main/java/org/agoncal/training/javaee6adv/service`
-* In `PurchaseOrderService` add a `public void itemHasBeenBought(Item itemBought)` method
+* In `PurchaseOrderService` create a `public void itemHasBeenBought(Item itemBought)` method
+* Make sure the method listens to the event
 * It should create a `purchaseOrder` (with a random credit card, a random address, a random customer) and the detached `itemBought`
 * Use `getEntityManager().persist(purchaseOrder)` to persist the `purchaseOrder`
-* You might have to change the cascade and fetch on the `orderLines` attributes (`@OneToMany(cascade = CascadeType.PERSIST, fetch = FetchType.EAGER)`)
-* Make sure the method listens to the event
+* Log a message so it displays the purchase order id
+* In `PurchaseOrder` you might want to change the cascade and fetch on the `orderLines` attributes (`@OneToMany(cascade = CascadeType.PERSIST, fetch = FetchType.EAGER)`)
 
 ## Build, Deploy and check the web application
                  
@@ -44,9 +46,14 @@ In this module you will add the capability of buying a book or a CD. The idea is
 * Click on the _Buy_ button, the message should be displayed
 * Go to the Administration page ([http://localhost:8080/cdbookstore/faces/admin/purchaseOrder/search.xhtml]()) and check the purchase ordre is created
 
+# KATA - Add a listener that creates a purchase order
+
+## The purchase order service creates a purchase order
+
 ## Refactor the Purchase Order tests
 
 * The `PurchaseOrderServiceTest` and `PurchaseOrderBeanTest` need to be refactor
+* Arquillian API has a `.addPackage` method that can help to add several classes
 
 ## Execute the tests in a remote environment
 

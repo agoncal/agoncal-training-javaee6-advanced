@@ -1,31 +1,24 @@
 package org.agoncal.training.javaee6adv.view;
 
-import org.agoncal.training.javaee6adv.model.Address;
-import org.agoncal.training.javaee6adv.model.CreditCard;
 import org.agoncal.training.javaee6adv.model.CreditCardType;
-import org.agoncal.training.javaee6adv.model.Customer;
-import org.agoncal.training.javaee6adv.model.Item;
-import org.agoncal.training.javaee6adv.model.OrderLine;
 import org.agoncal.training.javaee6adv.model.PurchaseOrder;
-import org.agoncal.training.javaee6adv.service.AbstractService;
-import org.agoncal.training.javaee6adv.service.BookService;
-import org.agoncal.training.javaee6adv.service.CDService;
-import org.agoncal.training.javaee6adv.service.CustomerService;
 import org.agoncal.training.javaee6adv.service.PurchaseOrderService;
-import org.agoncal.training.javaee6adv.service.RandomService;
-import org.agoncal.training.javaee6adv.util.Resources;
-import org.agoncal.training.javaee6adv.view.PurchaseOrderBean;
-import javax.inject.Inject;
+import org.agoncal.training.javaee6adv.util.ResourceProducer;
 import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.junit.Arquillian;
 import org.jboss.shrinkwrap.api.ShrinkWrap;
-import org.jboss.shrinkwrap.api.spec.JavaArchive;
 import org.jboss.shrinkwrap.api.asset.EmptyAsset;
+import org.jboss.shrinkwrap.api.spec.JavaArchive;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import static org.junit.Assert.*;
-import static org.hamcrest.core.Is.*;
+
+import javax.inject.Inject;
+
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertNull;
+import static org.junit.Assert.assertTrue;
 
 @RunWith(Arquillian.class)
 public class PurchaseOrderBeanTest
@@ -38,14 +31,9 @@ public class PurchaseOrderBeanTest
    public static JavaArchive createDeployment()
    {
       return ShrinkWrap.create(JavaArchive.class)
+            .addClass(ResourceProducer.class)
             .addClass(PurchaseOrderBean.class)
-            .addClass(Resources.class)
-            .addClass(AbstractService.class)
-            .addClass(PurchaseOrderService.class)
-            .addClass(RandomService.class)
-            .addClass(CustomerService.class)
-            .addClass(BookService.class)
-            .addClass(CDService.class)
+            .addPackage(PurchaseOrderService.class.getPackage())
             .addPackage(PurchaseOrder.class.getPackage())
             .addAsManifestResource("META-INF/persistence.xml", "persistence.xml")
             .addAsManifestResource(EmptyAsset.INSTANCE, "beans.xml");
@@ -98,6 +86,6 @@ public class PurchaseOrderBeanTest
       // Paginates through the example
       purchaseorderbean.setExample(example);
       purchaseorderbean.paginate();
-      assertTrue((purchaseorderbean.getPageItems().size()==purchaseorderbean.getPageSize()) || (purchaseorderbean.getPageItems().size()==purchaseorderbean.getCount()));
+      assertTrue((purchaseorderbean.getPageItems().size() == purchaseorderbean.getPageSize()) || (purchaseorderbean.getPageItems().size() == purchaseorderbean.getCount()));
    }
 }

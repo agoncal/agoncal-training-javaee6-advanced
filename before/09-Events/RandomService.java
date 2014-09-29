@@ -16,13 +16,14 @@ import java.util.Random;
 
 @Stateless
 @LocalBean
-public class RandomService implements Serializable {
+public class RandomService implements Serializable
+{
 
    private static final Random random = new Random(System.nanoTime());
-   public static String [] COUNTRIES = {"France", "USA", "Portugal", "Italy", "United Kingdom"};
-   public static String [] STREET = {"Sunset Boulevard", "Ritherdon Rd", "Champs Elysée", "Inacio Alfama", "Fbg St-Antoine"};
-   public static String [] ZIPCODE = {"75011", "SW17", "QS 458", "33000", "8QE NE3", "AS 987", "SEP 234567"};
-   public static String [] CITY = {"Paris", "New York", "Lisbon", "Milan", "Tokyo", "Montreal", "Sao Paulo", "San Sebastian"};
+   public static String[] COUNTRIES = {"France", "USA", "Portugal", "Italy", "United Kingdom"};
+   public static String[] STREET = {"Sunset Boulevard", "Ritherdon Rd", "Champs Elysée", "Inacio Alfama", "Fbg St-Antoine"};
+   public static String[] ZIPCODE = {"75011", "SW17", "QS 458", "33000", "8QE NE3", "AS 987", "SEP 234567"};
+   public static String[] CITY = {"Paris", "New York", "Lisbon", "Milan", "Tokyo", "Montreal", "Sao Paulo", "San Sebastian"};
 
    @Inject
    private CustomerService customerService;
@@ -31,19 +32,23 @@ public class RandomService implements Serializable {
    @Inject
    private CDService cdService;
 
-   public Book getBook() {
+   public Book getBook()
+   {
       return selectAtRandom(bookService.listAll());
    }
 
-   public CD getCD() {
+   public CD getCD()
+   {
       return selectAtRandom(cdService.listAll());
    }
 
-   public Customer getCustomer() {
+   public Customer getCustomer()
+   {
       return selectAtRandom(customerService.listAll());
    }
 
-   public Address getAddress() {
+   public Address getAddress()
+   {
       Address address = new Address();
       address.setCountry(selectAtRandom(COUNTRIES));
       address.setStreet1(selectAtRandom(STREET));
@@ -52,7 +57,8 @@ public class RandomService implements Serializable {
       return address;
    }
 
-   public CreditCard getCreditCard() {
+   public CreditCard getCreditCard()
+   {
       CreditCard creditCard = new CreditCard();
       creditCard.setCreditCardNumber(Integer.toString(random.nextInt()));
       creditCard.setCreditCardExpDate("10/20");
@@ -60,12 +66,14 @@ public class RandomService implements Serializable {
       return creditCard;
    }
 
-   private <T> T selectAtRandom(List<T> list) {
+   private <T> T selectAtRandom(List<T> list)
+   {
       int i = random.nextInt(list.size());
       return list.get(i);
    }
 
-   private <T> T selectAtRandom(T[] array) {
+   private <T> T selectAtRandom(T[] array)
+   {
       int i = random.nextInt(array.length);
       return array[i];
    }

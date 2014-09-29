@@ -25,7 +25,7 @@
 	</ui:define>
 
 	<ui:define name="main">
-		<p:growl id="growl" showDetail="true" sticky="true" />
+		<p:growl id="growl" showDetail="true" sticky="true"/>
 
 		<h:panelGrid columnClasses="label,component,required" columns="3">
 			<h:outputLabel for="cDBeanCDTitle" value="Title:"/>
@@ -71,7 +71,7 @@
 		<h:form>
 			<h:panelGroup styleClass="buttons">
 				<h:commandLink action="#{CDBean.buy}" value="Buy CD" styleClass="btn btn-primary">
-					<f:param name="itemId" value="#{bookBean.id}"/>
+					<f:param name="itemId" value="#{CDBean.id}"/>
 				</h:commandLink>
 			</h:panelGroup>
 		</h:form>

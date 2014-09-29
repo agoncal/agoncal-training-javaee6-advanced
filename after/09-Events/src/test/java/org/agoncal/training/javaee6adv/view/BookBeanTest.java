@@ -8,19 +8,22 @@ import org.agoncal.training.javaee6adv.model.Language;
 import org.agoncal.training.javaee6adv.model.Publisher;
 import org.agoncal.training.javaee6adv.service.AbstractService;
 import org.agoncal.training.javaee6adv.service.BookService;
-import org.agoncal.training.javaee6adv.util.Resources;
-import org.agoncal.training.javaee6adv.view.BookBean;
-import javax.inject.Inject;
+import org.agoncal.training.javaee6adv.util.ResourceProducer;
 import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.junit.Arquillian;
 import org.jboss.shrinkwrap.api.ShrinkWrap;
-import org.jboss.shrinkwrap.api.spec.JavaArchive;
 import org.jboss.shrinkwrap.api.asset.EmptyAsset;
+import org.jboss.shrinkwrap.api.spec.JavaArchive;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import static org.junit.Assert.*;
-import static org.hamcrest.core.Is.*;
+
+import javax.inject.Inject;
+
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertNull;
+import static org.junit.Assert.assertTrue;
 
 @RunWith(Arquillian.class)
 public class BookBeanTest
@@ -34,8 +37,8 @@ public class BookBeanTest
    {
       return ShrinkWrap.create(JavaArchive.class)
             .addClass(BookBean.class)
-            .addClass(Resources.class)
             .addClass(AbstractService.class)
+            .addClass(ResourceProducer.class)
             .addClass(BookService.class)
             .addClass(Book.class)
             .addClass(Item.class)
@@ -90,7 +93,7 @@ public class BookBeanTest
       // Paginates through the example
       bookbean.setExample(example);
       bookbean.paginate();
-      assertTrue((bookbean.getPageItems().size()==bookbean.getPageSize()) || (bookbean.getPageItems().size()==bookbean.getCount()));
+      assertTrue((bookbean.getPageItems().size() == bookbean.getPageSize()) || (bookbean.getPageItems().size() == bookbean.getCount()));
    }
 
    @Test

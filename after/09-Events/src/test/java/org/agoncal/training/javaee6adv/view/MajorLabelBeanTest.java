@@ -3,19 +3,22 @@ package org.agoncal.training.javaee6adv.view;
 import org.agoncal.training.javaee6adv.model.MajorLabel;
 import org.agoncal.training.javaee6adv.service.AbstractService;
 import org.agoncal.training.javaee6adv.service.MajorLabelService;
-import org.agoncal.training.javaee6adv.util.Resources;
-import org.agoncal.training.javaee6adv.view.MajorLabelBean;
-import javax.inject.Inject;
+import org.agoncal.training.javaee6adv.util.ResourceProducer;
 import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.junit.Arquillian;
 import org.jboss.shrinkwrap.api.ShrinkWrap;
-import org.jboss.shrinkwrap.api.spec.JavaArchive;
 import org.jboss.shrinkwrap.api.asset.EmptyAsset;
+import org.jboss.shrinkwrap.api.spec.JavaArchive;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import static org.junit.Assert.*;
-import static org.hamcrest.core.Is.*;
+
+import javax.inject.Inject;
+
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertNull;
+import static org.junit.Assert.assertTrue;
 
 @RunWith(Arquillian.class)
 public class MajorLabelBeanTest
@@ -29,8 +32,8 @@ public class MajorLabelBeanTest
    {
       return ShrinkWrap.create(JavaArchive.class)
             .addClass(MajorLabelBean.class)
-            .addClass(Resources.class)
             .addClass(AbstractService.class)
+            .addClass(ResourceProducer.class)
             .addClass(MajorLabelService.class)
             .addClass(MajorLabel.class)
             .addAsManifestResource("META-INF/persistence.xml", "persistence.xml")
@@ -78,6 +81,6 @@ public class MajorLabelBeanTest
       // Paginates through the example
       majorlabelbean.setExample(example);
       majorlabelbean.paginate();
-      assertTrue((majorlabelbean.getPageItems().size()==majorlabelbean.getPageSize()) || (majorlabelbean.getPageItems().size()==majorlabelbean.getCount()));
+      assertTrue((majorlabelbean.getPageItems().size() == majorlabelbean.getPageSize()) || (majorlabelbean.getPageItems().size() == majorlabelbean.getCount()));
    }
 }

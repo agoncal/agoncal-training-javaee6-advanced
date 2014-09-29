@@ -1,0 +1,1 @@
+* Get rid of the quantity attribute in Purchase order. Not needed as there is a quantity in OrderLine

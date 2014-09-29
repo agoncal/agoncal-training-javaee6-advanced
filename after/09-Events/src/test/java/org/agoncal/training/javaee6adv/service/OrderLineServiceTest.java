@@ -2,20 +2,20 @@ package org.agoncal.training.javaee6adv.service;
 
 import org.agoncal.training.javaee6adv.model.Item;
 import org.agoncal.training.javaee6adv.model.OrderLine;
-import org.agoncal.training.javaee6adv.service.OrderLineService;
-import javax.inject.Inject;
-
-import org.agoncal.training.javaee6adv.util.Resources;
+import org.agoncal.training.javaee6adv.util.ResourceProducer;
 import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.junit.Arquillian;
 import org.jboss.shrinkwrap.api.ShrinkWrap;
-import org.jboss.shrinkwrap.api.spec.JavaArchive;
 import org.jboss.shrinkwrap.api.asset.EmptyAsset;
+import org.jboss.shrinkwrap.api.spec.JavaArchive;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import static org.junit.Assert.*;
-import static org.hamcrest.core.Is.*;
+
+import javax.inject.Inject;
+
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
 
 @RunWith(Arquillian.class)
 public class OrderLineServiceTest
@@ -28,8 +28,8 @@ public class OrderLineServiceTest
    public static JavaArchive createDeployment()
    {
       return ShrinkWrap.create(JavaArchive.class)
-            .addClass(Resources.class)
             .addClass(AbstractService.class)
+            .addClass(ResourceProducer.class)
             .addClass(OrderLineService.class)
             .addClass(OrderLine.class)
             .addClass(Item.class)
