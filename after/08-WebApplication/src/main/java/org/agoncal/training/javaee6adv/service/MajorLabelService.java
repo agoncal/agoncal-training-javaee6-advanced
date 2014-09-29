@@ -2,8 +2,8 @@ package org.agoncal.training.javaee6adv.service;
 
 import org.agoncal.training.javaee6adv.model.MajorLabel;
 
-import javax.ejb.Stateless;
 import javax.ejb.LocalBean;
+import javax.ejb.Stateless;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
@@ -16,9 +16,10 @@ import java.util.List;
 public class MajorLabelService extends AbstractService<MajorLabel> implements Serializable
 {
 
-    public MajorLabelService() {
-        super(MajorLabel.class);
-    }
+   public MajorLabelService()
+   {
+      super(MajorLabel.class);
+   }
 
    @Override
    protected Predicate[] getSearchPredicates(Root<MajorLabel> root, MajorLabel example)
@@ -29,7 +30,7 @@ public class MajorLabelService extends AbstractService<MajorLabel> implements Se
       String name = example.getName();
       if (name != null && !"".equals(name))
       {
-         predicatesList.add(builder.like(builder.lower(root.<String> get("name")), '%' + name.toLowerCase() + '%'));
+         predicatesList.add(builder.like(builder.lower(root.<String>get("name")), '%' + name.toLowerCase() + '%'));
       }
 
       return predicatesList.toArray(new Predicate[predicatesList.size()]);

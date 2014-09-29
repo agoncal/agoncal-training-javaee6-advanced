@@ -2,20 +2,20 @@ package org.agoncal.training.javaee6adv.service;
 
 import org.agoncal.training.javaee6adv.model.Author;
 import org.agoncal.training.javaee6adv.model.Language;
-import org.agoncal.training.javaee6adv.service.AuthorService;
-import javax.inject.Inject;
-
-import org.agoncal.training.javaee6adv.util.Resources;
+import org.agoncal.training.javaee6adv.util.ResourceProducer;
 import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.junit.Arquillian;
 import org.jboss.shrinkwrap.api.ShrinkWrap;
-import org.jboss.shrinkwrap.api.spec.JavaArchive;
 import org.jboss.shrinkwrap.api.asset.EmptyAsset;
+import org.jboss.shrinkwrap.api.spec.JavaArchive;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import static org.junit.Assert.*;
-import static org.hamcrest.core.Is.*;
+
+import javax.inject.Inject;
+
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
 
 @RunWith(Arquillian.class)
 public class AuthorServiceTest
@@ -28,8 +28,8 @@ public class AuthorServiceTest
    public static JavaArchive createDeployment()
    {
       return ShrinkWrap.create(JavaArchive.class)
-            .addClass(Resources.class)
             .addClass(AbstractService.class)
+            .addClass(ResourceProducer.class)
             .addClass(AuthorService.class)
             .addClass(Author.class)
             .addClass(Language.class)
@@ -57,7 +57,7 @@ public class AuthorServiceTest
       // Inserts the object into the database
       author = authorservice.persist(author);
       assertNotNull(author.getId());
-      assertEquals(initialSize+1, authorservice.listAll().size());
+      assertEquals(initialSize + 1, authorservice.listAll().size());
 
       // Finds the object from the database and checks it's the right one
       author = authorservice.findById(author.getId());

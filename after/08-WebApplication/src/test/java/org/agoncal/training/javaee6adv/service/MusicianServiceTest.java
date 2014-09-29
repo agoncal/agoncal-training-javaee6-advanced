@@ -1,22 +1,20 @@
 package org.agoncal.training.javaee6adv.service;
 
-import org.agoncal.training.javaee6adv.model.Author;
 import org.agoncal.training.javaee6adv.model.Musician;
-import org.agoncal.training.javaee6adv.service.MusicianService;
-import javax.inject.Inject;
-
-import org.agoncal.training.javaee6adv.util.Resources;
+import org.agoncal.training.javaee6adv.util.ResourceProducer;
 import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.junit.Arquillian;
 import org.jboss.shrinkwrap.api.ShrinkWrap;
-import org.jboss.shrinkwrap.api.spec.JavaArchive;
 import org.jboss.shrinkwrap.api.asset.EmptyAsset;
+import org.jboss.shrinkwrap.api.spec.JavaArchive;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import static org.junit.Assert.*;
-import static org.hamcrest.core.Is.*;
+
+import javax.inject.Inject;
+
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
 
 @RunWith(Arquillian.class)
 public class MusicianServiceTest
@@ -29,8 +27,8 @@ public class MusicianServiceTest
    public static JavaArchive createDeployment()
    {
       return ShrinkWrap.create(JavaArchive.class)
-            .addClass(Resources.class)
             .addClass(AbstractService.class)
+            .addClass(ResourceProducer.class)
             .addClass(MusicianService.class)
             .addClass(Musician.class)
             .addAsManifestResource("META-INF/persistence.xml", "persistence.xml")
@@ -57,7 +55,7 @@ public class MusicianServiceTest
       // Inserts the object into the database
       musician = musicianservice.persist(musician);
       assertNotNull(musician.getId());
-      assertEquals(initialSize+1, musicianservice.listAll().size());
+      assertEquals(initialSize + 1, musicianservice.listAll().size());
 
       // Finds the object from the database and checks it's the right one
       musician = musicianservice.findById(musician.getId());

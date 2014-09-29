@@ -1,25 +1,22 @@
 package org.agoncal.training.javaee6adv.model;
 
-import javax.persistence.Entity;
-import java.io.Serializable;
 import javax.persistence.Column;
-import java.lang.Override;
-import java.util.Date;
+import javax.persistence.DiscriminatorValue;
+import javax.persistence.Entity;
+import javax.persistence.Enumerated;
+import javax.persistence.ManyToOne;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
-import javax.persistence.Enumerated;
-import org.agoncal.training.javaee6adv.model.Language;
-import org.agoncal.training.javaee6adv.model.Category;
-import javax.persistence.ManyToOne;
-import org.agoncal.training.javaee6adv.model.Author;
-import org.agoncal.training.javaee6adv.model.Publisher;
-import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Min;
+import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Past;
 import javax.xml.bind.annotation.XmlRootElement;
+import java.io.Serializable;
+import java.util.Date;
 
 @Entity
 @XmlRootElement
+@DiscriminatorValue("B")
 public class Book extends Item implements Serializable
 {
 
@@ -123,11 +120,8 @@ public class Book extends Item implements Serializable
    public String toString()
    {
       String result = getClass().getSimpleName() + " ";
-      if (id != null)
-         result += "id: " + id;
-      result += ", version: " + version;
       if (title != null && !title.trim().isEmpty())
-         result += ", title: " + title;
+         result += "title: " + title;
       if (price != null)
          result += ", price: " + price;
       if (description != null && !description.trim().isEmpty())
@@ -138,10 +132,6 @@ public class Book extends Item implements Serializable
          result += ", isbn: " + isbn;
       if (nbOfPages != null)
          result += ", nbOfPages: " + nbOfPages;
-      if (publicationDate != null)
-         result += ", publicationDate: " + publicationDate;
-      if (language != null)
-         result += ", language: " + language;
       return result;
    }
 

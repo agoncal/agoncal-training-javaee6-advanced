@@ -1,20 +1,20 @@
 <?xml version='1.0' encoding='UTF-8' ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
-        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+		"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <ui:composition xmlns="http://www.w3.org/1999/xhtml"
-                xmlns:h="http://java.sun.com/jsf/html"
-                xmlns:ui="http://java.sun.com/jsf/facelets"
-                xmlns:f="http://java.sun.com/jsf/core">
+								xmlns:h="http://java.sun.com/jsf/html"
+								xmlns:ui="http://java.sun.com/jsf/facelets"
+								xmlns:f="http://java.sun.com/jsf/core">
 
-    <ul>
-        <h:dataTable id="categoryServicePageItems" styleClass="data-table" value="#{categoryService.listAll()}" var="_item">
-            <h:column>
-                <h:link outcome="viewPerCategory">
-                    <f:param name="id" value="#{_item.id}"/>
-                    <h:outputText id="itemName" value="#{_item.name}"/>
-                </h:link>
-            </h:column>
-        </h:dataTable>
-    </ul>
+	<ul>
+		<h:dataTable id="categoryServicePageItems" styleClass="data-table" value="#{categoryService.listAll()}" var="_item">
+			<h:column>
+				<h:link outcome="viewPerCategory">
+					<f:param name="id" value="#{_item.id}"/>
+					<h:outputText id="itemName" value="#{_item.name}"/>
+				</h:link>
+			</h:column>
+		</h:dataTable>
+	</ul>
 
 </ui:composition>
