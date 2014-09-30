@@ -98,6 +98,7 @@ In this module you will write Arquillian tests for the JSF backing beans and RES
 * `@RunAsAclient`
 * Configuration in arquillian.xml
 * Profile in pom.xml
+* Shrinkwrap packaging with `add` methods (`addClass`, `addPackage`...)
 
 # Backup your code
 

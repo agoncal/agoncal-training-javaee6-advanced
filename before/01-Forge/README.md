@@ -51,7 +51,7 @@ In this module you will generate the CDBookStore application. It is a full Java 
 
 * Implement `Serializable` 
 * Use the `@XmlRootElement` JAXB annotation
-* Use of Bean Validation constraint
+* Use of Bean Validation constraints
 * Optimistic locking with `@Version` 
 
 ## JSF Backing Beans

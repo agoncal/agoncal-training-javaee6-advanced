@@ -97,8 +97,9 @@ JBoss Forge doesn't know how to generate inheritance or embed embeddable. In thi
 
 # Restitution
 
-* `@Inheritance` 
+* `@Inheritance` and discriminator
 * `@Embeddable` and `@Embedded`
+* `import.sql` automatic loading
 
 # Backup your code
 

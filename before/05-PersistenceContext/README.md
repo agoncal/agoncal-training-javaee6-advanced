@@ -70,6 +70,7 @@ Extended persistence context allow entities to be managed longer than a transact
 # Restitution
 
 * `LEFT JOIN FETCH`
+* Transactional persistence context
 
 # Backup your code
 
