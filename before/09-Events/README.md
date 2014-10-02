@@ -2,6 +2,13 @@
 
 In this module you will add the capability of buying a book or a CD. The idea is to have a _Buy_ button on the Book and CD page, and by pressing it, it will send a CDI event. The observer of this event will then create (persist in the database) a purchase order.
 
+# Preparation
+
+## Check
+
+* Check the `RandomService` class
+* Check the `view.xhtml` page 
+
 # DOJO - Add buying capabilities to Books
  
 ## Add a Buy button on the Book page

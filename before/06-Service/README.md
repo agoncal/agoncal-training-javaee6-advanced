@@ -2,7 +2,12 @@
 
 Both JSF Backing Beans and REST Endpoints use the `EntityManager`. In this module, you will add a extra service layer and make sure JSF and REST use it.
 
-# DOJO - Generate and test service tier with JBoss Forge
+# Preparation
+
+## Check
+
+* Check the `generate.fsh` script
+* Check the services and test classes to be copied
 
 ## Generate the service tier with JBoss Forge
 
@@ -14,6 +19,8 @@ Both JSF Backing Beans and REST Endpoints use the `EntityManager`. In this modul
 
 * Start WildFly (`$WILDFLY_HOME/bin/standalone.sh`)
 * `mvn -Parquillian-wildfly-remote test` will execute the tests with WildFly up and running and with the application deployed
+
+# DOJO - Generate and test service tier with JBoss Forge
 
 ## Write the AuthorService
 

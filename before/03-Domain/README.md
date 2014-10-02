@@ -2,6 +2,12 @@
 
 JBoss Forge doesn't know how to generate inheritance or embed embeddable. In this module you will refactor the domain model to follow JPA best practices introducing inheritance and embeddeds.
 
+# Preparation
+
+## Check
+
+* The DDLs are different from the first module
+
 # DOJO - Refactor Book and CD to inherit from Item
 
 ## Refactor Book and CD to inherit from Item

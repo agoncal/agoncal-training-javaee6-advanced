@@ -2,7 +2,13 @@
 
 In this module you will beautify the CDBook-Store web application and add nice pages and primefaces components to browse CDs and Books (which needs extra service's methods).
 
-# DOJO - Create and test the new service's methods
+# Preparation
+
+## Check
+
+* Check the `generate.fsh` script
+* Check the classes to be copied
+* Check the `book` directory
 
 ## Generate a few artifacts and copy web resources with JBoss Forge
 
@@ -17,6 +23,8 @@ In this module you will beautify the CDBook-Store web application and add nice p
 * `BookServiceTest` and `CDServiceTest` add a `should_check_images` and a `should_check_books_by_category` method
 * `BookBeanTest` and `CDBeanTest` add a `should_check_books_by_category()` test case
 * They all `.addAsResource("import.sql", "import.sql")`
+
+# DOJO - Create and test the new service's methods
 
 ## Create new methods to the service tier
 

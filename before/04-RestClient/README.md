@@ -2,6 +2,12 @@
 
 In this module you will use the JAX-RS 2.0 Client API to invoke programmatically the CDBook-Store REST endpoints. For that you will create the new project CDBook-Client
 
+# Preparation
+
+## Check
+
+* Check the `generate.fsh` script
+
 # DOJO - Test the JSon support of REST Endpoints
 
 ## Add a JSON test to the Author Endpoint

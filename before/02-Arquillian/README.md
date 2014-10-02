@@ -2,6 +2,13 @@
 
 In this module you will write Arquillian tests for the JSF backing beans and REST endpoints. 
 
+# Preparation
+
+## Check
+
+* Check the `generate.fsh` script
+* Check the test classes to be copied (JSF backing bean and REST endpoint)
+
 ## Install the Arquillian Addon on Forge
 
 * Make sure the `arquillian-addon` is in the Maven directory
@@ -21,6 +28,7 @@ In this module you will write Arquillian tests for the JSF backing beans and RES
 * Start WildFly (`$WILDFLY_HOME/bin/standalone.sh`)
 * Make sure WildFly has enough memory `-Xms64m -Xmx1024m -XX:MaxPermSize=512m -Djava.net.preferIPv4Stack=true`
 * Execute only one test `mvn -Parquillian-wildfly-remote -Dtest=org.agoncal.training.javaee6adv.view.CustomerBeanTest test`
+* Check the `pom.xml` and the Arquillian profiles
 
 ## Write and pass the AuthorBeanTest
 

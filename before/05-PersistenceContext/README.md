@@ -2,6 +2,8 @@
 
 Extended persistence context allow entities to be managed longer than a transaction and do not need to be merge.
 
+# Preparation
+
 ## Deploy the application on WildFly application server
 
 * Start WildFly (`$WILDFLY_HOME/bin/standalone.sh`)

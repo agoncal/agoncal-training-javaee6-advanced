@@ -2,6 +2,14 @@
 
 In this module you will add a scheduler (a robot) that will buy random books for random customers.
 
+# Preparation
+
+## Check
+
+* Check the `generate.fsh` script
+* Check the `monitoring.xhtml` page 
+* Check the `RobotService` class 
+
 ## Generate the project with JBoss Forge
 
 * Launch JBoss Forge (enter the `$FORGE_HOME/bin/forge` command)

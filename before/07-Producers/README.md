@@ -2,15 +2,19 @@
 
 Thanks to CDI producers, we can now produce Java EE resources and inject them
 
-# DOJO - /!\ No Dojo /!\ 
+# Preparation
 
-# KATA - Produce the EntityManager, FacesContext and a Logger 
+## Check
+
+* Check the `generate.fsh` script
 
 ## Generate the CDI ResourceProducer with JBoss Forge
 
 * Launch JBoss Forge (enter the `$FORGE_HOME/bin/forge` command)
 * Go to the `cdbookstore` directory
 * Execute the `generate.fsh` script with the command `run ../before/07-Producers/generate.fsh` 
+
+# DOJO - Produce the EntityManager, FacesContext and a Logger 
 
 ## Produce and inject the entity manager
 
@@ -38,6 +42,8 @@ Thanks to CDI producers, we can now produce Java EE resources and inject them
 
 * Start WildFly (`$WILDFLY_HOME/bin/standalone.sh`)
 * `mvn -Parquillian-wildfly-remote test` will execute the tests with WildFly up and running and with the application deployed
+
+# KATA - Produce the EntityManager, FacesContext and a Logger 
 
 ## Build the application
 

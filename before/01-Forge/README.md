@@ -2,6 +2,13 @@
 
 In this module you will generate the CDBookStore application. It is a full Java EE 6 application with a JSF user interface and a REST interface. Data is stored into a H2 in-memory database. Thanks to JBoss Forge, generating the entire application takes only a few seconds. 
 
+# Preparation
+
+## Check
+
+* Check the `generate.fsh` script
+* Check the DDLs so you have an idea of the structure of the table
+
 # DOJO - Generate the project with JBoss Forge
 
 ## Generate the project with JBoss Forge
