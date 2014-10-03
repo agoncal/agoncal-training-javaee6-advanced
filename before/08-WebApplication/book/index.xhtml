@@ -17,7 +17,6 @@
 
 	<ui:define name="main">
 		<p:commandButton type="button" onclick="PF('switcher').next();" rendered="false"/>
-
 		<p:imageSwitch effect="wipe">
 			<ui:repeat value="#{bookService.findAllImages()}" var="image">
 				<p:graphicImage url="#{image}" id="image"/>

@@ -14,7 +14,7 @@ Thanks to CDI producers, we can now produce Java EE resources and inject them
 * Go to the `cdbookstore` directory
 * Execute the `generate.fsh` script with the command `run ../before/07-Producers/generate.fsh` 
 
-# DOJO - Produce the EntityManager, FacesContext and a Logger 
+# KATA - Produce the EntityManager, FacesContext and a Logger 
 
 ## Produce and inject the entity manager
 

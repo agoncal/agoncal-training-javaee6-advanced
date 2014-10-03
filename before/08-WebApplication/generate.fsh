@@ -18,6 +18,7 @@ project-add-dependencies org.primefaces:primefaces:5.0 ;
 #  ################  #
 cd ~~ ;
 cp ../before/08-WebApplication/book src/main/webapp/ ;
+cp ../before/08-WebApplication/cd src/main/webapp/ ;
 cp ../before/08-WebApplication/banner.png src/main/webapp/resources/ ;
 cp ../before/08-WebApplication/forge-logo.png src/main/webapp/resources/ ;
 cp ../before/08-WebApplication/forge-style.css src/main/webapp/resources/ ;

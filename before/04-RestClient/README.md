@@ -98,8 +98,6 @@ In this module you will use the JAX-RS 2.0 Client API to invoke programmatically
 * Method `private static void findAllBooks()`
 * `Response response = target.request(MediaType.APPLICATION_JSON).get();`
 
-# KATA - Add extra methods to the CDBook-Client
-
 ### Create a book
 
 * In the `Main` create a method that creates one book given some JSON
@@ -107,6 +105,8 @@ In this module you will use the JAX-RS 2.0 Client API to invoke programmatically
 * Create this JSon String with `Json.createObjectBuilder()` = `String json = "{\"title\":\"Dummy Title\",\"price\":29.99,\"description\":\"Dummy Description\",\"isbn\":\"1430258489\",\"nbOfPages\":240,\"publicationDate\":\"2013-06-26\"}";`
 * `Response response = target.request(MediaType.APPLICATION_JSON).post(Entity.json(json.toString()));`
 * Display the location `System.out.println(response.getLocation());`
+
+# KATA - The CDBook-Client application consumes the REST endpoints
 
 ### Find a book given an id
 

@@ -35,10 +35,10 @@ JBoss Forge doesn't know how to generate inheritance or embed embeddable. In thi
 
 * `CreditCard` is an `@Embeddable` not an `@Entity`
 * A `PurchaseOrder` has an `@Embedded` credit card that needs to be `@Valid` (`@Embedded @Valid private CreditCard creditCard = new CreditCard();`)
-* `PurchaseOrder` should get rid of the duplicate attributes of `CreditCard` : `creditCardNumber`, `creditCardType` and `creditCardExpDate` 
-* `PurchaseOrder` should get rid of the duplicate getter/setter of `CreditCard` : `getCreditCardNumber`, `setCreditCardNumber`... 
+* In `PurchaseOrder` get rid of the duplicate attributes of `CreditCard` : `creditCardNumber`, `creditCardType` and `creditCardExpDate` 
 * Refactor getters `public String getCreditCardNumber() { return creditCard.getCreditCardNumber(); }`
 * Refactor setters `public void setCreditCardNumber(String creditCardNumber) { this.creditCard.setCreditCardNumber(creditCardNumber); }`
+* Refactor `toString`
 
 ## Refactor and execute the tests in a remote environment
 

@@ -39,10 +39,6 @@ public class Main
    {
       System.out.println("\n#### createBook");
 
-      Client client = ClientBuilder.newClient();
-      WebTarget target = client.target(baseURL).path("rest").path("books");
-      System.out.println(target.getUri().toString());
-
       JsonObject json = Json.createObjectBuilder()
             .add("title", "Dummy Title")
             .add("price", "29.99")
@@ -51,6 +47,10 @@ public class Main
             .add("nbOfPages", "240")
             .add("publicationDate", "2013-06-26")
             .build();
+
+      Client client = ClientBuilder.newClient();
+      WebTarget target = client.target(baseURL).path("rest").path("books");
+      System.out.println(target.getUri().toString());
 
       Response response = target.request(MediaType.APPLICATION_JSON).post(Entity.json(json.toString()));
       System.out.println(response.getStatus());

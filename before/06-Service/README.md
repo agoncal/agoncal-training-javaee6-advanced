@@ -52,9 +52,7 @@ Both JSF Backing Beans and REST Endpoints use the `EntityManager`. In this modul
 * Services constructor should call super passing the type (eg. `public AuthorService() { super(Author.class); }`) 
 * Each service overrides the `getSearchPredicates` method that has the signature `protected Predicate[] getSearchPredicates(Root<Author> root, Author example)`. Copy the content from the JSF Backing bean
 * Due to transactional persistence context :
-* Add a `public Book findByIdWithRelations(Long id)` in the book service that returns a book with its relations
 * Add a `public CD findByIdWithRelations(Long id)` in the CD service that returns a book with its relations
-* Add a `public List<Book> listAllWithRelations(Integer startPosition, Integer maxResult)` in the book service that returns a list of books with its relations
 * Add a `public List<CD> listAllWithRelations(Integer startPosition, Integer maxResult)`in the CD service that returns a list of books with its relations
 
 ## Write the other service tests
