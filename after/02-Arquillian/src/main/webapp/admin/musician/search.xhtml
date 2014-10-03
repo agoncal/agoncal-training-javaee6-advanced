@@ -1,10 +1,10 @@
 <?xml version='1.0' encoding='UTF-8' ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <ui:composition xmlns="http://www.w3.org/1999/xhtml"
-	xmlns:h="http://java.sun.com/jsf/html"
-	xmlns:f="http://java.sun.com/jsf/core"
-	xmlns:ui="http://java.sun.com/jsf/facelets"
-	template="/resources/scaffold/pageTemplate.xhtml">
+								xmlns:h="http://java.sun.com/jsf/html"
+								xmlns:f="http://java.sun.com/jsf/core"
+								xmlns:ui="http://java.sun.com/jsf/facelets"
+								template="/resources/scaffold/pageTemplate.xhtml">
 
 	<f:metadata>
 		<f:viewParam name="page" value='#{musicianBean.page}'/>
@@ -41,16 +41,16 @@
 							<h:message for="musicianBeanExampleLastName" styleClass="error"/>
 						</h:panelGroup>
 						<h:outputText/>
-						<h:outputLabel for="musicianBeanExampleBio" value="Bio:"/>
-						<h:panelGroup>
-							<h:inputTextarea id="musicianBeanExampleBio" value="#{musicianBean.example.bio}"/>
-							<h:message for="musicianBeanExampleBio" styleClass="error"/>
-						</h:panelGroup>
-						<h:outputText/>
 						<h:outputLabel for="musicianBeanExampleAge" value="Age:"/>
 						<h:panelGroup>
 							<h:inputText id="musicianBeanExampleAge" value="#{musicianBean.example.age}"/>
 							<h:message for="musicianBeanExampleAge" styleClass="error"/>
+						</h:panelGroup>
+						<h:outputText/>
+						<h:outputLabel for="musicianBeanExampleBio" value="Bio:"/>
+						<h:panelGroup>
+							<h:inputTextarea id="musicianBeanExampleBio" value="#{musicianBean.example.bio}"/>
+							<h:message for="musicianBeanExampleBio" styleClass="error"/>
 						</h:panelGroup>
 						<h:outputText/>
 						<h:outputLabel for="musicianBeanExamplePreferredInstrument" value="Preferred Instrument:"/>
@@ -66,7 +66,7 @@
 					</h:panelGroup>
 				</h:panelGroup>
 			</f:validateBean>
-			
+
 			<h:dataTable id="musicianBeanPageItems" styleClass="data-table" value="#{musicianBean.pageItems}" var="_item">
 				<h:column>
 					<f:facet name="header">
@@ -91,7 +91,7 @@
 				<ui:param name="paginatorBean" value='#{musicianBean}'/>
 			</ui:include>
 		</h:form>
-			
+
 	</ui:define>
 
 </ui:composition>

@@ -32,9 +32,6 @@ public class PurchaseOrder implements Serializable
    @Column(name = "version")
    private int version;
 
-   @Column
-   private int quantity;
-
    @Column(name = "order_date")
    @Temporal(TemporalType.DATE)
    private Date orderDate;
@@ -46,34 +43,34 @@ public class PurchaseOrder implements Serializable
    private Set<OrderLine> orderLines = new HashSet<OrderLine>();
 
    @Column
-   @Size(min = 5, max = 50)
    @NotNull
+   @Size(min = 5, max = 50)
    private String street1;
 
    @Column
    private String street2;
 
    @Column
-   @Size(min = 2, max = 50)
    @NotNull
+   @Size(min = 2, max = 50)
    private String city;
 
    @Column
    private String state;
 
    @Column(name = "zip_code")
-   @Size(min = 1, max = 10)
    @NotNull
+   @Size(min = 1, max = 10)
    private String zipcode;
 
    @Column
-   @Size(min = 2, max = 50)
    @NotNull
+   @Size(min = 2, max = 50)
    private String country;
 
    @Column(name = "credit_card_number")
-   @Size(min = 1, max = 30)
    @NotNull
+   @Size(min = 1, max = 30)
    private String creditCardNumber;
 
    @Enumerated
@@ -82,8 +79,8 @@ public class PurchaseOrder implements Serializable
    private CreditCardType creditCardType;
 
    @Column(name = "credit_card_expiry_date")
-   @Size(min = 1, max = 5)
    @NotNull
+   @Size(min = 1, max = 5)
    private String creditCardExpDate;
 
    public Long getId()
@@ -135,16 +132,6 @@ public class PurchaseOrder implements Serializable
       int result = 1;
       result = prime * result + ((id == null) ? 0 : id.hashCode());
       return result;
-   }
-
-   public int getQuantity()
-   {
-      return quantity;
-   }
-
-   public void setQuantity(int quantity)
-   {
-      this.quantity = quantity;
    }
 
    public Date getOrderDate()
@@ -271,7 +258,15 @@ public class PurchaseOrder implements Serializable
    public String toString()
    {
       String result = getClass().getSimpleName() + " ";
-      result += "quantity: " + quantity;
+      if (id != null)
+         result += "id: " + id;
+      result += ", version: " + version;
+      if (orderDate != null)
+         result += ", orderDate: " + orderDate;
+      if (customer != null)
+         result += ", customer: " + customer;
+      if (orderLines != null)
+         result += ", orderLines: " + orderLines;
       if (street1 != null && !street1.trim().isEmpty())
          result += ", street1: " + street1;
       if (street2 != null && !street2.trim().isEmpty())
@@ -286,6 +281,8 @@ public class PurchaseOrder implements Serializable
          result += ", country: " + country;
       if (creditCardNumber != null && !creditCardNumber.trim().isEmpty())
          result += ", creditCardNumber: " + creditCardNumber;
+      if (creditCardType != null)
+         result += ", creditCardType: " + creditCardType;
       if (creditCardExpDate != null && !creditCardExpDate.trim().isEmpty())
          result += ", creditCardExpDate: " + creditCardExpDate;
       return result;

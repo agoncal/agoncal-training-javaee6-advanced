@@ -21,52 +21,41 @@ In this module you will write Arquillian tests for the JSF backing beans and RES
 * Make sure the `jbossHome` variable in `before/02-Arquillian/generate.fsh` is pointing to `$WILDFLY_HOME`
 * Execute the `generate.fsh` script with the command `run ../before/02-Arquillian/generate.fsh` 
 
-# DOJO - Pass a JSF backing bean test
+# DOJO - Write and pass the AuthorBeanTest
 
-## Pass the CustomerBeanTest in a remote environment
+## Write the AuthorBeanTest
 
-* Start WildFly (`$WILDFLY_HOME/bin/standalone.sh`)
-* Make sure WildFly has enough memory `-Xms64m -Xmx1024m -XX:MaxPermSize=512m -Djava.net.preferIPv4Stack=true`
-* Execute only one test `mvn -Parquillian-wildfly-remote -Dtest=org.agoncal.training.javaee6adv.view.CustomerBeanTest test`
-* Check the `pom.xml` and the Arquillian profiles
-
-## Write and pass the AuthorBeanTest
-
-* Check the tests `CustomerBeanTest.java`, `MusicianBeanTest.java` and `PublisherBeanTest.java` that are under `view` package
+* Check the tests `CustomerBeanTest.java`, `MusicianBeanTest.java`, `PublisherBeanTest.java`... that are under `view` package
 * Code the `AuthorBeanTest` following the same logic until the test passes
-* Add the methods `should_crud` and `should_paginate` 
+* Create the methods `should_crud` and `should_paginate` 
+
+## Pass the AuthorBeanTest
+
+* Execute only the `AuthorBeanTest` with `mvn -Parquillian-wildfly-remote -Dtest=org.agoncal.training.javaee6adv.view.AuthorBeanTest test`
 * If you have the following error, it's because you are not using the Arquillian Maven profile `DeploymentScenario contains a target (_DEFAULT_) not matching any defined Container in the registry`
 * `NoClassDefFoundError` means that your ShrinkWrap packaging misses some classes (check the `createDeployment` method) 
 * `ConstraintViolationException` is thrown when the entity is not valid
 
-# KATA - Do the same for all the JSF backing bean tests
+# KATA - Write and pass the AuthorBeanTest, BookBeanTest and CDBeanTest 
 
-# DOJO - Pass a REST endpoints test
+# DOJO - Write and pass the AuthorEndpointTest
 
-## Pass the CustomerEndpointTest in a remote environment
-
-* Make sure WildFly is started
-* Execute only one test `mvn -Parquillian-wildfly-remote -Dtest=org.agoncal.training.javaee6adv.rest.CustomerEndpointTest test`
-* Notice that the Arquillian tests are `@RunAsClient` and that they package a `WebArchive` (instead of a `JarArchive`) in `@Deployment(testable = false)`
-
-## Write and pass the AuthorEndpointTest
+## Write the AuthorEndpointTest
 
 * Check the tests `CustomerEndpointTest.java` and `MusicianEndpointTest.java` that are under `rest` package
 * Code the `AuthorEndpointTest` following the same logic until the test passes
+* Create the method `should_be_deployed`
 * Package the `persistence.xml` as a resource and the `beans.xml` as WEB-INF resource
 * Inject the `baseURL` as an `@ArquillianResource` instead of injecting the bean
+
+## Pass the AuthorEndpointTest
+
+* Execute only the `AuthorEndpointTest` with `mvn -Parquillian-wildfly-remote -Dtest=org.agoncal.training.javaee6adv.rest.AuthorEndpointTest test`
 * If you have the following error, it's because you are not using the Arquillian Maven profile `DeploymentScenario contains a target (_DEFAULT_) not matching any defined Container in the registry`
 * `NoClassDefFoundError` means that your ShrinkWrap packaging misses some classes (check the `createDeployment` method) 
 * `ConstraintViolationException` is thrown when the entity is not valid
 
-# KATA - Do the same for all the JSF backing bean tests
-
-* Make sure WildFly is started
-* `mvn -Parquillian-wildfly-remote test` will execute all the tests
-
-## Debug the tests if needed
-
-* Make sure WildFly has the debug settings `JAVA_OPTS="$JAVA_OPTS -agentlib:jdwp=transport=dt_socket,address=8787,server=y,suspend=n"`
+# KATA - Write and pass the AuthorEndpointTest, BookEndpointTest and CDEndpointTest 
 
 # Build and run the application
 
@@ -99,6 +88,10 @@ In this module you will write Arquillian tests for the JSF backing beans and RES
 * [http://localhost:8080/cdbookstore/rest/musicians]()
 * [http://localhost:8080/cdbookstore/rest/purchaseorders]()
 * Use [PostMan REST client](https://chrome.google.com/webstore/detail/postman-rest-client/fdmmgilgnpjigdojojpjoooidkmcomcm) to create/update/remove entities
+
+## Debug the tests if needed
+
+* Make sure WildFly has the debug settings `JAVA_OPTS="$JAVA_OPTS -agentlib:jdwp=transport=dt_socket,address=8787,server=y,suspend=n"`
 
 # Restitution
 

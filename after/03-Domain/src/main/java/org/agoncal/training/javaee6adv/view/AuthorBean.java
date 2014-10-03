@@ -245,11 +245,6 @@ public class AuthorBean implements Serializable
       {
          predicatesList.add(builder.like(builder.lower(root.<String>get("lastName")), '%' + lastName.toLowerCase() + '%'));
       }
-      String bio = this.example.getBio();
-      if (bio != null && !"".equals(bio))
-      {
-         predicatesList.add(builder.like(builder.lower(root.<String>get("bio")), '%' + bio.toLowerCase() + '%'));
-      }
       Integer age = this.example.getAge();
       if (age != null && age.intValue() != 0)
       {
@@ -259,6 +254,11 @@ public class AuthorBean implements Serializable
       if (preferredLanguage != null)
       {
          predicatesList.add(builder.equal(root.get("preferredLanguage"), preferredLanguage));
+      }
+      String bio = this.example.getBio();
+      if (bio != null && !"".equals(bio))
+      {
+         predicatesList.add(builder.like(builder.lower(root.<String>get("bio")), '%' + bio.toLowerCase() + '%'));
       }
 
       return predicatesList.toArray(new Predicate[predicatesList.size()]);

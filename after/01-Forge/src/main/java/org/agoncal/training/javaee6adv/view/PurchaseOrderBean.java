@@ -235,11 +235,6 @@ public class PurchaseOrderBean implements Serializable
       CriteriaBuilder builder = this.entityManager.getCriteriaBuilder();
       List<Predicate> predicatesList = new ArrayList<Predicate>();
 
-      int quantity = this.example.getQuantity();
-      if (quantity != 0)
-      {
-         predicatesList.add(builder.equal(root.get("quantity"), quantity));
-      }
       Customer customer = this.example.getCustomer();
       if (customer != null)
       {
@@ -259,6 +254,11 @@ public class PurchaseOrderBean implements Serializable
       if (city != null && !"".equals(city))
       {
          predicatesList.add(builder.like(builder.lower(root.<String>get("city")), '%' + city.toLowerCase() + '%'));
+      }
+      String state = this.example.getState();
+      if (state != null && !"".equals(state))
+      {
+         predicatesList.add(builder.like(builder.lower(root.<String>get("state")), '%' + state.toLowerCase() + '%'));
       }
 
       return predicatesList.toArray(new Predicate[predicatesList.size()]);

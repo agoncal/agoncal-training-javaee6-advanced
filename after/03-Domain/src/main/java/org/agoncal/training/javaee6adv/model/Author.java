@@ -6,20 +6,14 @@ import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
-import javax.persistence.Transient;
 import javax.persistence.Version;
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Past;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
 import java.io.Serializable;
-import java.util.Date;
 
 @Entity
 @XmlRootElement
-public class Author implements Serializable
+public class Author extends Person implements Serializable
 {
 
    @Id
@@ -30,31 +24,13 @@ public class Author implements Serializable
    @Column(name = "version")
    private int version;
 
-   @Column(length = 50, name = "first_name")
-   @NotNull
-   @Size(min = 2, max = 50)
-   private String firstName;
-
-   @Column(length = 50, name = "last_name")
-   @NotNull
-   @Size(min = 2, max = 50)
-   private String lastName;
+   @Enumerated
+   @Column(name = "preferred_language")
+   private Language preferredLanguage;
 
    @Column(length = 5000)
    @Size(max = 5000)
    private String bio;
-
-   @Column(name = "date_of_birth")
-   @Temporal(TemporalType.DATE)
-   @Past
-   private Date dateOfBirth;
-
-   @Transient
-   private Integer age;
-
-   @Enumerated
-   @Column(name = "preferred_language")
-   private Language preferredLanguage;
 
    public Long getId()
    {
@@ -107,24 +83,14 @@ public class Author implements Serializable
       return result;
    }
 
-   public String getFirstName()
+   public Language getPreferredLanguage()
    {
-      return firstName;
+      return preferredLanguage;
    }
 
-   public void setFirstName(String firstName)
+   public void setPreferredLanguage(Language preferredLanguage)
    {
-      this.firstName = firstName;
-   }
-
-   public String getLastName()
-   {
-      return lastName;
-   }
-
-   public void setLastName(String lastName)
-   {
-      this.lastName = lastName;
+      this.preferredLanguage = preferredLanguage;
    }
 
    public String getBio()
@@ -137,44 +103,23 @@ public class Author implements Serializable
       this.bio = bio;
    }
 
-   public Date getDateOfBirth()
-   {
-      return dateOfBirth;
-   }
-
-   public void setDateOfBirth(Date dateOfBirth)
-   {
-      this.dateOfBirth = dateOfBirth;
-   }
-
-   public Integer getAge()
-   {
-      return age;
-   }
-
-   public void setAge(Integer age)
-   {
-      this.age = age;
-   }
-
-   public Language getPreferredLanguage()
-   {
-      return preferredLanguage;
-   }
-
-   public void setPreferredLanguage(Language preferredLanguage)
-   {
-      this.preferredLanguage = preferredLanguage;
-   }
-
    @Override
    public String toString()
    {
       String result = getClass().getSimpleName() + " ";
+      if (id != null)
+         result += "id: " + id;
+      result += ", version: " + version;
       if (firstName != null && !firstName.trim().isEmpty())
-         result += "firstName: " + firstName;
+         result += ", firstName: " + firstName;
       if (lastName != null && !lastName.trim().isEmpty())
          result += ", lastName: " + lastName;
+      if (dateOfBirth != null)
+         result += ", dateOfBirth: " + dateOfBirth;
+      if (age != null)
+         result += ", age: " + age;
+      if (preferredLanguage != null)
+         result += ", preferredLanguage: " + preferredLanguage;
       if (bio != null && !bio.trim().isEmpty())
          result += ", bio: " + bio;
       return result;

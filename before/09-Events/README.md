@@ -7,6 +7,7 @@ In this module you will add the capability of buying a book or a CD. The idea is
 ## Check
 
 * Check the `RandomService` class
+* Check the `RandomServiceTest` class. It's just a normal JUnit test, not Arquillian
 * Check the `view.xhtml` page 
 
 # DOJO - Add buying capabilities to Books

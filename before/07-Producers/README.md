@@ -25,7 +25,8 @@ Thanks to CDI producers, we can now produce Java EE resources and inject them
 
 * The class `org.agoncal.training.javaee6adv.util.ResourceProducer` should produce a `java.util.logging.Logger`
 * Use the `javax.enterprise.inject.spi.InjectionPoint` API to get the class name to log
-* The `AbstractService` should inject the `Logger` with `@Inject` and log a message in the `persist` and `remove` method 
+* The `AbstractService` should inject the `Logger` with `@Inject` (make sure the attribute is `protected`) 
+* Log a message in the `persist` and `remove` method 
 
 ## Produce and inject the FacesContext
 

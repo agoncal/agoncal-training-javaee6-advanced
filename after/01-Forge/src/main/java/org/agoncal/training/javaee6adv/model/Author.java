@@ -40,10 +40,6 @@ public class Author implements Serializable
    @Size(min = 2, max = 50)
    private String lastName;
 
-   @Column(length = 5000)
-   @Size(max = 5000)
-   private String bio;
-
    @Column(name = "date_of_birth")
    @Temporal(TemporalType.DATE)
    @Past
@@ -55,6 +51,10 @@ public class Author implements Serializable
    @Enumerated
    @Column(name = "preferred_language")
    private Language preferredLanguage;
+
+   @Column(length = 5000)
+   @Size(max = 5000)
+   private String bio;
 
    public Long getId()
    {
@@ -127,16 +127,6 @@ public class Author implements Serializable
       this.lastName = lastName;
    }
 
-   public String getBio()
-   {
-      return bio;
-   }
-
-   public void setBio(String bio)
-   {
-      this.bio = bio;
-   }
-
    public Date getDateOfBirth()
    {
       return dateOfBirth;
@@ -167,14 +157,33 @@ public class Author implements Serializable
       this.preferredLanguage = preferredLanguage;
    }
 
+   public String getBio()
+   {
+      return bio;
+   }
+
+   public void setBio(String bio)
+   {
+      this.bio = bio;
+   }
+
    @Override
    public String toString()
    {
       String result = getClass().getSimpleName() + " ";
+      if (id != null)
+         result += "id: " + id;
+      result += ", version: " + version;
       if (firstName != null && !firstName.trim().isEmpty())
-         result += "firstName: " + firstName;
+         result += ", firstName: " + firstName;
       if (lastName != null && !lastName.trim().isEmpty())
          result += ", lastName: " + lastName;
+      if (dateOfBirth != null)
+         result += ", dateOfBirth: " + dateOfBirth;
+      if (age != null)
+         result += ", age: " + age;
+      if (preferredLanguage != null)
+         result += ", preferredLanguage: " + preferredLanguage;
       if (bio != null && !bio.trim().isEmpty())
          result += ", bio: " + bio;
       return result;

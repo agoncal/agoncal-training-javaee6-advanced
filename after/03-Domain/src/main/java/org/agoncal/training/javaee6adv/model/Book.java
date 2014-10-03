@@ -120,8 +120,11 @@ public class Book extends Item implements Serializable
    public String toString()
    {
       String result = getClass().getSimpleName() + " ";
+      if (id != null)
+         result += "id: " + id;
+      result += ", version: " + version;
       if (title != null && !title.trim().isEmpty())
-         result += "title: " + title;
+         result += ", title: " + title;
       if (price != null)
          result += ", price: " + price;
       if (description != null && !description.trim().isEmpty())
@@ -132,6 +135,10 @@ public class Book extends Item implements Serializable
          result += ", isbn: " + isbn;
       if (nbOfPages != null)
          result += ", nbOfPages: " + nbOfPages;
+      if (publicationDate != null)
+         result += ", publicationDate: " + publicationDate;
+      if (language != null)
+         result += ", language: " + language;
       return result;
    }
 

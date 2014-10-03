@@ -68,22 +68,37 @@ java-new-enum-const DEUTSCH ;
 java-new-enum-const RUSSIAN ;
 
 
-# Author entity
+# Person mapped superclass
 # ############
-jpa-new-entity --named Author ;
+jpa-new-mapped-superclass --named Person ;
 jpa-new-field --named firstName --length 50 --columnName first_name ;
 jpa-new-field --named lastName --length 50 --columnName last_name ;
-jpa-new-field --named bio --length 5000 ;
 jpa-new-field --named dateOfBirth --type java.util.Date --temporalType DATE --columnName date_of_birth ;
 jpa-new-field --named age --type java.lang.Integer --transient ;
-jpa-new-field --named preferredLanguage --type org.agoncal.training.javaee6adv.model.Language --columnName preferred_language ;
 
 constraint-add --onProperty firstName --constraint NotNull ;
 constraint-add --onProperty firstName --constraint Size --min 2 --max 50 ;
 constraint-add --onProperty lastName --constraint NotNull ;
 constraint-add --onProperty lastName --constraint Size --min 2 --max 50 ;
-constraint-add --onProperty bio --constraint Size --max 5000 ;
 constraint-add --onProperty dateOfBirth --constraint Past ;
+
+
+# Author entity
+# ############
+jpa-new-entity --named Author ;
+jpa-new-field --named firstName --length 50 --columnName first_name ;
+jpa-new-field --named lastName --length 50 --columnName last_name ;
+jpa-new-field --named dateOfBirth --type java.util.Date --temporalType DATE --columnName date_of_birth ;
+jpa-new-field --named age --type java.lang.Integer --transient ;
+jpa-new-field --named preferredLanguage --type org.agoncal.training.javaee6adv.model.Language --columnName preferred_language ;
+jpa-new-field --named bio --length 5000 ;
+
+constraint-add --onProperty firstName --constraint NotNull ;
+constraint-add --onProperty firstName --constraint Size --min 2 --max 50 ;
+constraint-add --onProperty lastName --constraint NotNull ;
+constraint-add --onProperty lastName --constraint Size --min 2 --max 50 ;
+constraint-add --onProperty dateOfBirth --constraint Past ;
+constraint-add --onProperty bio --constraint Size --max 5000 ;
 
 
 # Musician entity
@@ -91,17 +106,17 @@ constraint-add --onProperty dateOfBirth --constraint Past ;
 jpa-new-entity --named Musician ;
 jpa-new-field --named firstName --length 50 --columnName first_name ;
 jpa-new-field --named lastName --length 50 --columnName last_name ;
-jpa-new-field --named bio --length 5000 ;
 jpa-new-field --named dateOfBirth --type java.util.Date --temporalType DATE --columnName date_of_birth ;
 jpa-new-field --named age --type java.lang.Integer --transient ;
+jpa-new-field --named bio --length 5000 ;
 jpa-new-field --named preferredInstrument --columnName preferred_instrument ;
 
 constraint-add --onProperty firstName --constraint NotNull ;
 constraint-add --onProperty firstName --constraint Size --min 2 --max 50 ;
 constraint-add --onProperty lastName --constraint NotNull ;
 constraint-add --onProperty lastName --constraint Size --min 2 --max 50 ;
-constraint-add --onProperty bio --constraint Size --max 5000 ;
 constraint-add --onProperty dateOfBirth --constraint Past ;
+constraint-add --onProperty bio --constraint Size --max 5000 ;
 
 
 # Item entity
@@ -114,7 +129,7 @@ jpa-new-field --named imageURL --columnName image_url ;
 
 constraint-add --onProperty title --constraint NotNull ;
 constraint-add --onProperty title --constraint Size --min 1 --max 50 ;
-constraint-add --onProperty description --constraint Size --min 1 --max 3000 ;
+constraint-add --onProperty description --constraint Size --max 3000 ;
 constraint-add --onProperty price --constraint Min --value 1 ;
 
 
@@ -136,7 +151,7 @@ jpa-new-field --named publisher --type org.agoncal.training.javaee6adv.model.Pub
 
 constraint-add --onProperty title --constraint NotNull ;
 constraint-add --onProperty title --constraint Size --min 1 --max 50 ;
-constraint-add --onProperty description --constraint Size --min 1 --max 3000 ;
+constraint-add --onProperty description --constraint Size --max 3000 ;
 constraint-add --onProperty price --constraint Min --value 1 ;
 constraint-add --onProperty isbn --constraint NotNull ;
 # TODO Adding ISBN constraints constraint-add --onProperty isbn --constraint ISBN ;  [FORGE-1801]
@@ -159,7 +174,7 @@ jpa-new-field --named musicians --type org.agoncal.training.javaee6adv.model.Mus
 
 constraint-add --onProperty title --constraint NotNull ;
 constraint-add --onProperty title --constraint Size --min 1 --max 50 ;
-constraint-add --onProperty description --constraint Size --min 1 --max 3000 ;
+constraint-add --onProperty description --constraint Size --max 3000 ;
 constraint-add --onProperty price --constraint Min --value 1 ;
 
 
@@ -173,14 +188,14 @@ jpa-new-field --named state ;
 jpa-new-field --named zipcode --columnName zip_code ;
 jpa-new-field --named country ;
 
-constraint-add --onProperty street1 --constraint Size --min 5 --max 50 ;
 constraint-add --onProperty street1 --constraint NotNull ;
-constraint-add --onProperty city --constraint Size --min 2 --max 50 ;
+constraint-add --onProperty street1 --constraint Size --min 5 --max 50 ;
 constraint-add --onProperty city --constraint NotNull ;
-constraint-add --onProperty zipcode --constraint Size --min 1 --max 10 ;
+constraint-add --onProperty city --constraint Size --min 2 --max 50 ;
 constraint-add --onProperty zipcode --constraint NotNull ;
-constraint-add --onProperty country --constraint Size --min 2 --max 50 ;
+constraint-add --onProperty zipcode --constraint Size --min 1 --max 10 ;
 constraint-add --onProperty country --constraint NotNull ;
+constraint-add --onProperty country --constraint Size --min 2 --max 50 ;
 
 
 # CreditCardType enumeration
@@ -198,11 +213,11 @@ jpa-new-field --named creditCardNumber --columnName credit_card_number ;
 jpa-new-field --named creditCardType --type org.agoncal.training.javaee6adv.model.CreditCardType --columnName credit_card_type ;
 jpa-new-field --named creditCardExpDate --columnName credit_card_expiry_date  ;
 
-constraint-add --onProperty creditCardNumber --constraint Size --min 1 --max 30 ;
 constraint-add --onProperty creditCardNumber --constraint NotNull ;
+constraint-add --onProperty creditCardNumber --constraint Size --min 1 --max 30 ;
 constraint-add --onProperty creditCardType --constraint NotNull ;
-constraint-add --onProperty creditCardExpDate --constraint Size --min 1 --max 5 ;
 constraint-add --onProperty creditCardExpDate --constraint NotNull ;
+constraint-add --onProperty creditCardExpDate --constraint Size --min 1 --max 5 ;
 
 
 # Email constraint
@@ -213,12 +228,12 @@ constraint-add --onProperty creditCardExpDate --constraint NotNull ;
 # Customer entity
 # ############
 jpa-new-entity --named Customer ;
-jpa-new-field --named firstname --columnName first_name ;
-jpa-new-field --named lastname --columnName last_name ;
+jpa-new-field --named firstName --columnName first_name ;
+jpa-new-field --named lastName --columnName last_name ;
+jpa-new-field --named dateOfBirth --type java.util.Date --columnName date_of_birth ;
+jpa-new-field --named age --type java.lang.Integer --transient ;
 jpa-new-field --named telephone ;
 jpa-new-field --named email ;
-jpa-new-field --named dateOfBirth --type java.util.Date --columnName date_of_birth ;
-jpa-new-field --named age --type int --transient
 # Embeddable Address
 # TODO jpa-new-field --named homeAddress --type org.agoncal.training.javaee6adv.model.Address --relationshipType Embedded ; [1108]
 jpa-new-field --named street1 ;
@@ -228,20 +243,20 @@ jpa-new-field --named state ;
 jpa-new-field --named zipcode --columnName zip_code ;
 jpa-new-field --named country ;
 
-constraint-add --onProperty firstname --constraint Size --min 2 --max 50 ;
-constraint-add --onProperty firstname --constraint NotNull ;
-constraint-add --onProperty lastname --constraint Size --min 2 --max 50 ;
-constraint-add --onProperty lastname --constraint NotNull ;
+constraint-add --onProperty firstName --constraint NotNull ;
+constraint-add --onProperty firstName --constraint Size --min 2 --max 50 ;
+constraint-add --onProperty lastName --constraint NotNull ;
+constraint-add --onProperty lastName --constraint Size --min 2 --max 50 ;
 constraint-add --onProperty dateOfBirth --constraint Past ;
 # Embeddable Address
-constraint-add --onProperty street1 --constraint Size --min 5 --max 50 ;
 constraint-add --onProperty street1 --constraint NotNull ;
-constraint-add --onProperty city --constraint Size --min 2 --max 50 ;
+constraint-add --onProperty street1 --constraint Size --min 5 --max 50 ;
 constraint-add --onProperty city --constraint NotNull ;
-constraint-add --onProperty zipcode --constraint Size --min 1 --max 10 ;
+constraint-add --onProperty city --constraint Size --min 2 --max 50 ;
 constraint-add --onProperty zipcode --constraint NotNull ;
-constraint-add --onProperty country --constraint Size --min 2 --max 50 ;
+constraint-add --onProperty zipcode --constraint Size --min 1 --max 10 ;
 constraint-add --onProperty country --constraint NotNull ;
+constraint-add --onProperty country --constraint Size --min 2 --max 50 ;
 
 
 # OrderLine entity
@@ -257,7 +272,6 @@ constraint-add --onProperty quantity --constraint Min --value 1 ;
 # PurchaseOrder entity
 # ############
 jpa-new-entity --named PurchaseOrder ;
-jpa-new-field --named quantity --type int ;
 jpa-new-field --named orderDate --type java.util.Date --columnName order_date ;
 # Relationships
 jpa-new-field --named customer --type org.agoncal.training.javaee6adv.model.Customer --relationshipType Many-to-One ;
@@ -277,20 +291,20 @@ jpa-new-field --named creditCardType --type org.agoncal.training.javaee6adv.mode
 jpa-new-field --named creditCardExpDate --columnName credit_card_expiry_date  ;
 
 # Embeddable Address
-constraint-add --onProperty street1 --constraint Size --min 5 --max 50 ;
 constraint-add --onProperty street1 --constraint NotNull ;
-constraint-add --onProperty city --constraint Size --min 2 --max 50 ;
+constraint-add --onProperty street1 --constraint Size --min 5 --max 50 ;
 constraint-add --onProperty city --constraint NotNull ;
-constraint-add --onProperty zipcode --constraint Size --min 1 --max 10 ;
+constraint-add --onProperty city --constraint Size --min 2 --max 50 ;
 constraint-add --onProperty zipcode --constraint NotNull ;
-constraint-add --onProperty country --constraint Size --min 2 --max 50 ;
+constraint-add --onProperty zipcode --constraint Size --min 1 --max 10 ;
 constraint-add --onProperty country --constraint NotNull ;
+constraint-add --onProperty country --constraint Size --min 2 --max 50 ;
 # Embeddable Credit Card
-constraint-add --onProperty creditCardNumber --constraint Size --min 1 --max 30 ;
 constraint-add --onProperty creditCardNumber --constraint NotNull ;
+constraint-add --onProperty creditCardNumber --constraint Size --min 1 --max 30 ;
 constraint-add --onProperty creditCardType --constraint NotNull ;
-constraint-add --onProperty creditCardExpDate --constraint Size --min 1 --max 5 ;
 constraint-add --onProperty creditCardExpDate --constraint NotNull ;
+constraint-add --onProperty creditCardExpDate --constraint Size --min 1 --max 5 ;
 
 
 #  #############################  #
@@ -340,6 +354,8 @@ project-remove-managed-dependencies org.jboss.spec:jboss-javaee-6.0:pom::3.0.2.F
 
 project-add-dependencies org.jboss.spec:jboss-javaee-6.0:3.0.2.Final:provided:pom ;
 project-add-dependencies org.jboss.resteasy:resteasy-client:3.0.8.Final:test:jar ;
+
+project-add-repository --named jboss-public --url https://repository.jboss.org/nexus/content/groups/public/ ;
 
 
 #  ################  #

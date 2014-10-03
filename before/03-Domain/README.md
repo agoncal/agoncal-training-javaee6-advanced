@@ -29,6 +29,23 @@ JBoss Forge doesn't know how to generate inheritance or embed embeddable. In thi
 
 # KATA - Refactor Book and CD to inherit from Item and pass tests
 
+# DOJO - Refactor Author, Customer and Musician to inherit from Person and pass tests
+
+## Refactor Author, Customer and Musician to inherit from Person
+
+* `Person` is a mapped superclass
+* `Person` attributes should be `protected` instead of `private` (so they can be used easily in inherted classes `Book` and `CD`)
+* `Author`, `Customer` and `Musician` should `extends Person`
+* `Author`, `Customer` and `Musician` should get rid of the duplicate attributes, getters and setters : `firstName`, `lastName`, `dateOfBirth` and `age` ;
+
+## Refactor and execute the tests in a remote environment
+
+* Add `.addClass(Person.class)` to the needd Arquillian tests
+* Start WildFly (`$WILDFLY_HOME/bin/standalone.sh`)
+* `mvn -Parquillian-wildfly-remote test` will execute the tests with WildFly up and running and with the application deployed
+
+# KATA - Refactor Book and CD to inherit from Item and pass tests
+
 # DOJO - CreditCard should be embedded
 
 ## CreditCard should be embedded

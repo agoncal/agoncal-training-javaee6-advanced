@@ -1,10 +1,10 @@
 <?xml version='1.0' encoding='UTF-8' ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <ui:composition xmlns="http://www.w3.org/1999/xhtml"
-	xmlns:h="http://java.sun.com/jsf/html"
-	xmlns:f="http://java.sun.com/jsf/core"
-	xmlns:ui="http://java.sun.com/jsf/facelets"
-	template="/resources/scaffold/pageTemplate.xhtml">
+								xmlns:h="http://java.sun.com/jsf/html"
+								xmlns:f="http://java.sun.com/jsf/core"
+								xmlns:ui="http://java.sun.com/jsf/facelets"
+								template="/resources/scaffold/pageTemplate.xhtml">
 
 	<f:metadata>
 		<f:viewParam name="id" value='#{musicianBean.id}'/>
@@ -31,9 +31,6 @@
 			<h:outputLabel for="musicianBeanMusicianLastName" value="Last Name:"/>
 			<h:outputText id="musicianBeanMusicianLastName" value="#{musicianBean.musician.lastName}"/>
 			<h:outputText/>
-			<h:outputLabel for="musicianBeanMusicianBio" value="Bio:"/>
-			<h:inputTextarea id="musicianBeanMusicianBio" value="#{musicianBean.musician.bio}"/>
-			<h:outputText/>
 			<h:outputLabel for="musicianBeanMusicianDateOfBirth" value="Date Of Birth:"/>
 			<h:outputText id="musicianBeanMusicianDateOfBirth" value="#{musicianBean.musician.dateOfBirth}">
 				<f:convertDateTime type="date"/>
@@ -42,13 +39,16 @@
 			<h:outputLabel for="musicianBeanMusicianAge" value="Age:"/>
 			<h:outputText id="musicianBeanMusicianAge" value="#{musicianBean.musician.age}"/>
 			<h:outputText/>
+			<h:outputLabel for="musicianBeanMusicianBio" value="Bio:"/>
+			<h:inputTextarea id="musicianBeanMusicianBio" value="#{musicianBean.musician.bio}"/>
+			<h:outputText/>
 			<h:outputLabel for="musicianBeanMusicianPreferredInstrument" value="Preferred Instrument:"/>
 			<h:outputText id="musicianBeanMusicianPreferredInstrument" value="#{musicianBean.musician.preferredInstrument}"/>
 			<h:outputText/>
 		</h:panelGrid>
 
 		<div class="buttons">
-			<h:link value="View All" outcome="search" styleClass="btn btn-primary"/> 
+			<h:link value="View All" outcome="search" styleClass="btn btn-primary"/>
 			<h:link value="Edit" outcome="create" includeViewParams="true" styleClass="btn btn-primary"/>
 			<h:link value="Create New" outcome="create" styleClass="btn btn-primary"/>
 		</div>

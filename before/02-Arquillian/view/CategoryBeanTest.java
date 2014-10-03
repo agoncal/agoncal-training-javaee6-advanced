@@ -1,6 +1,6 @@
 package org.agoncal.training.javaee6adv.view;
 
-import org.agoncal.training.javaee6adv.model.Customer;
+import org.agoncal.training.javaee6adv.model.Category;
 import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.junit.Arquillian;
 import org.jboss.shrinkwrap.api.ShrinkWrap;
@@ -18,18 +18,18 @@ import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
 
 @RunWith(Arquillian.class)
-public class CustomerBeanTest
+public class CategoryBeanTest
 {
 
    @Inject
-   private CustomerBean customerbean;
+   private CategoryBean categorybean;
 
    @Deployment
    public static JavaArchive createDeployment()
    {
       return ShrinkWrap.create(JavaArchive.class)
-            .addClass(CustomerBean.class)
-            .addClass(Customer.class)
+            .addClass(CategoryBean.class)
+            .addClass(Category.class)
             .addAsManifestResource("META-INF/persistence.xml", "persistence.xml")
             .addAsManifestResource(EmptyAsset.INSTANCE, "beans.xml");
    }
@@ -37,50 +37,44 @@ public class CustomerBeanTest
    @Test
    public void should_be_deployed()
    {
-      Assert.assertNotNull(customerbean);
+      Assert.assertNotNull(categorybean);
    }
-
 
    @Test
    public void should_crud()
    {
       // Creates an object
-      Customer customer = new Customer();
-      customer.setFirstname("Dummy value");
-      customer.setLastname("Dummy value");
-      customer.setStreet1("Dummy value");
-      customer.setCity("Dummy value");
-      customer.setZipcode("Dummy");
-      customer.setCountry("Dummy value");
+      Category category = new Category();
+      category.setName("Dummy value");
 
       // Inserts the object into the database
-      customerbean.setCustomer(customer);
-      customerbean.create();
-      customerbean.update();
-      customer = customerbean.getCustomer();
-      assertNotNull(customer.getId());
+      categorybean.setCategory(category);
+      categorybean.create();
+      categorybean.update();
+      category = categorybean.getCategory();
+      assertNotNull(category.getId());
 
       // Finds the object from the database and checks it's the right one
-      customer = customerbean.findById(customer.getId());
-      assertEquals("Dummy value", customer.getFirstname());
+      category = categorybean.findById(category.getId());
+      assertEquals("Dummy value", category.getName());
 
       // Deletes the object from the database and checks it's not there anymore
-      customerbean.setId(customer.getId());
-      customerbean.create();
-      customerbean.delete();
-      customer = customerbean.findById(customer.getId());
-      assertNull(customer);
+      categorybean.setId(category.getId());
+      categorybean.create();
+      categorybean.delete();
+      category = categorybean.findById(category.getId());
+      assertNull(category);
    }
 
    @Test
    public void should_paginate()
    {
       // Creates an empty example
-      Customer example = new Customer();
+      Category example = new Category();
 
       // Paginates through the example
-      customerbean.setExample(example);
-      customerbean.paginate();
-      assertTrue((customerbean.getPageItems().size() == customerbean.getPageSize()) || (customerbean.getPageItems().size() == customerbean.getCount()));
+      categorybean.setExample(example);
+      categorybean.paginate();
+      assertTrue((categorybean.getPageItems().size() == categorybean.getPageSize()) || (categorybean.getPageItems().size() == categorybean.getCount()));
    }
 }

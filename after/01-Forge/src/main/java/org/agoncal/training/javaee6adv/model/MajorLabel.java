@@ -92,8 +92,11 @@ public class MajorLabel implements Serializable
    public String toString()
    {
       String result = getClass().getSimpleName() + " ";
+      if (id != null)
+         result += "id: " + id;
+      result += ", version: " + version;
       if (name != null && !name.trim().isEmpty())
-         result += "name: " + name;
+         result += ", name: " + name;
       return result;
    }
 }

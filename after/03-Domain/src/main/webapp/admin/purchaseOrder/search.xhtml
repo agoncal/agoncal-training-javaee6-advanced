@@ -1,11 +1,11 @@
 <?xml version='1.0' encoding='UTF-8' ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <ui:composition xmlns="http://www.w3.org/1999/xhtml"
-	xmlns:h="http://java.sun.com/jsf/html"
-	xmlns:f="http://java.sun.com/jsf/core"
-	xmlns:ui="http://java.sun.com/jsf/facelets"
-	xmlns:forgeview="http://jboss.org/forge/view"
-	template="/resources/scaffold/pageTemplate.xhtml">
+								xmlns:h="http://java.sun.com/jsf/html"
+								xmlns:f="http://java.sun.com/jsf/core"
+								xmlns:ui="http://java.sun.com/jsf/facelets"
+								xmlns:forgeview="http://jboss.org/forge/view"
+								template="/resources/scaffold/pageTemplate.xhtml">
 
 	<f:metadata>
 		<f:viewParam name="page" value='#{purchaseOrderBean.page}'/>
@@ -30,12 +30,6 @@
 				<h:panelGroup styleClass="search">
 
 					<h:panelGrid columnClasses="label,component,required" columns="3">
-						<h:outputLabel for="purchaseOrderBeanExampleQuantity" value="Quantity:"/>
-						<h:panelGroup>
-							<h:inputText id="purchaseOrderBeanExampleQuantity" value="#{purchaseOrderBean.example.quantity}"/>
-							<h:message for="purchaseOrderBeanExampleQuantity" styleClass="error"/>
-						</h:panelGroup>
-						<h:outputText/>
 						<h:outputLabel for="purchaseOrderBeanExampleCustomer" value="Customer:"/>
 						<h:panelGroup>
 							<h:selectOneMenu converter="#{customerBean.converter}" id="purchaseOrderBeanExampleCustomer" value="#{purchaseOrderBean.example.customer}">
@@ -63,6 +57,12 @@
 							<h:message for="purchaseOrderBeanExampleCity" styleClass="error"/>
 						</h:panelGroup>
 						<h:outputText/>
+						<h:outputLabel for="purchaseOrderBeanExampleState" value="State:"/>
+						<h:panelGroup>
+							<h:inputText id="purchaseOrderBeanExampleState" value="#{purchaseOrderBean.example.state}"/>
+							<h:message for="purchaseOrderBeanExampleState" styleClass="error"/>
+						</h:panelGroup>
+						<h:outputText/>
 					</h:panelGrid>
 					<h:panelGroup styleClass="buttons">
 						<h:commandLink value="Search" action='#{purchaseOrderBean.search}' styleClass="btn btn-primary"/>
@@ -70,7 +70,7 @@
 					</h:panelGroup>
 				</h:panelGroup>
 			</f:validateBean>
-			
+
 			<h:dataTable id="purchaseOrderBeanPageItems" styleClass="data-table" value="#{purchaseOrderBean.pageItems}" var="_item">
 				<h:column>
 					<f:facet name="header">
@@ -122,7 +122,7 @@
 				<ui:param name="paginatorBean" value='#{purchaseOrderBean}'/>
 			</ui:include>
 		</h:form>
-			
+
 	</ui:define>
 
 </ui:composition>

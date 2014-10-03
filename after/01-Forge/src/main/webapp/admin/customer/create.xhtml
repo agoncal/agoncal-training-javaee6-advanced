@@ -1,11 +1,11 @@
 <?xml version='1.0' encoding='UTF-8' ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <ui:composition xmlns="http://www.w3.org/1999/xhtml"
-	xmlns:h="http://java.sun.com/jsf/html"
-	xmlns:f="http://java.sun.com/jsf/core"
-	xmlns:ui="http://java.sun.com/jsf/facelets"
-	xmlns:c="http://java.sun.com/jsp/jstl/core"
-	template="/resources/scaffold/pageTemplate.xhtml">
+								xmlns:h="http://java.sun.com/jsf/html"
+								xmlns:f="http://java.sun.com/jsf/core"
+								xmlns:ui="http://java.sun.com/jsf/facelets"
+								xmlns:c="http://java.sun.com/jsp/jstl/core"
+								template="/resources/scaffold/pageTemplate.xhtml">
 
 	<f:metadata>
 		<f:viewParam name="id" value='#{customerBean.id}'/>
@@ -36,30 +36,18 @@
 			<h:messages globalOnly="true" styleClass="error"/>
 
 			<h:panelGrid columnClasses="label,component,required" columns="3">
-				<h:outputLabel for="customerBeanCustomerFirstname" value="Firstname:"/>
+				<h:outputLabel for="customerBeanCustomerFirstName" value="First Name:"/>
 				<h:panelGroup>
-					<h:inputText id="customerBeanCustomerFirstname" maxLength="50" required="true" value="#{customerBean.customer.firstname}"/>
-					<h:message for="customerBeanCustomerFirstname" styleClass="error"/>
+					<h:inputText id="customerBeanCustomerFirstName" maxLength="50" required="true" value="#{customerBean.customer.firstName}"/>
+					<h:message for="customerBeanCustomerFirstName" styleClass="error"/>
 				</h:panelGroup>
 				<h:outputText value="*"/>
-				<h:outputLabel for="customerBeanCustomerLastname" value="Lastname:"/>
+				<h:outputLabel for="customerBeanCustomerLastName" value="Last Name:"/>
 				<h:panelGroup>
-					<h:inputText id="customerBeanCustomerLastname" maxLength="50" required="true" value="#{customerBean.customer.lastname}"/>
-					<h:message for="customerBeanCustomerLastname" styleClass="error"/>
+					<h:inputText id="customerBeanCustomerLastName" maxLength="50" required="true" value="#{customerBean.customer.lastName}"/>
+					<h:message for="customerBeanCustomerLastName" styleClass="error"/>
 				</h:panelGroup>
 				<h:outputText value="*"/>
-				<h:outputLabel for="customerBeanCustomerTelephone" value="Telephone:"/>
-				<h:panelGroup>
-					<h:inputText id="customerBeanCustomerTelephone" value="#{customerBean.customer.telephone}"/>
-					<h:message for="customerBeanCustomerTelephone" styleClass="error"/>
-				</h:panelGroup>
-				<h:outputText/>
-				<h:outputLabel for="customerBeanCustomerEmail" value="Email:"/>
-				<h:panelGroup>
-					<h:inputText id="customerBeanCustomerEmail" value="#{customerBean.customer.email}"/>
-					<h:message for="customerBeanCustomerEmail" styleClass="error"/>
-				</h:panelGroup>
-				<h:outputText/>
 				<h:outputLabel for="customerBeanCustomerDateOfBirth" value="Date Of Birth:"/>
 				<h:panelGroup>
 					<h:inputText id="customerBeanCustomerDateOfBirth" value="#{customerBean.customer.dateOfBirth}">
@@ -72,6 +60,18 @@
 				<h:panelGroup>
 					<h:inputText id="customerBeanCustomerAge" value="#{customerBean.customer.age}"/>
 					<h:message for="customerBeanCustomerAge" styleClass="error"/>
+				</h:panelGroup>
+				<h:outputText/>
+				<h:outputLabel for="customerBeanCustomerTelephone" value="Telephone:"/>
+				<h:panelGroup>
+					<h:inputText id="customerBeanCustomerTelephone" value="#{customerBean.customer.telephone}"/>
+					<h:message for="customerBeanCustomerTelephone" styleClass="error"/>
+				</h:panelGroup>
+				<h:outputText/>
+				<h:outputLabel for="customerBeanCustomerEmail" value="Email:"/>
+				<h:panelGroup>
+					<h:inputText id="customerBeanCustomerEmail" value="#{customerBean.customer.email}"/>
+					<h:message for="customerBeanCustomerEmail" styleClass="error"/>
 				</h:panelGroup>
 				<h:outputText/>
 				<h:outputLabel for="customerBeanCustomerStreet1" value="Street 1:"/>

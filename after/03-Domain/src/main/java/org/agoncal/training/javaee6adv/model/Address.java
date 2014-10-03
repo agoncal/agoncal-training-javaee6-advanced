@@ -11,29 +11,29 @@ public class Address implements Serializable
 {
 
    @Column
-   @Size(min = 5, max = 50)
    @NotNull
+   @Size(min = 5, max = 50)
    private String street1;
 
    @Column
    private String street2;
 
    @Column
-   @Size(min = 2, max = 50)
    @NotNull
+   @Size(min = 2, max = 50)
    private String city;
 
    @Column
    private String state;
 
    @Column(name = "zip_code")
-   @Size(min = 1, max = 10)
    @NotNull
+   @Size(min = 1, max = 10)
    private String zipcode;
 
    @Column
-   @Size(min = 2, max = 50)
    @NotNull
+   @Size(min = 2, max = 50)
    private String country;
 
    public String getStreet1()

@@ -39,10 +39,6 @@ public class Musician implements Serializable
    @Size(min = 2, max = 50)
    private String lastName;
 
-   @Column(length = 5000)
-   @Size(max = 5000)
-   private String bio;
-
    @Column(name = "date_of_birth")
    @Temporal(TemporalType.DATE)
    @Past
@@ -50,6 +46,10 @@ public class Musician implements Serializable
 
    @Transient
    private Integer age;
+
+   @Column(length = 5000)
+   @Size(max = 5000)
+   private String bio;
 
    @Column(name = "preferred_instrument")
    private String preferredInstrument;
@@ -125,16 +125,6 @@ public class Musician implements Serializable
       this.lastName = lastName;
    }
 
-   public String getBio()
-   {
-      return bio;
-   }
-
-   public void setBio(String bio)
-   {
-      this.bio = bio;
-   }
-
    public Date getDateOfBirth()
    {
       return dateOfBirth;
@@ -155,6 +145,16 @@ public class Musician implements Serializable
       this.age = age;
    }
 
+   public String getBio()
+   {
+      return bio;
+   }
+
+   public void setBio(String bio)
+   {
+      this.bio = bio;
+   }
+
    public String getPreferredInstrument()
    {
       return preferredInstrument;
@@ -169,10 +169,17 @@ public class Musician implements Serializable
    public String toString()
    {
       String result = getClass().getSimpleName() + " ";
+      if (id != null)
+         result += "id: " + id;
+      result += ", version: " + version;
       if (firstName != null && !firstName.trim().isEmpty())
-         result += "firstName: " + firstName;
+         result += ", firstName: " + firstName;
       if (lastName != null && !lastName.trim().isEmpty())
          result += ", lastName: " + lastName;
+      if (dateOfBirth != null)
+         result += ", dateOfBirth: " + dateOfBirth;
+      if (age != null)
+         result += ", age: " + age;
       if (bio != null && !bio.trim().isEmpty())
          result += ", bio: " + bio;
       if (preferredInstrument != null && !preferredInstrument.trim().isEmpty())

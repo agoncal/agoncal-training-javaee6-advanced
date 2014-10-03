@@ -1,11 +1,11 @@
 <?xml version='1.0' encoding='UTF-8' ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <ui:composition xmlns="http://www.w3.org/1999/xhtml"
-	xmlns:h="http://java.sun.com/jsf/html"
-	xmlns:f="http://java.sun.com/jsf/core"
-	xmlns:ui="http://java.sun.com/jsf/facelets"
-	xmlns:forgeview="http://jboss.org/forge/view"
-	template="/resources/scaffold/pageTemplate.xhtml">
+								xmlns:h="http://java.sun.com/jsf/html"
+								xmlns:f="http://java.sun.com/jsf/core"
+								xmlns:ui="http://java.sun.com/jsf/facelets"
+								xmlns:forgeview="http://jboss.org/forge/view"
+								template="/resources/scaffold/pageTemplate.xhtml">
 
 	<f:metadata>
 		<f:viewParam name="id" value='#{purchaseOrderBean.id}'/>
@@ -26,9 +26,6 @@
 
 	<ui:define name="main">
 		<h:panelGrid columnClasses="label,component,required" columns="3">
-			<h:outputLabel for="purchaseOrderBeanPurchaseOrderQuantity" value="Quantity:"/>
-			<h:outputText id="purchaseOrderBeanPurchaseOrderQuantity" value="#{purchaseOrderBean.purchaseOrder.quantity}"/>
-			<h:outputText/>
 			<h:outputLabel for="purchaseOrderBeanPurchaseOrderOrderDate" value="Order Date:"/>
 			<h:outputText id="purchaseOrderBeanPurchaseOrderOrderDate" value="#{purchaseOrderBean.purchaseOrder.orderDate}">
 				<f:convertDateTime type="date"/>
@@ -91,7 +88,7 @@
 		</h:panelGrid>
 
 		<div class="buttons">
-			<h:link value="View All" outcome="search" styleClass="btn btn-primary"/> 
+			<h:link value="View All" outcome="search" styleClass="btn btn-primary"/>
 			<h:link value="Edit" outcome="create" includeViewParams="true" styleClass="btn btn-primary"/>
 			<h:link value="Create New" outcome="create" styleClass="btn btn-primary"/>
 		</div>

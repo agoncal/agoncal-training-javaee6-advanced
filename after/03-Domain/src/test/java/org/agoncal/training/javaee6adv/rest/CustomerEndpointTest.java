@@ -2,6 +2,7 @@ package org.agoncal.training.javaee6adv.rest;
 
 import org.agoncal.training.javaee6adv.model.Address;
 import org.agoncal.training.javaee6adv.model.Customer;
+import org.agoncal.training.javaee6adv.model.Person;
 import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.container.test.api.RunAsClient;
 import org.jboss.arquillian.junit.Arquillian;
@@ -35,6 +36,7 @@ public class CustomerEndpointTest
       return ShrinkWrap.create(WebArchive.class)
             .addClass(CustomerEndpoint.class)
             .addClass(RestApplication.class)
+            .addClass(Person.class)
             .addClass(Customer.class)
             .addClass(Address.class)
             .addAsResource("META-INF/persistence.xml", "META-INF/persistence.xml")

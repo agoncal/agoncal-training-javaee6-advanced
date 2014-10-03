@@ -5,6 +5,7 @@ import org.agoncal.training.javaee6adv.model.Book;
 import org.agoncal.training.javaee6adv.model.Category;
 import org.agoncal.training.javaee6adv.model.Item;
 import org.agoncal.training.javaee6adv.model.Language;
+import org.agoncal.training.javaee6adv.model.Person;
 import org.agoncal.training.javaee6adv.model.Publisher;
 import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.junit.Arquillian;
@@ -38,6 +39,7 @@ public class BookBeanTest
             .addClass(Item.class)
             .addClass(Language.class)
             .addClass(Category.class)
+            .addClass(Person.class)
             .addClass(Author.class)
             .addClass(Publisher.class)
             .addAsManifestResource("META-INF/persistence.xml", "persistence.xml")

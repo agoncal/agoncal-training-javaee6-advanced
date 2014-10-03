@@ -6,21 +6,14 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
-import javax.persistence.Transient;
 import javax.persistence.Version;
 import javax.validation.Valid;
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Past;
-import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
 import java.io.Serializable;
-import java.util.Date;
 
 @Entity
 @XmlRootElement
-public class Customer implements Serializable
+public class Customer extends Person implements Serializable
 {
 
    @Id
@@ -31,29 +24,11 @@ public class Customer implements Serializable
    @Column(name = "version")
    private int version;
 
-   @Column(name = "first_name")
-   @Size(min = 2, max = 50)
-   @NotNull
-   private String firstname;
-
-   @Column(name = "last_name")
-   @Size(min = 2, max = 50)
-   @NotNull
-   private String lastname;
-
    @Column
    private String telephone;
 
    @Column
    private String email;
-
-   @Column(name = "date_of_birth")
-   @Temporal(TemporalType.DATE)
-   @Past
-   private Date dateOfBirth;
-
-   @Transient
-   private int age;
 
    @Embedded
    @Valid
@@ -120,26 +95,6 @@ public class Customer implements Serializable
       return result;
    }
 
-   public String getFirstname()
-   {
-      return firstname;
-   }
-
-   public void setFirstname(String firstname)
-   {
-      this.firstname = firstname;
-   }
-
-   public String getLastname()
-   {
-      return lastname;
-   }
-
-   public void setLastname(String lastname)
-   {
-      this.lastname = lastname;
-   }
-
    public String getTelephone()
    {
       return telephone;
@@ -158,26 +113,6 @@ public class Customer implements Serializable
    public void setEmail(String email)
    {
       this.email = email;
-   }
-
-   public Date getDateOfBirth()
-   {
-      return dateOfBirth;
-   }
-
-   public void setDateOfBirth(Date dateOfBirth)
-   {
-      this.dateOfBirth = dateOfBirth;
-   }
-
-   public int getAge()
-   {
-      return age;
-   }
-
-   public void setAge(int age)
-   {
-      this.age = age;
    }
 
    public String getStreet1()
@@ -244,10 +179,17 @@ public class Customer implements Serializable
    public String toString()
    {
       String result = getClass().getSimpleName() + " ";
-      if (firstname != null && !firstname.trim().isEmpty())
-         result += "firstname: " + firstname;
-      if (lastname != null && !lastname.trim().isEmpty())
-         result += ", lastname: " + lastname;
+      if (id != null)
+         result += "id: " + id;
+      result += ", version: " + version;
+      if (firstName != null && !firstName.trim().isEmpty())
+         result += ", firstname: " + firstName;
+      if (lastName != null && !lastName.trim().isEmpty())
+         result += ", lastname: " + lastName;
+      if (dateOfBirth != null)
+         result += ", dateOfBirth: " + dateOfBirth;
+      if (age != null)
+         result += ", age: " + age;
       if (telephone != null && !telephone.trim().isEmpty())
          result += ", telephone: " + telephone;
       if (email != null && !email.trim().isEmpty())

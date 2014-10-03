@@ -30,20 +30,14 @@ public class Customer implements Serializable
    private int version;
 
    @Column(name = "first_name")
-   @Size(min = 2, max = 50)
    @NotNull
-   private String firstname;
+   @Size(min = 2, max = 50)
+   private String firstName;
 
    @Column(name = "last_name")
-   @Size(min = 2, max = 50)
    @NotNull
-   private String lastname;
-
-   @Column
-   private String telephone;
-
-   @Column
-   private String email;
+   @Size(min = 2, max = 50)
+   private String lastName;
 
    @Column(name = "date_of_birth")
    @Temporal(TemporalType.DATE)
@@ -51,32 +45,38 @@ public class Customer implements Serializable
    private Date dateOfBirth;
 
    @Transient
-   private int age;
+   private Integer age;
 
    @Column
-   @Size(min = 5, max = 50)
+   private String telephone;
+
+   @Column
+   private String email;
+
+   @Column
    @NotNull
+   @Size(min = 5, max = 50)
    private String street1;
 
    @Column
    private String street2;
 
    @Column
-   @Size(min = 2, max = 50)
    @NotNull
+   @Size(min = 2, max = 50)
    private String city;
 
    @Column
    private String state;
 
    @Column(name = "zip_code")
-   @Size(min = 1, max = 10)
    @NotNull
+   @Size(min = 1, max = 10)
    private String zipcode;
 
    @Column
-   @Size(min = 2, max = 50)
    @NotNull
+   @Size(min = 2, max = 50)
    private String country;
 
    public Long getId()
@@ -130,24 +130,44 @@ public class Customer implements Serializable
       return result;
    }
 
-   public String getFirstname()
+   public String getFirstName()
    {
-      return firstname;
+      return firstName;
    }
 
-   public void setFirstname(String firstname)
+   public void setFirstName(String firstName)
    {
-      this.firstname = firstname;
+      this.firstName = firstName;
    }
 
-   public String getLastname()
+   public String getLastName()
    {
-      return lastname;
+      return lastName;
    }
 
-   public void setLastname(String lastname)
+   public void setLastName(String lastName)
    {
-      this.lastname = lastname;
+      this.lastName = lastName;
+   }
+
+   public Date getDateOfBirth()
+   {
+      return dateOfBirth;
+   }
+
+   public void setDateOfBirth(Date dateOfBirth)
+   {
+      this.dateOfBirth = dateOfBirth;
+   }
+
+   public Integer getAge()
+   {
+      return age;
+   }
+
+   public void setAge(Integer age)
+   {
+      this.age = age;
    }
 
    public String getTelephone()
@@ -168,26 +188,6 @@ public class Customer implements Serializable
    public void setEmail(String email)
    {
       this.email = email;
-   }
-
-   public Date getDateOfBirth()
-   {
-      return dateOfBirth;
-   }
-
-   public void setDateOfBirth(Date dateOfBirth)
-   {
-      this.dateOfBirth = dateOfBirth;
-   }
-
-   public int getAge()
-   {
-      return age;
-   }
-
-   public void setAge(int age)
-   {
-      this.age = age;
    }
 
    public String getStreet1()
@@ -254,10 +254,17 @@ public class Customer implements Serializable
    public String toString()
    {
       String result = getClass().getSimpleName() + " ";
-      if (firstname != null && !firstname.trim().isEmpty())
-         result += "firstname: " + firstname;
-      if (lastname != null && !lastname.trim().isEmpty())
-         result += ", lastname: " + lastname;
+      if (id != null)
+         result += "id: " + id;
+      result += ", version: " + version;
+      if (firstName != null && !firstName.trim().isEmpty())
+         result += ", firstName: " + firstName;
+      if (lastName != null && !lastName.trim().isEmpty())
+         result += ", lastName: " + lastName;
+      if (dateOfBirth != null)
+         result += ", dateOfBirth: " + dateOfBirth;
+      if (age != null)
+         result += ", age: " + age;
       if (telephone != null && !telephone.trim().isEmpty())
          result += ", telephone: " + telephone;
       if (email != null && !email.trim().isEmpty())

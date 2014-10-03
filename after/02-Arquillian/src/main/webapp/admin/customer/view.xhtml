@@ -1,10 +1,10 @@
 <?xml version='1.0' encoding='UTF-8' ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <ui:composition xmlns="http://www.w3.org/1999/xhtml"
-	xmlns:h="http://java.sun.com/jsf/html"
-	xmlns:f="http://java.sun.com/jsf/core"
-	xmlns:ui="http://java.sun.com/jsf/facelets"
-	template="/resources/scaffold/pageTemplate.xhtml">
+								xmlns:h="http://java.sun.com/jsf/html"
+								xmlns:f="http://java.sun.com/jsf/core"
+								xmlns:ui="http://java.sun.com/jsf/facelets"
+								template="/resources/scaffold/pageTemplate.xhtml">
 
 	<f:metadata>
 		<f:viewParam name="id" value='#{customerBean.id}'/>
@@ -25,17 +25,11 @@
 
 	<ui:define name="main">
 		<h:panelGrid columnClasses="label,component,required" columns="3">
-			<h:outputLabel for="customerBeanCustomerFirstname" value="Firstname:"/>
-			<h:outputText id="customerBeanCustomerFirstname" value="#{customerBean.customer.firstname}"/>
+			<h:outputLabel for="customerBeanCustomerFirstName" value="First Name:"/>
+			<h:outputText id="customerBeanCustomerFirstName" value="#{customerBean.customer.firstName}"/>
 			<h:outputText/>
-			<h:outputLabel for="customerBeanCustomerLastname" value="Lastname:"/>
-			<h:outputText id="customerBeanCustomerLastname" value="#{customerBean.customer.lastname}"/>
-			<h:outputText/>
-			<h:outputLabel for="customerBeanCustomerTelephone" value="Telephone:"/>
-			<h:outputText id="customerBeanCustomerTelephone" value="#{customerBean.customer.telephone}"/>
-			<h:outputText/>
-			<h:outputLabel for="customerBeanCustomerEmail" value="Email:"/>
-			<h:outputText id="customerBeanCustomerEmail" value="#{customerBean.customer.email}"/>
+			<h:outputLabel for="customerBeanCustomerLastName" value="Last Name:"/>
+			<h:outputText id="customerBeanCustomerLastName" value="#{customerBean.customer.lastName}"/>
 			<h:outputText/>
 			<h:outputLabel for="customerBeanCustomerDateOfBirth" value="Date Of Birth:"/>
 			<h:outputText id="customerBeanCustomerDateOfBirth" value="#{customerBean.customer.dateOfBirth}">
@@ -44,6 +38,12 @@
 			<h:outputText/>
 			<h:outputLabel for="customerBeanCustomerAge" value="Age:"/>
 			<h:outputText id="customerBeanCustomerAge" value="#{customerBean.customer.age}"/>
+			<h:outputText/>
+			<h:outputLabel for="customerBeanCustomerTelephone" value="Telephone:"/>
+			<h:outputText id="customerBeanCustomerTelephone" value="#{customerBean.customer.telephone}"/>
+			<h:outputText/>
+			<h:outputLabel for="customerBeanCustomerEmail" value="Email:"/>
+			<h:outputText id="customerBeanCustomerEmail" value="#{customerBean.customer.email}"/>
 			<h:outputText/>
 			<h:outputLabel for="customerBeanCustomerStreet1" value="Street 1:"/>
 			<h:outputText id="customerBeanCustomerStreet1" value="#{customerBean.customer.street1}"/>
@@ -66,7 +66,7 @@
 		</h:panelGrid>
 
 		<div class="buttons">
-			<h:link value="View All" outcome="search" styleClass="btn btn-primary"/> 
+			<h:link value="View All" outcome="search" styleClass="btn btn-primary"/>
 			<h:link value="Edit" outcome="create" includeViewParams="true" styleClass="btn btn-primary"/>
 			<h:link value="Create New" outcome="create" styleClass="btn btn-primary"/>
 		</div>

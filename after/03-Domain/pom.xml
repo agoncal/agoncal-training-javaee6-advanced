@@ -8,8 +8,8 @@
   <packaging>war</packaging>
   <properties>
     <version.junit>4.11</version.junit>
-    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <maven.compiler.source>1.7</maven.compiler.source>
+    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <maven.compiler.target>1.7</maven.compiler.target>
     <version.arquillian_core>1.1.5.Final</version.arquillian_core>
   </properties>
@@ -61,6 +61,12 @@
       <scope>test</scope>
     </dependency>
   </dependencies>
+  <repositories>
+    <repository>
+      <id>jboss-public</id>
+      <url>https://repository.jboss.org/nexus/content/groups/public/</url>
+    </repository>
+  </repositories>
   <build>
     <finalName>cdbookstore</finalName>
     <plugins>

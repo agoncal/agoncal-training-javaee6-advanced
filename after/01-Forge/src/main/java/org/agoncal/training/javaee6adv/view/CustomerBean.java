@@ -234,15 +234,20 @@ public class CustomerBean implements Serializable
       CriteriaBuilder builder = this.entityManager.getCriteriaBuilder();
       List<Predicate> predicatesList = new ArrayList<Predicate>();
 
-      String firstname = this.example.getFirstname();
-      if (firstname != null && !"".equals(firstname))
+      String firstName = this.example.getFirstName();
+      if (firstName != null && !"".equals(firstName))
       {
-         predicatesList.add(builder.like(builder.lower(root.<String>get("firstname")), '%' + firstname.toLowerCase() + '%'));
+         predicatesList.add(builder.like(builder.lower(root.<String>get("firstName")), '%' + firstName.toLowerCase() + '%'));
       }
-      String lastname = this.example.getLastname();
-      if (lastname != null && !"".equals(lastname))
+      String lastName = this.example.getLastName();
+      if (lastName != null && !"".equals(lastName))
       {
-         predicatesList.add(builder.like(builder.lower(root.<String>get("lastname")), '%' + lastname.toLowerCase() + '%'));
+         predicatesList.add(builder.like(builder.lower(root.<String>get("lastName")), '%' + lastName.toLowerCase() + '%'));
+      }
+      Integer age = this.example.getAge();
+      if (age != null && age.intValue() != 0)
+      {
+         predicatesList.add(builder.equal(root.get("age"), age));
       }
       String telephone = this.example.getTelephone();
       if (telephone != null && !"".equals(telephone))
@@ -253,11 +258,6 @@ public class CustomerBean implements Serializable
       if (email != null && !"".equals(email))
       {
          predicatesList.add(builder.like(builder.lower(root.<String>get("email")), '%' + email.toLowerCase() + '%'));
-      }
-      int age = this.example.getAge();
-      if (age != 0)
-      {
-         predicatesList.add(builder.equal(root.get("age"), age));
       }
 
       return predicatesList.toArray(new Predicate[predicatesList.size()]);
