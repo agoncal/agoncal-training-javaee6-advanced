@@ -6,6 +6,7 @@ import org.agoncal.training.javaee6adv.model.CreditCardType;
 import org.agoncal.training.javaee6adv.model.Customer;
 import org.agoncal.training.javaee6adv.model.Item;
 import org.agoncal.training.javaee6adv.model.OrderLine;
+import org.agoncal.training.javaee6adv.model.Person;
 import org.agoncal.training.javaee6adv.model.PurchaseOrder;
 import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.junit.Arquillian;
@@ -36,6 +37,7 @@ public class PurchaseOrderBeanTest
       return ShrinkWrap.create(JavaArchive.class)
             .addClass(PurchaseOrderBean.class)
             .addClass(PurchaseOrder.class)
+            .addClass(Person.class)
             .addClass(Customer.class)
             .addClass(CreditCard.class)
             .addClass(CreditCardType.class)

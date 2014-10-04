@@ -1,10 +1,10 @@
 <?xml version='1.0' encoding='UTF-8' ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <ui:composition xmlns="http://www.w3.org/1999/xhtml"
-	xmlns:h="http://java.sun.com/jsf/html"
-	xmlns:f="http://java.sun.com/jsf/core"
-	xmlns:ui="http://java.sun.com/jsf/facelets"
-	template="/resources/scaffold/pageTemplate.xhtml">
+								xmlns:h="http://java.sun.com/jsf/html"
+								xmlns:f="http://java.sun.com/jsf/core"
+								xmlns:ui="http://java.sun.com/jsf/facelets"
+								template="/resources/scaffold/pageTemplate.xhtml">
 
 	<f:metadata>
 		<f:viewParam name="page" value='#{customerBean.page}'/>
@@ -29,16 +29,22 @@
 				<h:panelGroup styleClass="search">
 
 					<h:panelGrid columnClasses="label,component,required" columns="3">
-						<h:outputLabel for="customerBeanExampleFirstname" value="Firstname:"/>
+						<h:outputLabel for="customerBeanExampleFirstName" value="First Name:"/>
 						<h:panelGroup>
-							<h:inputText id="customerBeanExampleFirstname" maxLength="50" value="#{customerBean.example.firstname}"/>
-							<h:message for="customerBeanExampleFirstname" styleClass="error"/>
+							<h:inputText id="customerBeanExampleFirstName" maxLength="50" value="#{customerBean.example.firstName}"/>
+							<h:message for="customerBeanExampleFirstName" styleClass="error"/>
 						</h:panelGroup>
 						<h:outputText/>
-						<h:outputLabel for="customerBeanExampleLastname" value="Lastname:"/>
+						<h:outputLabel for="customerBeanExampleLastName" value="Last Name:"/>
 						<h:panelGroup>
-							<h:inputText id="customerBeanExampleLastname" maxLength="50" value="#{customerBean.example.lastname}"/>
-							<h:message for="customerBeanExampleLastname" styleClass="error"/>
+							<h:inputText id="customerBeanExampleLastName" maxLength="50" value="#{customerBean.example.lastName}"/>
+							<h:message for="customerBeanExampleLastName" styleClass="error"/>
+						</h:panelGroup>
+						<h:outputText/>
+						<h:outputLabel for="customerBeanExampleAge" value="Age:"/>
+						<h:panelGroup>
+							<h:inputText id="customerBeanExampleAge" value="#{customerBean.example.age}"/>
+							<h:message for="customerBeanExampleAge" styleClass="error"/>
 						</h:panelGroup>
 						<h:outputText/>
 						<h:outputLabel for="customerBeanExampleTelephone" value="Telephone:"/>
@@ -53,12 +59,6 @@
 							<h:message for="customerBeanExampleEmail" styleClass="error"/>
 						</h:panelGroup>
 						<h:outputText/>
-						<h:outputLabel for="customerBeanExampleAge" value="Age:"/>
-						<h:panelGroup>
-							<h:inputText id="customerBeanExampleAge" value="#{customerBean.example.age}"/>
-							<h:message for="customerBeanExampleAge" styleClass="error"/>
-						</h:panelGroup>
-						<h:outputText/>
 					</h:panelGrid>
 					<h:panelGroup styleClass="buttons">
 						<h:commandLink value="Search" action='#{customerBean.search}' styleClass="btn btn-primary"/>
@@ -66,24 +66,24 @@
 					</h:panelGroup>
 				</h:panelGroup>
 			</f:validateBean>
-			
+
 			<h:dataTable id="customerBeanPageItems" styleClass="data-table" value="#{customerBean.pageItems}" var="_item">
 				<h:column>
 					<f:facet name="header">
-						<h:outputText value="Firstname"/>
+						<h:outputText value="First Name"/>
 					</f:facet>
 					<h:link outcome="/admin/customer/view">
 						<f:param name="id" value="#{_item.id}"/>
-						<h:outputText id="itemFirstname" value="#{_item.firstname}"/>
+						<h:outputText id="itemFirstName" value="#{_item.firstName}"/>
 					</h:link>
 				</h:column>
 				<h:column>
 					<f:facet name="header">
-						<h:outputText value="Lastname"/>
+						<h:outputText value="Last Name"/>
 					</f:facet>
 					<h:link outcome="/admin/customer/view">
 						<f:param name="id" value="#{_item.id}"/>
-						<h:outputText id="itemLastname" value="#{_item.lastname}"/>
+						<h:outputText id="itemLastName" value="#{_item.lastName}"/>
 					</h:link>
 				</h:column>
 				<h:column>
@@ -118,7 +118,7 @@
 				<ui:param name="paginatorBean" value='#{customerBean}'/>
 			</ui:include>
 		</h:form>
-			
+
 	</ui:define>
 
 </ui:composition>

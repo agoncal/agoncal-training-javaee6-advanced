@@ -12,8 +12,8 @@ public class CreditCard implements Serializable
 {
 
    @Column(name = "credit_card_number")
-   @Size(min = 1, max = 30)
    @NotNull
+   @Size(min = 1, max = 30)
    private String creditCardNumber;
 
    @Enumerated
@@ -22,8 +22,8 @@ public class CreditCard implements Serializable
    private CreditCardType creditCardType;
 
    @Column(name = "credit_card_expiry_date")
-   @Size(min = 1, max = 5)
    @NotNull
+   @Size(min = 1, max = 5)
    private String creditCardExpDate;
 
    public String getCreditCardNumber()
@@ -62,6 +62,8 @@ public class CreditCard implements Serializable
       String result = getClass().getSimpleName() + " ";
       if (creditCardNumber != null && !creditCardNumber.trim().isEmpty())
          result += "creditCardNumber: " + creditCardNumber;
+      if (creditCardType != null)
+         result += ", creditCardType: " + creditCardType;
       if (creditCardExpDate != null && !creditCardExpDate.trim().isEmpty())
          result += ", creditCardExpDate: " + creditCardExpDate;
       return result;

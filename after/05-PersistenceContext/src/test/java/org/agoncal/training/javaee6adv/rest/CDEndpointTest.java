@@ -5,6 +5,7 @@ import org.agoncal.training.javaee6adv.model.Genre;
 import org.agoncal.training.javaee6adv.model.Item;
 import org.agoncal.training.javaee6adv.model.MajorLabel;
 import org.agoncal.training.javaee6adv.model.Musician;
+import org.agoncal.training.javaee6adv.model.Person;
 import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.container.test.api.RunAsClient;
 import org.jboss.arquillian.junit.Arquillian;
@@ -42,6 +43,7 @@ public class CDEndpointTest
             .addClass(Item.class)
             .addClass(MajorLabel.class)
             .addClass(Genre.class)
+            .addClass(Person.class)
             .addClass(Musician.class)
             .addAsResource("META-INF/persistence.xml", "META-INF/persistence.xml")
             .addAsWebInfResource(EmptyAsset.INSTANCE, "beans.xml");

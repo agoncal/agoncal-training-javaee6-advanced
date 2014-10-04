@@ -94,7 +94,10 @@ public class OrderLine implements Serializable
    public String toString()
    {
       String result = getClass().getSimpleName() + " ";
-      result += "quantity: " + quantity;
+      if (id != null)
+         result += "id: " + id;
+      result += ", version: " + version;
+      result += ", quantity: " + quantity;
       return result;
    }
 

@@ -14,7 +14,6 @@ import javax.faces.convert.Converter;
 import javax.inject.Inject;
 import javax.inject.Named;
 import javax.persistence.EntityManager;
-import javax.persistence.NoResultException;
 import javax.persistence.PersistenceContext;
 import javax.persistence.PersistenceContextType;
 import javax.persistence.TypedQuery;
@@ -113,18 +112,7 @@ public class BookBean implements Serializable
    public Book findById(Long id)
    {
 
-      TypedQuery<Book> findByIdQuery = this.entityManager.createQuery("SELECT DISTINCT b FROM Book b LEFT JOIN FETCH b.category LEFT JOIN FETCH b.author LEFT JOIN FETCH b.publisher WHERE b.id = :entityId ORDER BY b.id", Book.class);
-      findByIdQuery.setParameter("entityId", id);
-      Book entity;
-      try
-      {
-         entity = findByIdQuery.getSingleResult();
-      }
-      catch (NoResultException nre)
-      {
-         entity = null;
-      }
-      return entity;
+      return this.entityManager.find(Book.class, id);
    }
 
    /*

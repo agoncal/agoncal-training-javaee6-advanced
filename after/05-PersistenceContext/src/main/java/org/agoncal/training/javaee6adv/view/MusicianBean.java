@@ -244,15 +244,15 @@ public class MusicianBean implements Serializable
       {
          predicatesList.add(builder.like(builder.lower(root.<String>get("lastName")), '%' + lastName.toLowerCase() + '%'));
       }
-      String bio = this.example.getBio();
-      if (bio != null && !"".equals(bio))
-      {
-         predicatesList.add(builder.like(builder.lower(root.<String>get("bio")), '%' + bio.toLowerCase() + '%'));
-      }
       Integer age = this.example.getAge();
       if (age != null && age.intValue() != 0)
       {
          predicatesList.add(builder.equal(root.get("age"), age));
+      }
+      String bio = this.example.getBio();
+      if (bio != null && !"".equals(bio))
+      {
+         predicatesList.add(builder.like(builder.lower(root.<String>get("bio")), '%' + bio.toLowerCase() + '%'));
       }
       String preferredInstrument = this.example.getPreferredInstrument();
       if (preferredInstrument != null && !"".equals(preferredInstrument))

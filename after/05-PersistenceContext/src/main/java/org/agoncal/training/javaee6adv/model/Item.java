@@ -41,7 +41,7 @@ public class Item implements Serializable
    protected Float price;
 
    @Column(length = 3000)
-   @Size(min = 1, max = 3000)
+   @Size(max = 3000)
    protected String description;
 
    @Column(name = "image_url")
@@ -142,8 +142,11 @@ public class Item implements Serializable
    public String toString()
    {
       String result = getClass().getSimpleName() + " ";
+      if (id != null)
+         result += "id: " + id;
+      result += ", version: " + version;
       if (title != null && !title.trim().isEmpty())
-         result += "title: " + title;
+         result += ", title: " + title;
       if (price != null)
          result += ", price: " + price;
       if (description != null && !description.trim().isEmpty())

@@ -44,8 +44,8 @@ Extended persistence context allow entities to be managed longer than a transact
 
 ## Get rid of lazy initialization exception by finding by id with relations
 
-* Book has a ManyToMany relation with musicians
-* `CDBean.findById` can't just use `entityManager.find(Book.class, id)` but instead should use LEFT joins to get relations
+* CD has a ManyToMany relation with musicians
+* `CDBean.findById` can't just use `entityManager.find(CD.class, id)` but instead should use LEFT joins to get relations
 * (check the REST endpoints, that's what they do)
 * Use a `TypedQuery` (`TypedQuery<CD> findByIdQuery = this.entityManager.createQuery`)
 * Remember to set the entity id as a parameter `findByIdQuery.setParameter("entityId", id);`

@@ -2,6 +2,7 @@ package org.agoncal.training.javaee6adv.view;
 
 import org.agoncal.training.javaee6adv.model.Address;
 import org.agoncal.training.javaee6adv.model.Customer;
+import org.agoncal.training.javaee6adv.model.Person;
 import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.junit.Arquillian;
 import org.jboss.shrinkwrap.api.ShrinkWrap;
@@ -30,6 +31,7 @@ public class CustomerBeanTest
    {
       return ShrinkWrap.create(JavaArchive.class)
             .addClass(CustomerBean.class)
+            .addClass(Person.class)
             .addClass(Customer.class)
             .addClass(Address.class)
             .addAsManifestResource("META-INF/persistence.xml", "persistence.xml")
@@ -48,8 +50,8 @@ public class CustomerBeanTest
    {
       // Creates an object
       Customer customer = new Customer();
-      customer.setFirstname("Dummy value");
-      customer.setLastname("Dummy value");
+      customer.setFirstName("Dummy value");
+      customer.setLastName("Dummy value");
       customer.setStreet1("Dummy value");
       customer.setCity("Dummy value");
       customer.setZipcode("Dummy");
@@ -64,7 +66,7 @@ public class CustomerBeanTest
 
       // Finds the object from the database and checks it's the right one
       customer = customerbean.findById(customer.getId());
-      assertEquals("Dummy value", customer.getFirstname());
+      assertEquals("Dummy value", customer.getFirstName());
 
       // Deletes the object from the database and checks it's not there anymore
       customerbean.setId(customer.getId());

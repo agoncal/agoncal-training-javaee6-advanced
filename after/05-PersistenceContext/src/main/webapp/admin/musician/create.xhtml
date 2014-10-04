@@ -1,11 +1,11 @@
 <?xml version='1.0' encoding='UTF-8' ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <ui:composition xmlns="http://www.w3.org/1999/xhtml"
-	xmlns:h="http://java.sun.com/jsf/html"
-	xmlns:f="http://java.sun.com/jsf/core"
-	xmlns:ui="http://java.sun.com/jsf/facelets"
-	xmlns:c="http://java.sun.com/jsp/jstl/core"
-	template="/resources/scaffold/pageTemplate.xhtml">
+								xmlns:h="http://java.sun.com/jsf/html"
+								xmlns:f="http://java.sun.com/jsf/core"
+								xmlns:ui="http://java.sun.com/jsf/facelets"
+								xmlns:c="http://java.sun.com/jsp/jstl/core"
+								template="/resources/scaffold/pageTemplate.xhtml">
 
 	<f:metadata>
 		<f:viewParam name="id" value='#{musicianBean.id}'/>
@@ -48,12 +48,6 @@
 					<h:message for="musicianBeanMusicianLastName" styleClass="error"/>
 				</h:panelGroup>
 				<h:outputText value="*"/>
-				<h:outputLabel for="musicianBeanMusicianBio" value="Bio:"/>
-				<h:panelGroup>
-					<h:inputTextarea id="musicianBeanMusicianBio" value="#{musicianBean.musician.bio}"/>
-					<h:message for="musicianBeanMusicianBio" styleClass="error"/>
-				</h:panelGroup>
-				<h:outputText/>
 				<h:outputLabel for="musicianBeanMusicianDateOfBirth" value="Date Of Birth:"/>
 				<h:panelGroup>
 					<h:inputText id="musicianBeanMusicianDateOfBirth" value="#{musicianBean.musician.dateOfBirth}">
@@ -66,6 +60,12 @@
 				<h:panelGroup>
 					<h:inputText id="musicianBeanMusicianAge" value="#{musicianBean.musician.age}"/>
 					<h:message for="musicianBeanMusicianAge" styleClass="error"/>
+				</h:panelGroup>
+				<h:outputText/>
+				<h:outputLabel for="musicianBeanMusicianBio" value="Bio:"/>
+				<h:panelGroup>
+					<h:inputTextarea id="musicianBeanMusicianBio" value="#{musicianBean.musician.bio}"/>
+					<h:message for="musicianBeanMusicianBio" styleClass="error"/>
 				</h:panelGroup>
 				<h:outputText/>
 				<h:outputLabel for="musicianBeanMusicianPreferredInstrument" value="Preferred Instrument:"/>

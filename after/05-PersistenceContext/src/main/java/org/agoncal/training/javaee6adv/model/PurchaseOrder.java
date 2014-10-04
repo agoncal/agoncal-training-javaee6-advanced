@@ -31,9 +31,6 @@ public class PurchaseOrder implements Serializable
    @Column(name = "version")
    private int version;
 
-   @Column
-   private int quantity;
-
    @Column(name = "order_date")
    @Temporal(TemporalType.DATE)
    private Date orderDate;
@@ -121,16 +118,6 @@ public class PurchaseOrder implements Serializable
       int result = 1;
       result = prime * result + ((id == null) ? 0 : id.hashCode());
       return result;
-   }
-
-   public int getQuantity()
-   {
-      return quantity;
-   }
-
-   public void setQuantity(int quantity)
-   {
-      this.quantity = quantity;
    }
 
    public Date getOrderDate()
@@ -257,7 +244,15 @@ public class PurchaseOrder implements Serializable
    public String toString()
    {
       String result = getClass().getSimpleName() + " ";
-      result += "quantity: " + quantity;
+      if (id != null)
+         result += "id: " + id;
+      result += ", version: " + version;
+      if (orderDate != null)
+         result += ", orderDate: " + orderDate;
+      if (customer != null)
+         result += ", customer: " + customer;
+      if (orderLines != null)
+         result += ", orderLines: " + orderLines;
       if (deliveryAddress.getStreet1() != null && !deliveryAddress.getStreet1().trim().isEmpty())
          result += ", street1: " + deliveryAddress.getStreet1();
       if (deliveryAddress.getStreet2() != null && !deliveryAddress.getStreet2().trim().isEmpty())
