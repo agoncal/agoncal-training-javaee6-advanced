@@ -34,6 +34,12 @@
       <artifactId>javax.json</artifactId>
     </dependency>
   </dependencies>
+  <repositories>
+    <repository>
+      <id>jboss-public</id>
+      <url>https://repository.jboss.org/nexus/content/groups/public/</url>
+    </repository>
+  </repositories>
   <build>
     <finalName>cdbookclient</finalName>
     <plugins>

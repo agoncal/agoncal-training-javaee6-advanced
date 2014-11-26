@@ -12,7 +12,7 @@ In this module you will write Arquillian tests for the JSF backing beans and RES
 ## Install the Arquillian Addon on Forge
 
 * Make sure the `arquillian-addon` is in the Maven directory
-* In Forge, execute the following command `addon-install --coordinate org.arquillian.forge:arquillian-addon,1.0.0-SNAPSHOT`
+* In Forge, execute the following command `addon-install-from-git --url https://github.com/forge/addon-arquillian.git --coordinate org.arquillian.forge:arquillian-addon`
 
 ## Generate the project with JBoss Forge
 
