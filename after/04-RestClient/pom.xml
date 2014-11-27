@@ -3,7 +3,7 @@
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
   <modelVersion>4.0.0</modelVersion>
   <groupId>org.agoncal.training.javaee6adv.after</groupId>
-  <artifactId>04-Restclient</artifactId>
+  <artifactId>04-RestClient</artifactId>
   <version>1.0.0</version>
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
