@@ -15,7 +15,112 @@ jpa-setup --persistenceUnitName cdbookstorePU ;
 
 # ISBN constraint
 # ############
-# TODO constraint-new-annotation --named ISBN ;  because  Adding ISBN constraint on property doesn't work [FORGE-1801]
+# TODO Adding ISBN constraint on property doesn't work [FORGE-1801]
+constraint-new-annotation --named Name ;
+constraint-new-annotation --named ISBN ;
+constraint-new-annotation --named Title ;
+constraint-new-annotation --named Description ;
+constraint-new-annotation --named Email ;
+
+
+#  Country entity
+#  ############
+jpa-new-entity --named Country ;
+jpa-new-field --named isoCode --length 2 --columnName iso_code --not-nullable ;
+jpa-new-field --named name --length 80 --not-nullable ;
+jpa-new-field --named printableName --length 80 --columnName printable_name --not-nullable ;
+jpa-new-field --named iso3 --length 3 ;
+jpa-new-field --named numcode --length 3 ;
+# Constraints
+constraint-add --onProperty isoCode --constraint NotNull ;
+constraint-add --onProperty isoCode --constraint Size --min 2 --max 2 ;
+constraint-add --onProperty name --constraint NotNull ;
+constraint-add --onProperty name --constraint Size --min 2 --max 80 ;
+constraint-add --onProperty printableName --constraint NotNull ;
+constraint-add --onProperty printableName --constraint Size --min 2 --max 80 ;
+constraint-add --onProperty iso3 --constraint NotNull ;
+constraint-add --onProperty iso3 --constraint Size --min 3 --max 3 ;
+constraint-add --onProperty numcode --constraint NotNull ;
+constraint-add --onProperty numcode --constraint Size --min 3 --max 3 ;
+# Cache
+java-add-annotation --annotation javax.persistence.Cacheable ;
+
+
+# Address entity
+# ############
+jpa-new-embeddable --named Address ;
+jpa-new-field --named street1 --length 50 --not-nullable ;
+jpa-new-field --named street2 ;
+jpa-new-field --named city --length 50 --not-nullable ;
+jpa-new-field --named state ;
+jpa-new-field --named zipcode --columnName zip_code --length 10 --not-nullable ;
+# Relationships
+jpa-new-field --named country --type org.agoncal.training.javaee6adv.model.Country --relationshipType Many-to-One --cascadeType PERSIST ;
+
+constraint-add --onProperty street1 --constraint NotNull ;
+constraint-add --onProperty street1 --constraint Size --min 5 --max 50 ;
+constraint-add --onProperty city --constraint NotNull ;
+constraint-add --onProperty city --constraint Size --min 2 --max 50 ;
+constraint-add --onProperty zipcode --constraint NotNull ;
+constraint-add --onProperty zipcode --constraint Size --min 1 --max 10 ;
+constraint-add --onProperty country --constraint NotNull ;
+constraint-add --onProperty country --constraint Valid ;
+
+
+# Customer entity
+# ############
+jpa-new-entity --named Customer ;
+jpa-new-field --named firstName --columnName first_name ;
+jpa-new-field --named lastName --columnName last_name ;
+jpa-new-field --named dateOfBirth --type java.util.Date --columnName date_of_birth ;
+jpa-new-field --named age --type java.lang.Integer --transient ;
+jpa-new-field --named telephone ;
+jpa-new-field --named email ;
+# Embeddable Address
+# TODO jpa-new-field --named homeAddress --type org.agoncal.training.javaee6adv.model.Address --relationshipType Embedded ; [1108]
+jpa-new-field --named street1 ;
+jpa-new-field --named street2 ;
+jpa-new-field --named city ;
+jpa-new-field --named state ;
+jpa-new-field --named zipcode --columnName zip_code ;
+jpa-new-field --named country ;
+
+constraint-add --onProperty firstName --constraint NotNull ;
+constraint-add --onProperty firstName --constraint Size --min 2 --max 50 ;
+constraint-add --onProperty lastName --constraint NotNull ;
+constraint-add --onProperty lastName --constraint Size --min 2 --max 50 ;
+constraint-add --onProperty dateOfBirth --constraint Past ;
+# Embeddable Address
+constraint-add --onProperty street1 --constraint NotNull ;
+constraint-add --onProperty street1 --constraint Size --min 5 --max 50 ;
+constraint-add --onProperty city --constraint NotNull ;
+constraint-add --onProperty city --constraint Size --min 2 --max 50 ;
+constraint-add --onProperty zipcode --constraint NotNull ;
+constraint-add --onProperty zipcode --constraint Size --min 1 --max 10 ;
+constraint-add --onProperty country --constraint NotNull ;
+constraint-add --onProperty country --constraint Size --min 2 --max 50 ;
+
+
+# CreditCardType enumeration
+# ############
+java-new-enum --named CreditCardType --targetPackage org.agoncal.training.javaee6adv.model ;
+java-new-enum-const VISA ;
+java-new-enum-const MASTER_CARD ;
+java-new-enum-const AMERICAN_EXPRESS ;
+
+
+# CreditCard entity
+# ############
+jpa-new-embeddable --named CreditCard ;
+jpa-new-field --named creditCardNumber --columnName credit_card_number --length 30 --not-nullable ;
+jpa-new-field --named creditCardType --type org.agoncal.training.javaee6adv.model.CreditCardType --columnName credit_card_type --not-nullable ;
+jpa-new-field --named creditCardExpDate --columnName credit_card_expiry_date --length 5 --not-nullable ;
+
+constraint-add --onProperty creditCardNumber --constraint NotNull ;
+constraint-add --onProperty creditCardNumber --constraint Size --min 1 --max 30 ;
+constraint-add --onProperty creditCardType --constraint NotNull ;
+constraint-add --onProperty creditCardExpDate --constraint NotNull ;
+constraint-add --onProperty creditCardExpDate --constraint Size --min 1 --max 5 ;
 
 
 # Genre entity
@@ -119,6 +224,20 @@ constraint-add --onProperty dateOfBirth --constraint Past ;
 constraint-add --onProperty bio --constraint Size --max 5000 ;
 
 
+# Review entity
+# ############
+jpa-new-entity --named Review ;
+jpa-new-field --named rate --type java.lang.Short ;
+jpa-new-field --named description --length 3000 ;
+jpa-new-field --named postedDate --type java.util.Date --temporalType DATE --columnName posted_date --not-updatable ;
+# Relationships
+jpa-new-field --named customer --type org.agoncal.training.javaee6adv.model.Customer --relationshipType Many-to-One ;
+
+constraint-add --onProperty rate --constraint Max --value 5 ;
+constraint-add --onProperty description --constraint NotNull ;
+constraint-add --onProperty description --constraint Size --min 2 --max 50 ;
+
+
 # Item entity
 # ############
 jpa-new-entity --named Item ;
@@ -126,12 +245,26 @@ jpa-new-field --named title --length 50 ;
 jpa-new-field --named price --type java.lang.Float ;
 jpa-new-field --named description --length 3000 ;
 jpa-new-field --named imageURL --columnName image_url ;
+jpa-new-field --named tags --type 'java.util.List<String>' ;
+# Relationships
+jpa-new-field --named customerReviews --type org.agoncal.training.javaee6adv.model.Review --columnName customer_reviews --relationshipType One-to-Many  ;
 
 constraint-add --onProperty title --constraint NotNull ;
 constraint-add --onProperty title --constraint Size --min 1 --max 50 ;
 constraint-add --onProperty description --constraint Size --max 3000 ;
 constraint-add --onProperty price --constraint Min --value 1 ;
 
+
+# Chapter entity
+# ############
+jpa-new-entity --named Chapter ;
+jpa-new-field --named title ;
+jpa-new-field --named resume ;
+jpa-new-field --named number
+jpa-new-field --named nbOfPages --type java.lang.Integer --columnName nb_of_pages ;
+
+constraint-add --onProperty title --constraint NotNull ;
+constraint-add --onProperty title --constraint Size --min 1 --max 50 ;
 
 # Book entity
 # ############
@@ -143,11 +276,13 @@ jpa-new-field --named imageURL --columnName image_url ;
 jpa-new-field --named isbn  --length 15 ;
 jpa-new-field --named nbOfPages --type java.lang.Integer --columnName nb_of_pages ;
 jpa-new-field --named publicationDate --type java.util.Date --temporalType DATE --columnName publication_date ;
+jpa-new-field --named illustrations --type java.lang.Boolean ;
 jpa-new-field --named language --type org.agoncal.training.javaee6adv.model.Language ;
 # Relationships
 jpa-new-field --named category --type org.agoncal.training.javaee6adv.model.Category --relationshipType Many-to-One
 jpa-new-field --named author --type org.agoncal.training.javaee6adv.model.Author --relationshipType Many-to-One ;
 jpa-new-field --named publisher --type org.agoncal.training.javaee6adv.model.Publisher --relationshipType Many-to-One ;
+jpa-new-field --named chapters --type org.agoncal.training.javaee6adv.model.Chapter --relationshipType One-to-Many ;
 
 constraint-add --onProperty title --constraint NotNull ;
 constraint-add --onProperty title --constraint Size --min 1 --max 50 ;
@@ -159,6 +294,20 @@ constraint-add --onProperty nbOfPages --constraint Min --value 1 ;
 constraint-add --onProperty publicationDate --constraint Past ;
 
 
+# Track entity
+# ############
+jpa-new-entity --named Track ;
+jpa-new-field --named title --length 50 --not-nullable ;
+jpa-new-field --named description --length 3000 ;
+jpa-new-field --named duration --type java.lang.Float ;
+# TODO byte[] --lob
+jpa-new-field --named wav ;
+
+constraint-add --onProperty title --constraint NotNull ;
+constraint-add --onProperty title --constraint Size --min 1 --max 50 ;
+constraint-add --onProperty title --constraint Size --max 3000 ;
+
+
 # CD entity
 # ############
 jpa-new-entity --named CD ;
@@ -167,7 +316,9 @@ jpa-new-field --named price --type java.lang.Float ;
 jpa-new-field --named description --length 3000 ;
 jpa-new-field --named imageURL --columnName image_url ;
 jpa-new-field --named totalDuration --type java.lang.Float --columnName total_duration ;
+jpa-new-field --named nbOfCDs --type java.lang.Integer --columnName nb_of_cds ;
 # Relationships
+jpa-new-field --named track --type org.agoncal.training.javaee6adv.model.Track --relationshipType One-to-Many ;
 jpa-new-field --named label --type org.agoncal.training.javaee6adv.model.MajorLabel --relationshipType Many-to-One ;
 jpa-new-field --named genre --type org.agoncal.training.javaee6adv.model.Genre --relationshipType Many-to-One ;
 jpa-new-field --named musicians --type org.agoncal.training.javaee6adv.model.Musician --relationshipType Many-to-Many ;
@@ -178,101 +329,28 @@ constraint-add --onProperty description --constraint Size --max 3000 ;
 constraint-add --onProperty price --constraint Min --value 1 ;
 
 
-# Address entity
-# ############
-jpa-new-embeddable --named Address ;
-jpa-new-field --named street1 ;
-jpa-new-field --named street2 ;
-jpa-new-field --named city ;
-jpa-new-field --named state ;
-jpa-new-field --named zipcode --columnName zip_code ;
-jpa-new-field --named country ;
-
-constraint-add --onProperty street1 --constraint NotNull ;
-constraint-add --onProperty street1 --constraint Size --min 5 --max 50 ;
-constraint-add --onProperty city --constraint NotNull ;
-constraint-add --onProperty city --constraint Size --min 2 --max 50 ;
-constraint-add --onProperty zipcode --constraint NotNull ;
-constraint-add --onProperty zipcode --constraint Size --min 1 --max 10 ;
-constraint-add --onProperty country --constraint NotNull ;
-constraint-add --onProperty country --constraint Size --min 2 --max 50 ;
-
-
-# CreditCardType enumeration
-# ############
-java-new-enum --named CreditCardType --targetPackage org.agoncal.training.javaee6adv.model ;
-java-new-enum-const VISA ;
-java-new-enum-const MASTER_CARD ;
-java-new-enum-const AMERICAN_EXPRESS ;
-
-
-# CreditCard entity
-# ############
-jpa-new-embeddable --named CreditCard ;
-jpa-new-field --named creditCardNumber --columnName credit_card_number ;
-jpa-new-field --named creditCardType --type org.agoncal.training.javaee6adv.model.CreditCardType --columnName credit_card_type ;
-jpa-new-field --named creditCardExpDate --columnName credit_card_expiry_date  ;
-
-constraint-add --onProperty creditCardNumber --constraint NotNull ;
-constraint-add --onProperty creditCardNumber --constraint Size --min 1 --max 30 ;
-constraint-add --onProperty creditCardType --constraint NotNull ;
-constraint-add --onProperty creditCardExpDate --constraint NotNull ;
-constraint-add --onProperty creditCardExpDate --constraint Size --min 1 --max 5 ;
-
-
-# Email constraint
-# ############
-# TODO constraint-new-annotation --named Email ;  [FORGE-1801]
-
-
-# Customer entity
-# ############
-jpa-new-entity --named Customer ;
-jpa-new-field --named firstName --columnName first_name ;
-jpa-new-field --named lastName --columnName last_name ;
-jpa-new-field --named dateOfBirth --type java.util.Date --columnName date_of_birth ;
-jpa-new-field --named age --type java.lang.Integer --transient ;
-jpa-new-field --named telephone ;
-jpa-new-field --named email ;
-# Embeddable Address
-# TODO jpa-new-field --named homeAddress --type org.agoncal.training.javaee6adv.model.Address --relationshipType Embedded ; [1108]
-jpa-new-field --named street1 ;
-jpa-new-field --named street2 ;
-jpa-new-field --named city ;
-jpa-new-field --named state ;
-jpa-new-field --named zipcode --columnName zip_code ;
-jpa-new-field --named country ;
-
-constraint-add --onProperty firstName --constraint NotNull ;
-constraint-add --onProperty firstName --constraint Size --min 2 --max 50 ;
-constraint-add --onProperty lastName --constraint NotNull ;
-constraint-add --onProperty lastName --constraint Size --min 2 --max 50 ;
-constraint-add --onProperty dateOfBirth --constraint Past ;
-# Embeddable Address
-constraint-add --onProperty street1 --constraint NotNull ;
-constraint-add --onProperty street1 --constraint Size --min 5 --max 50 ;
-constraint-add --onProperty city --constraint NotNull ;
-constraint-add --onProperty city --constraint Size --min 2 --max 50 ;
-constraint-add --onProperty zipcode --constraint NotNull ;
-constraint-add --onProperty zipcode --constraint Size --min 1 --max 10 ;
-constraint-add --onProperty country --constraint NotNull ;
-constraint-add --onProperty country --constraint Size --min 2 --max 50 ;
-
-
 # OrderLine entity
 # ############
 jpa-new-entity --named OrderLine ;
-jpa-new-field --named quantity --type int ;
+jpa-new-field --named quantity --type java.lang.Integer ;
 # Relationships
 jpa-new-field --named item --type org.agoncal.training.javaee6adv.model.Item --relationshipType Many-to-One ;
 
+constraint-add --onProperty quantity --constraint NotNull ;
 constraint-add --onProperty quantity --constraint Min --value 1 ;
 
 
 # PurchaseOrder entity
 # ############
 jpa-new-entity --named PurchaseOrder ;
-jpa-new-field --named orderDate --type java.util.Date --columnName order_date ;
+jpa-new-field --named orderDate --type java.util.Date --columnName order_date --not-updatable ;
+jpa-new-field --named vatRate --type java.lang.Float --columnName vat_rate ;
+jpa-new-field --named amountVat --type java.lang.Float --transient ;
+jpa-new-field --named totalWithout --type java.lang.Float --transient ;
+jpa-new-field --named total --type java.lang.Float --transient ;
+jpa-new-field --named discountRate --type java.lang.Float --columnName discount_rate ;
+jpa-new-field --named amountDiscount --type java.lang.Float --transient ;
+jpa-new-field --named totalAfterDiscount --type java.lang.Float --transient ;
 # Relationships
 jpa-new-field --named customer --type org.agoncal.training.javaee6adv.model.Customer --relationshipType Many-to-One ;
 jpa-new-field --named orderLines --type org.agoncal.training.javaee6adv.model.OrderLine --relationshipType One-to-Many --columnName order_lines ;
@@ -305,64 +383,4 @@ constraint-add --onProperty creditCardNumber --constraint Size --min 1 --max 30 
 constraint-add --onProperty creditCardType --constraint NotNull ;
 constraint-add --onProperty creditCardExpDate --constraint NotNull ;
 constraint-add --onProperty creditCardExpDate --constraint Size --min 1 --max 5 ;
-
-
-#  #############################  #
-#  Generates JSF beans and pages  #
-#  #############################  #
-scaffold-generate --webRoot /admin --targets org.agoncal.training.javaee6adv.model.Genre ;
-scaffold-generate --webRoot /admin --targets org.agoncal.training.javaee6adv.model.Category ;
-scaffold-generate --webRoot /admin --targets org.agoncal.training.javaee6adv.model.Publisher ;
-scaffold-generate --webRoot /admin --targets org.agoncal.training.javaee6adv.model.MajorLabel ;
-scaffold-generate --webRoot /admin --targets org.agoncal.training.javaee6adv.model.Author ;
-scaffold-generate --webRoot /admin --targets org.agoncal.training.javaee6adv.model.Musician ;
-scaffold-generate --webRoot /admin --targets org.agoncal.training.javaee6adv.model.Item ;
-scaffold-generate --webRoot /admin --targets org.agoncal.training.javaee6adv.model.Book ;
-scaffold-generate --webRoot /admin --targets org.agoncal.training.javaee6adv.model.CD ;
-scaffold-generate --webRoot /admin --targets org.agoncal.training.javaee6adv.model.Customer ;
-scaffold-generate --webRoot /admin --targets org.agoncal.training.javaee6adv.model.PurchaseOrder ;
-scaffold-generate --webRoot /admin --targets org.agoncal.training.javaee6adv.model.OrderLine ;
-
-
-#  ########################  #
-#  Generates REST endpoints  #
-#  ########################  #
-# TODO adding several content types --contentType application/xml application/json [FORGE-2027]
-rest-generate-endpoints-from-entities --targets org.agoncal.training.javaee6adv.model.Author --contentType application/xml application/json ;
-rest-generate-endpoints-from-entities --targets org.agoncal.training.javaee6adv.model.Book --contentType application/xml application/json ;
-rest-generate-endpoints-from-entities --targets org.agoncal.training.javaee6adv.model.CD --contentType application/xml application/json ;
-rest-generate-endpoints-from-entities --targets org.agoncal.training.javaee6adv.model.Musician --contentType application/xml application/json ;
-rest-generate-endpoints-from-entities --targets org.agoncal.training.javaee6adv.model.Customer --contentType application/xml application/json ;
-rest-generate-endpoints-from-entities --targets org.agoncal.training.javaee6adv.model.PurchaseOrder --contentType application/xml application/json ;
-
-
-#  ##################  #
-#  Cleans the pom.xml  #
-#  ##################  #
-project-remove-dependencies org.hibernate.javax.persistence:hibernate-jpa-2.0-api:jar:: ;
-project-remove-dependencies javax.validation:validation-api:jar:: ;
-project-remove-dependencies javax.enterprise:cdi-api:jar:: ;
-project-remove-dependencies javax.annotation:jsr250-api:jar:: ;
-project-remove-dependencies org.jboss.spec.javax.ejb:jboss-ejb-api_3.1_spec:jar:: ;
-project-remove-dependencies org.jboss.spec.javax.servlet:jboss-servlet-api_3.0_spec:jar:: ;
-project-remove-dependencies org.jboss.spec.javax.faces:jboss-jsf-api_2.0_spec:jar:: ;
-project-remove-dependencies org.jboss.spec.javax.ws.rs:jboss-jaxrs-api_1.1_spec:jar:: ;
-
-project-remove-managed-dependencies javax.annotation:jsr250-api:jar::1.0 ;
-project-remove-managed-dependencies org.jboss.spec.javax.faces:jboss-jsf-api_2.0_spec:jar::1.0.0.Final ;
-project-remove-managed-dependencies org.jboss.spec:jboss-javaee-6.0:pom::3.0.2.Final ;
-
-project-add-dependencies org.jboss.spec:jboss-javaee-6.0:3.0.2.Final:provided:pom ;
-project-add-dependencies org.jboss.resteasy:resteasy-client:3.0.8.Final:test:jar ;
-
-project-add-repository --named jboss-public --url https://repository.jboss.org/nexus/content/groups/public/ ;
-
-
-#  ################  #
-#  Copies resources  #
-#  ################  #
-cd ~~ ;
-cp ../before/01-Forge/index.html src/main/webapp/ ;
-cp ../before/01-Forge/index.xhtml src/main/webapp/ ;
-
 
