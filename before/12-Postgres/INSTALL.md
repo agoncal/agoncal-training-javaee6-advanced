@@ -3,6 +3,7 @@
 ## Deploy a Postgres Datasource on WildFly
 
 * Make sure WildFly is shutdown
+* Download the PostGres JDBC driver : `mvn dependency:get -Dartifact=postgresql:postgresql:9.1-901-1.jdbc4`
 * copy the directory `postgresql` to `$WILDFLY_HOME/modules/system/layers/base/org`
 * Start WildFly (`$WILDFLY_HOME/bin/standalone.sh`)
 * Execute the `setup.cli` script
