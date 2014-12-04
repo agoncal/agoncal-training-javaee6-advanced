@@ -9,6 +9,28 @@
 * Execute the `setup.cli` script
 * Execute `$WILDFLY_HOME/bin/jboss-cli.sh`, connect to the running WildFly (`connect`)
 
+## Add Benerator as a dependency
+
+* In the pom.xml add the following dependency on Benerator
+
+    <build>
+        <plugins>
+            <!--mvn benerator:generate-->
+            <plugin>
+                <groupId>org.databene</groupId>
+                <artifactId>benerator-maven-plugin</artifactId>
+                <version>0.9.8</version>
+                <dependencies>
+                    <dependency>
+                        <groupId>postgresql</groupId>
+                        <artifactId>postgresql</artifactId>
+                        <version>9.1-901-1.jdbc4</version>
+                    </dependency>
+                </dependencies>
+            </plugin>
+        </plugins>
+    </build> 
+
 ## Generate the project with JBoss Forge
 
 * Launch JBoss Forge (enter the `$FORGE_HOME/bin/forge` command)
