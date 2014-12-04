@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<setup 
+	xmlns="http://databene.org/benerator/0.7.0"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://databene.org/benerator/0.7.0 http://databene.org/benerator-0.7.0.xsd">
+
+	<comment>setting default values</comment>
+	<setting name="stage" default="test" />
+	<setting name="database" default="postgres" />
+	<setting name="dbUrl" default="jdbc:postgresql://localhost:5432/postgres" />
+	<setting name="dbDriver" default="org.postgresql.Driver" />
+	<setting name="dbSchema"   default="public" />
+	<setting name="dbUser"  default="postgres" />
+	<setting name="dbPassword" default="postgres" />
+	<setting name="dbCatalog"  default="postgres" />
+
+	<comment>import stage specific properties</comment>
+	<echo># Importing stage specific properties</echo>
+	<echo>{ftl:  benerator.${stage}.properties}</echo>
+	<include uri="{ftl:benerator.${stage}.properties}" />
+
+	<comment>log the settings to the console</comment>
+	<echo># Starting generation for</echo>
+	<echo>{ftl:  ${product_count + 6} products}</echo>
+	<echo>{ftl:  ${customer_count + 1} customers}</echo>
+	<echo>{ftl:  ${orders_per_customer} orders per customer}</echo>
+	<echo>{ftl:  ${items_per_order} items per order}</echo>
+	<echo>{ftl:  encoding:${context.defaultEncoding} default pageSize:${context.defaultPageSize}}</echo>
+	<echo>{ftl:  JDBC URL: ${dbUrl}}</echo>
+	
+    <comment>define a database that will be referred by the id 'db' subsequently</comment>
+    <database id="db" url="{dbUrl}" driver="{dbDriver}" catalog="{dbCatalog}" schema="{dbSchema}"
+        user="{dbUser}" password="{dbPassword}" batch="{dbBatch}" />
+
+	<!--<comment>drop the current tables/sequences if they exist and recreate them</comment>-->
+	<!--<echo># Droping and creating tables</echo>-->
+	<!--<execute uri="{ftl:${database}/drop_tables.${database}.sql}"   target="db" onError="ignore" />-->
+	<!--<execute uri="{ftl:${database}/create_tables.${database}.sql}" target="db" />-->
+	
+	<bean id="idGen" spec="new IncrementGenerator(1000)" />
+
+	<comment>
+		Creating products of random attributes and category and exporting them to 
+		the database as well as to a fixed column width file
+	</comment>
+	<echo># Inserting data to db_product</echo>
+	<generate type="db_product" count="{product_count}" consumer="db">
+		<id name="ean_code" generator="new EANGenerator(true)" />
+		<reference name="category_id" targetType="db_category" source="db" distribution="random" />
+		<attribute name="price" type="big_decimal" min="0.49" max="99.99" granularity="0.10" distribution="cumulated" />
+		<!-- Export the generated products not only to the database, but also to a fixed column width file -->
+		<consumer class="FixedWidthEntityExporter">
+			<property name="uri" value="products.fcw" />
+			<property name="columns" value="ean_code[13],name[30l],price[10.2r0]" />
+		</consumer>
+	</generate>
+
+	<!--  comment>create one default order for each customer based on a DBUnit template</comment -->
+	<!-- generate name="db_order" consumer="db">
+		<id name="id" generator="idGen" />
+		<attribute name="customer_id" source="db" selector="select id from db_customer" />
+		<iterate source="default_order.dbunit.xml" type="db_order_item" consumer="db">
+	        <id name="id" generator="idGen" />
+		</generate>
+	</generate-->
+
+    <comment>create customers</comment>
+	<echo># Inserting data to db_user</echo>
+    <generate type="db_user" count="{customer_count}" consumer="db">
+        <variable name="person" generator="PersonGenerator" dataset="{country}" locale="{locale}"/>
+        <id name="id" generator="idGen" />
+        <attribute name="name" script="person.givenName + ' ' + person.familyName" />
+        <attribute name="email" generator="EMailAddressGenerator" />
+        <attribute name="password" pattern="[A-Za-z0-9]{8,12}" />
+        <reference name="role_id" constant="customer" />
+        <generate type="db_customer" count="1" consumer="db">
+            <id name="id" script="db_user.id" />
+            <attribute name="category" values="'A','B','C'" />
+            <attribute name="salutation" script="person.salutation" />
+            <attribute name="first_name" script="person.givenName" />
+            <attribute name="last_name" script="person.familyName" />
+            <attribute name="birth_date" nullable="false" />
+            <!-- Export the customers not only to the database, but their names and passwords to a CSV file -->
+            <consumer class="CSVEntityExporter">
+                <property name="uri" value="customers.csv" />
+                <property name="columns" value="id,password" />
+            </consumer>
+        </generate>
+    </generate>
+
+	<comment>create orders for random customers and random products</comment>
+	<echo># Inserting data to db_order</echo>
+	<generate type="db_order" count="{customer_count * orders_per_customer}" consumer="db">
+        <id name="id" generator="idGen" />
+		<reference name="customer_id" source="db" targetType="db_customer" cyclic="true" />
+        <attribute name="total_price" constant="0" />
+	</generate>
+
+	<comment>create order items</comment>
+	<echo># Inserting data to db_order_item</echo>
+	<generate type="db_order_item"
+			count="{customer_count * orders_per_customer * items_per_order}" consumer="db">
+		<variable name="product" source="db" selector="select ean_code, price from db_product" distribution="cumulated" />
+        <id name="id" generator="idGen" />
+		<attribute name="number_of_items" min="1" max="27" distribution="cumulated" />
+		<reference name="order_id" source="db" selector="select id from db_order where id &gt; 1" cyclic="true" />
+		<reference name="product_ean_code" script="product[0]" />
+		<attribute name="total_price" script="product[1] * db_order_item.number_of_items" />
+	</generate>
+
+    <comment>Update order data, calculating the total sum of each order</comment>
+	<echo># Updating data to db_order</echo>
+    <iterate source="db" type="db_order" consumer="db.updater()">
+        <attribute name="total_price" source="db" 
+            selector="{{ftl:select sum(total_price) from db_order_item where order_id = ${db_order.id}}}" 
+            cyclic="true"/>
+    </iterate>
+
+</setup>
