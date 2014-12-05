@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <module xmlns="urn:jboss:module:1.1" name="org.postgresql">
-<resources>
-<resource-root path="postgresql-9.3-1100-jdbc4.jar"/>
+    <resources>
+        <resource-root path="postgresql-9.1-901-1.jdbc4.jar"/>
 
-</resources>
-<dependencies>
-<module name="javax.api"/>
-<module name="javax.transaction.api"/>
-</dependencies>
+    </resources>
+    <dependencies>
+        <module name="javax.api"/>
+        <module name="javax.transaction.api"/>
+    </dependencies>
 </module>

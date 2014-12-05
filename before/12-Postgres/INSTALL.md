@@ -11,25 +11,32 @@
 
 ## Add Benerator as a dependency
 
-* In the pom.xml add the following dependency on Benerator
+* In the pom.xml add the following dependency on Benerator and then execute the goal `mvn benerator:generate` :
 
-    <build>
-        <plugins>
-            <!--mvn benerator:generate-->
-            <plugin>
+
+    <dependency>
+        <groupId>org.databene</groupId>
+        <artifactId>databene-benerator</artifactId>
+        <version>0.9.8</version>
+    </dependency>
+
+    <plugin>
+        <groupId>org.databene</groupId>
+        <artifactId>benerator-maven-plugin</artifactId>
+        <version>0.9.8</version>
+        <dependencies>
+            <dependency>
                 <groupId>org.databene</groupId>
-                <artifactId>benerator-maven-plugin</artifactId>
+                <artifactId>databene-benerator</artifactId>
                 <version>0.9.8</version>
-                <dependencies>
-                    <dependency>
-                        <groupId>postgresql</groupId>
-                        <artifactId>postgresql</artifactId>
-                        <version>9.1-901-1.jdbc4</version>
-                    </dependency>
-                </dependencies>
-            </plugin>
-        </plugins>
-    </build> 
+            </dependency>
+            <dependency>
+                <groupId>postgresql</groupId>
+                <artifactId>postgresql</artifactId>
+                <version>9.1-901-1.jdbc4</version>
+            </dependency>
+        </dependencies>
+    </plugin>
 
 ## Generate the project with JBoss Forge
 
